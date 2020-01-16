@@ -8,5 +8,6 @@
 #include <gdk/gdkkeysyms.h>
 
 void interfaceInit(int argc, char **argv);
+void createBackground();
 
 #endif

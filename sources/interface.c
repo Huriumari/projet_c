@@ -1,5 +1,15 @@
 #include "logicSimButInC.h"
 
+void createBackground(GtkWidget * layoutBoxMain, GtkWidget * image){
+	
+	int i;
+
+	while()
+		gtk_layout_put(GTK_LAYOUT(layoutBoxMain), image, 0, 0);
+}
+
+
+
 void interfaceInit(int argc, char **argv){
     GtkWidget* window;
     GtkWidget* vBox;
@@ -44,11 +54,15 @@ void interfaceInit(int argc, char **argv){
 		GtkWidget* boxCompCol1;
 		GtkWidget* boxCompCol2;
 		GtkWidget* boxCompCol3;
-		//mauvais
-		GtkWidget* layoutBoxMain;
-		GtkWidget* windowScrollMain;
 		GtkWidget* p_Label;
 		gchar* sUtf8;
+
+		GtkWidget* windowScrollMain;
+		GtkWidget* layoutBoxMain;
+		GtkWidget * image;
+		unsigned int widthLayout;
+		unsigned int heightLayout;
+		
 		
 	
 /*
@@ -198,7 +212,10 @@ void interfaceInit(int argc, char **argv){
 	gtk_widget_set_hexpand(layoutBoxMain, TRUE);
    	gtk_widget_set_vexpand(layoutBoxMain, TRUE);
 	gtk_container_add(GTK_CONTAINER(windowScrollMain), layoutBoxMain);
+	gtk_layout_get_size(GTK_LAYOUT(layoutBoxMain), widthLayout, heightLayout);
 
+	image = gtk_image_new_from_file("img/backgroundGrid.png");
+    
 
 /*
     buttonVBox = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
