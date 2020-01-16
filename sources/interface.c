@@ -17,7 +17,6 @@ void createBackground(GtkWidget * layoutBoxMain, GtkWidget * image, guint * widt
 }
 
 
-
 void interfaceInit(int argc, char **argv){
     GtkWidget* window;
     GtkWidget* vBox;
