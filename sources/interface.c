@@ -1,11 +1,19 @@
 #include "logicSimButInC.h"
 
-void createBackground(GtkWidget * layoutBoxMain, GtkWidget * image){
+void createBackground(GtkWidget * layoutBoxMain, GtkWidget * image, guint * widthLayout, guint * heightLayout){
 	
-	int i;
+	int i, y = 0;
 
-	while()
-		gtk_layout_put(GTK_LAYOUT(layoutBoxMain), image, 0, 0);
+	while(i < *widthLayout){
+		while(y < *heightLayout){
+
+			gtk_layout_put(GTK_LAYOUT(layoutBoxMain), image, i, y);
+			y += HEIGHT_IMG;
+
+		}
+
+		i += WIDTH_IMG;
+	}
 }
 
 
@@ -60,19 +68,11 @@ void interfaceInit(int argc, char **argv){
 		GtkWidget* windowScrollMain;
 		GtkWidget* layoutBoxMain;
 		GtkWidget * image;
-		unsigned int widthLayout;
-		unsigned int heightLayout;
+	guint * widthLayout;
+	guint * heightLayout;
 		
-		
-	
-/*
 
-    GtkWidget * buttonVBox;
-    GtkWidget * encryptButton;
-    GtkWidget * openButton;
-    GtkWidget * decryptButton;
 
-*/
 
     gtk_init(&argc,&argv);
 
@@ -172,69 +172,55 @@ void interfaceInit(int argc, char **argv){
 
 	hBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hBox), 5);
-    gtk_box_pack_start(GTK_BOX(vBox), hBox, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(vBox), hBox, TRUE, TRUE, 0);
 	
 
-	adjustmentHeightComponents = gtk_adjustment_new(750, 0, 1400, 10, 10, 150);
-	scrolledWindowComponents = gtk_scrolled_window_new(NULL,adjustmentHeightComponents);
-	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(scrolledWindowComponents), 0);
+	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
+	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(scrolledWindowComponents), FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledWindowComponents), 2);
-	//gtk_widget_set_size_request(GTK_WIDGET(scrolledWindowComponents), 100, 750);
-	gtk_box_pack_start(GTK_BOX(hBox), scrolledWindowComponents, TRUE/*set to FALSE*/, TRUE/*set to FALSE*/, 0);
+	gtk_box_pack_start(GTK_BOX(hBox), scrolledWindowComponents, FALSE, FALSE, 0);
 
 	boxComponents = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), boxComponents);
 
 	boxCompCol1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
-	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol1, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol1, TRUE, TRUE, 0);
 
 	boxCompCol2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
-	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol2, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol2, TRUE, TRUE, 0);
 	
 	boxCompCol3 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
-	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol3, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol3, TRUE, TRUE, 0);
 
 	GtkWidget* p_Label2;
+	GtkWidget* p_Label3;
 	sUtf8 = g_locale_to_utf8("La Bibliothèque GTK+ à bien été Installée !", -1, NULL, NULL, NULL);
     p_Label = gtk_label_new(sUtf8);
 	p_Label2 = gtk_label_new(sUtf8);
+	p_Label3 = gtk_label_new(sUtf8);
     g_free(sUtf8);
 	gtk_container_add(GTK_CONTAINER(boxCompCol1), p_Label);
     gtk_container_add(GTK_CONTAINER(boxCompCol2), p_Label2);
+	gtk_container_add(GTK_CONTAINER(boxCompCol1), p_Label3);
 
 
 	windowScrollMain = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollMain), 0);
+	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollMain), TRUE);
 	gtk_box_pack_end(GTK_BOX(hBox), windowScrollMain, TRUE, TRUE, 0);
 
-	layoutBoxMain = gtk_layout_new(NULL, NULL); //passer les pointeurs pour l'ajustement du scrolling horizontal et vertical si besoin
+	layoutBoxMain = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(layoutBoxMain), 2000, 2000);
-	gtk_widget_set_hexpand(layoutBoxMain, TRUE);
-   	gtk_widget_set_vexpand(layoutBoxMain, TRUE);
+	//gtk_widget_set_hexpand(layoutBoxMain, TRUE);
+   	//gtk_widget_set_vexpand(layoutBoxMain, TRUE);
+	widthLayout = malloc(sizeof(guint));
+	heightLayout = malloc(sizeof(guint));
 	gtk_container_add(GTK_CONTAINER(windowScrollMain), layoutBoxMain);
 	gtk_layout_get_size(GTK_LAYOUT(layoutBoxMain), widthLayout, heightLayout);
 
 	image = gtk_image_new_from_file("img/backgroundGrid.png");
-    
+	//createBackground(layoutBoxMain, image, widthLayout, heightLayout);
 
-/*
-    buttonVBox = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(buttonVBox), GTK_BUTTONBOX_END);
-    gtk_box_pack_end(GTK_BOX(vBox), buttonVBox, TRUE, TRUE, 10);
-
-    encryptButton = gtk_button_new_with_label("Chiffrer");
-    gtk_container_add(GTK_CONTAINER(buttonVBox), encryptButton);
-    //g_signal_connect(G_OBJECT(encryptButton), "clicked", G_CALLBACK(#fonction de chiffrement), NULL);
-
-    decryptButton = gtk_button_new_with_label("Sélectionner fichier");
-    gtk_container_add(GTK_CONTAINER(buttonVBox), decryptButton);
-    //g_signal_connect(G_OBJECT(decryptButton), "chooseFile", G_CALLBACK(#fonction ouverture fichier), NULL);
-
-
-    openButton = gtk_button_new_with_label("Déchiffrer");
-    gtk_container_add(GTK_CONTAINER(buttonVBox), openButton);
-    //g_signal_connect(G_OBJECT(openButton), "decrypt", G_CALLBACK(#fonction de déchiffrement), NULL);
-	*/
 
     gtk_widget_show_all(window);
 

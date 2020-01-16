@@ -7,7 +7,10 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
+#define WIDTH_IMG 106
+#define HEIGHT_IMG 106
+
 void interfaceInit(int argc, char **argv);
-void createBackground();
+void createBackground(GtkWidget * layoutBoxMain, GtkWidget * image, guint * widthLayout, guint * heightLayout);
 
 #endif
