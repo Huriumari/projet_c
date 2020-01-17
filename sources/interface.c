@@ -1,13 +1,13 @@
 #include "logicSimButInC.h"
 
-void createBackground(GtkWidget * layoutWorkingBox, GtkWidget * image, guint * widthLayout, guint * heightLayout){
+void createBackground(GtkWidget * workingLayout, GtkWidget * image, guint * widthLayout, guint * heightLayout){
 	
 	int i, y = 0;
 
 	while(i < *widthLayout){
 		while(y < *heightLayout){
 
-			gtk_layout_put(GTK_LAYOUT(layoutWorkingBox), image, i, y);
+			gtk_layout_put(GTK_LAYOUT(workingLayout), image, i, y);
 			y += HEIGHT_IMG;
 
 		}
@@ -17,10 +17,26 @@ void createBackground(GtkWidget * layoutWorkingBox, GtkWidget * image, guint * w
 }
 
 
-void interfaceInit(int argc, char **argv){
-    GtkWidget* window;
-    GtkWidget* vBox;
+GtkWidget * gtkWindow(int *argc, char ***argv){
+	
+	GtkWidget* window;
 
+	gtk_init(argc,argv);
+
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(window), "GTK+ 3.22");
+    gtk_window_set_default_size(GTK_WINDOW(window), 1200, 800);
+	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
+	g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+
+	return window;
+
+}
+
+
+//create the menubar and the keyboards shortcuts
+void menubar(GtkWidget * window, GtkWidget * vBox){
+	
 	GtkWidget* menubar;
 	GtkWidget* fileMenu;
   	GtkWidget* file;
@@ -39,48 +55,6 @@ void interfaceInit(int argc, char **argv){
 	GtkWidget* sep;
 
 	GtkAccelGroup* accel_group = NULL;
-
-	GtkWidget* toolbar;
-  	GtkToolItem* newTb;
-  	GtkToolItem* openTb;
-  	GtkToolItem* saveTb;
-  	GtkToolItem* tagTb;
-	GtkToolItem* playTb;
-	GtkToolItem* pauseTb;
-	GtkToolItem* stopTb;
-	GtkWidget* entryItem;
-	GtkToolItem* simuSpeedTb;
-
-	GtkToolItem* sepTool;
-
-
-	GtkWidget* hBox; //remplacer par grid
-		GtkWidget* scrolledWindowComponents;
-		GtkWidget* layoutComponents;
-		GtkWidget* p_Label;
-		gchar* sUtf8;
-
-		GtkWidget* windowScrollWorking;
-		GtkWidget* layoutWorkingBox;
-		GtkWidget * image;
-	guint * widthLayout;
-	guint * heightLayout;
-		
-
-
-
-    gtk_init(&argc,&argv);
-
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), "GTK+ 3.22");
-    gtk_window_set_default_size(GTK_WINDOW(window), 1200, 800);
-	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-	g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
-
-
-    vBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_container_add(GTK_CONTAINER(window), vBox);
-
 
 	menubar = gtk_menu_bar_new();
 	fileMenu = gtk_menu_new();
@@ -129,7 +103,25 @@ void interfaceInit(int argc, char **argv){
     gtk_box_pack_start(GTK_BOX(vBox), menubar, FALSE, FALSE, 0);
 
 	g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(gtk_main_quit), NULL);
-    
+
+}
+
+
+void toolbar(GtkWidget * vBox){
+	
+	GtkWidget* toolbar;
+  	GtkToolItem* newTb;
+  	GtkToolItem* openTb;
+  	GtkToolItem* saveTb;
+  	GtkToolItem* tagTb;
+	GtkToolItem* playTb;
+	GtkToolItem* pauseTb;
+	GtkToolItem* stopTb;
+	GtkWidget* entryItem;
+	GtkToolItem* simuSpeedTb;
+
+	GtkToolItem* sepTool;
+
 
 	toolbar = gtk_toolbar_new();
   	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
@@ -164,6 +156,22 @@ void interfaceInit(int argc, char **argv){
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), simuSpeedTb, -1);
 	gtk_box_pack_start(GTK_BOX(vBox), toolbar, FALSE, FALSE, 5);
 
+}
+
+
+void workingPart(GtkWidget * vBox){
+	
+	GtkWidget* hBox; //remplacer par grid
+		GtkWidget* scrolledWindowComponents;
+		GtkWidget* componentsLayout;
+		GtkWidget* p_Label;
+		gchar* sUtf8;
+
+		GtkWidget* windowScrollWorking;
+		GtkWidget* workingLayout;
+		GtkWidget * image;
+	guint * widthLayout;
+	guint * heightLayout;
 
 	hBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hBox), 5);
@@ -176,9 +184,9 @@ void interfaceInit(int argc, char **argv){
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledWindowComponents), 2);
 	gtk_box_pack_start(GTK_BOX(hBox), scrolledWindowComponents, TRUE, TRUE, 0);
 
-	layoutComponents = gtk_layout_new(NULL, NULL);
-	gtk_layout_set_size(GTK_LAYOUT(layoutComponents), 150, 2000);
-	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), layoutComponents);
+	componentsLayout = gtk_layout_new(NULL, NULL);
+	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 150, 2000);
+	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), componentsLayout);
 
 
 	GtkWidget* p_Label2;
@@ -188,31 +196,27 @@ void interfaceInit(int argc, char **argv){
 	p_Label2 = gtk_label_new(sUtf8);
 	p_Label3 = gtk_label_new(sUtf8);
     g_free(sUtf8);
-	gtk_layout_put(GTK_LAYOUT(layoutComponents), p_Label, 0, 50);
-	gtk_layout_put(GTK_LAYOUT(layoutComponents), p_Label2, 50, 0);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label, 0, 50);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label2, 50, 0);
 	
 	GtkWidget * test;
 	test = gtk_button_new_with_label("Test");	
-	gtk_layout_put(GTK_LAYOUT(layoutComponents), test, 0, 0);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), test, 0, 0);
 
 	windowScrollWorking = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
 	gtk_box_pack_end(GTK_BOX(hBox), windowScrollWorking, TRUE, TRUE, 0);
 
-	layoutWorkingBox = gtk_layout_new(NULL, NULL);
-	gtk_layout_set_size(GTK_LAYOUT(layoutWorkingBox), 2000, 2000);
-	//gtk_widget_set_hexpand(layoutWorkingBox, TRUE);
-   	//gtk_widget_set_vexpand(layoutWorkingBox, TRUE);
+	workingLayout = gtk_layout_new(NULL, NULL);
+	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);
+	//gtk_widget_set_hexpand(workingLayout, TRUE);
+   	//gtk_widget_set_vexpand(workingLayout, TRUE);
 	widthLayout = malloc(sizeof(guint));
 	heightLayout = malloc(sizeof(guint));
-	gtk_container_add(GTK_CONTAINER(windowScrollWorking), layoutWorkingBox);
-	gtk_layout_get_size(GTK_LAYOUT(layoutWorkingBox), widthLayout, heightLayout);
+	gtk_container_add(GTK_CONTAINER(windowScrollWorking), workingLayout);
+	gtk_layout_get_size(GTK_LAYOUT(workingLayout), widthLayout, heightLayout);
 
 	image = gtk_image_new_from_file("img/backgroundGrid.png");
-	//createBackground(layoutWorkingBox, image, widthLayout, heightLayout);
+	//createBackground(workingLayout, image, widthLayout, heightLayout);
 
-
-    gtk_widget_show_all(window);
-
-    gtk_main();
 }

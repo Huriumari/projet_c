@@ -10,7 +10,10 @@
 #define WIDTH_IMG 106
 #define HEIGHT_IMG 106
 
-void interfaceInit(int argc, char **argv);
+GtkWidget * gtkWindow(int *argc, char ***argv);
+void menubar(GtkWidget * window, GtkWidget * vBox);
+void toolbar(GtkWidget * Vbox);
+void workingPart(GtkWidget * vBox);
 void createBackground(GtkWidget * layoutBoxMain, GtkWidget * image, guint * widthLayout, guint * heightLayout);
 
 #endif
