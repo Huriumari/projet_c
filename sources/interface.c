@@ -57,7 +57,7 @@ void interfaceInit(int argc, char **argv){
 	GtkWidget* hBox;
 		GtkAdjustment* adjustmentHeightComponents;
 		GtkWidget* scrolledWindowComponents;
-		GtkWidget* boxComponents;
+		GtkWidget* layoutComponents;
 		GtkWidget* boxCompCol1;
 		GtkWidget* boxCompCol2;
 		GtkWidget* boxCompCol3;
@@ -180,17 +180,24 @@ void interfaceInit(int argc, char **argv){
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledWindowComponents), 2);
 	gtk_box_pack_start(GTK_BOX(hBox), scrolledWindowComponents, FALSE, FALSE, 0);
 
-	boxComponents = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), boxComponents);
+	layoutComponents = gtk_layout_new(NULL, NULL);
+	gtk_layout_set_size(GTK_LAYOUT(layoutComponents), 150, 2000);
+	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), layoutComponents);
 
 	boxCompCol1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
-	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol1, TRUE, TRUE, 0);
+	gtk_widget_set_hexpand(boxCompCol1, TRUE);
+   	gtk_widget_set_vexpand(boxCompCol1, TRUE);
+	gtk_layout_put(GTK_LAYOUT(layoutComponents), boxCompCol1, 0, 0);
 
 	boxCompCol2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
-	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol2, TRUE, TRUE, 0);
-	
+	gtk_widget_set_hexpand(boxCompCol2, TRUE);
+   	gtk_widget_set_vexpand(boxCompCol2, TRUE);
+	gtk_layout_put(GTK_LAYOUT(layoutComponents), boxCompCol2, 50, 0);
+
 	boxCompCol3 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
-	gtk_box_pack_start(GTK_BOX(boxComponents), boxCompCol3, TRUE, TRUE, 0);
+	gtk_widget_set_hexpand(boxCompCol3, TRUE);
+   	gtk_widget_set_vexpand(boxCompCol3, TRUE);
+	gtk_layout_put(GTK_LAYOUT(layoutComponents), boxCompCol3, 100, 0);
 
 	GtkWidget* p_Label2;
 	GtkWidget* p_Label3;
