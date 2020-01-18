@@ -4,39 +4,30 @@
 
 int main(int argc, char **argv){
 
-    GtkWidget * window;
-    GtkWidget * layout;
-    GtkWidget * button;
-    GtkWidget * windowScroll;
-    GtkAdjustment * adjustmentHeightComponents;
-    GtkAdjustment * adjustmentWidthComponents;
+     GtkWidget *window;
+    GtkWidget *layout;
+    GtkWidget *image;
+    GtkWidget *button;
 
-    gtk_init(&argc,&argv);
+    gtk_init(&argc, &argv);
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), "GTK+ 3.22");
-    gtk_window_set_default_size(GTK_WINDOW(window), 1200, 800);
-	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-	g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
-
-    adjustmentWidthComponents = gtk_adjustment_new(2000, 0, 2000, 10, 10, 150);
-    adjustmentHeightComponents = gtk_adjustment_new(750, 0, 1400, 10, 10, 150);
-    windowScroll = gtk_scrolled_window_new(adjustmentWidthComponents, adjustmentHeightComponents);
-	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScroll), 0);
-    gtk_container_add(GTK_CONTAINER(window), windowScroll);
+    gtk_window_set_default_size(GTK_WINDOW(window), 290, 200);
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
     layout = gtk_layout_new(NULL, NULL);
-    gtk_container_add(GTK_CONTAINER(windowScroll), layout);
+    gtk_container_add(GTK_CONTAINER (window), layout);
+    gtk_widget_show(layout);
 
-    button = gtk_button_new_with_label("Yo");
-    gtk_layout_put(GTK_LAYOUT(layout), button, 50, 50);
-    
-    gchar * sUtf8;
-    GtkWidget* p_Label;
-	sUtf8 = g_locale_to_utf8("La Bibliothèque GTK+ à bien été Installée !", -1, NULL, NULL, NULL);
-    p_Label = gtk_label_new(sUtf8);
-    g_free(sUtf8);
-	gtk_container_add(GTK_CONTAINER(layout), p_Label);
+    image = gtk_image_new_from_file("../img/backgroundGrid.jpg");
+    gtk_layout_put(GTK_LAYOUT(layout), image, 0, 0);
+
+    button = gtk_button_new_with_label("Button");
+    gtk_layout_put(GTK_LAYOUT(layout), button, 150, 50);
+    gtk_widget_set_size_request(button, 80, 35);
+
+    g_signal_connect_swapped(G_OBJECT(window), "destroy",
+    G_CALLBACK(gtk_main_quit), NULL);
 
     gtk_widget_show_all(window);
 
