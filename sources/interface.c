@@ -1,22 +1,5 @@
 #include "logicSimButInC.h"
 
-void createBackground(GtkWidget * workingLayout, GtkWidget * image, guint * widthLayout, guint * heightLayout){
-	
-	int i, y = 0;
-
-	while(i < *widthLayout){
-		while(y < *heightLayout){
-
-			gtk_layout_put(GTK_LAYOUT(workingLayout), image, i, y);
-			y += HEIGHT_IMG;
-
-		}
-
-		i += WIDTH_IMG;
-	}
-}
-
-
 GtkWidget * gtkWindow(int *argc, char ***argv){
 	
 	GtkWidget* window;
@@ -40,17 +23,17 @@ void menubar(GtkWidget * window, GtkWidget * vBox){
 	GtkWidget* menubar;
 	GtkWidget* fileMenu;
   	GtkWidget* file;
-		GtkWidget* new;
-		GtkWidget* open;
-		GtkWidget* save;
-		GtkWidget* saveAs;
-		GtkWidget* quit;
+	GtkWidget* new;
+	GtkWidget* open;
+	GtkWidget* save;
+	GtkWidget* saveAs;
+	GtkWidget* quit;
 	GtkWidget* moduleMenu;
 	GtkWidget* module;
-		GtkWidget* create;
-		GtkWidget* import;
-		GtkWidget* export;
-		GtkWidget* properties;
+	GtkWidget* create;
+	GtkWidget* import;
+	GtkWidget* export;
+	GtkWidget* properties;
 
 	GtkWidget* sep;
 
@@ -161,28 +144,29 @@ void toolbar(GtkWidget * vBox){
 
 void workingPart(GtkWidget * vBox){
 	
-	GtkWidget* hBox; //remplacer par grid
-		GtkWidget* scrolledWindowComponents;
-		GtkWidget* componentsLayout;
-		GtkWidget* p_Label;
-		gchar* sUtf8;
+	GtkWidget* grid;
+	GtkWidget* scrolledWindowComponents;
+	GtkWidget* componentsLayout;
+	GtkWidget* p_Label;
+	gchar* sUtf8;
 
-		GtkWidget* windowScrollWorking;
-		GtkWidget* workingLayout;
-		GtkWidget * image;
+	GtkWidget* windowScrollWorking;
+	GtkWidget* workingLayout;
 	guint * widthLayout;
 	guint * heightLayout;
 
-	hBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (hBox), 5);
-    gtk_box_pack_start(GTK_BOX(vBox), hBox, TRUE, TRUE, 0);
+	grid = gtk_grid_new();
+	gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
+    gtk_box_pack_start(GTK_BOX(vBox), grid, TRUE, TRUE, 0);
 	
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(scrolledWindowComponents), FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledWindowComponents), 2);
-	gtk_box_pack_start(GTK_BOX(hBox), scrolledWindowComponents, TRUE, TRUE, 0);
+	gtk_widget_set_hexpand(scrolledWindowComponents, TRUE);
+	gtk_widget_set_vexpand(scrolledWindowComponents, TRUE);
+	gtk_grid_attach(GTK_GRID(grid), scrolledWindowComponents, 0, 0, 1, 1);
 
 	componentsLayout = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 150, 2000);
@@ -190,11 +174,9 @@ void workingPart(GtkWidget * vBox){
 
 
 	GtkWidget* p_Label2;
-	GtkWidget* p_Label3;
 	sUtf8 = g_locale_to_utf8("La Bibliothèque GTK+ à bien été Installée !", -1, NULL, NULL, NULL);
     p_Label = gtk_label_new(sUtf8);
 	p_Label2 = gtk_label_new(sUtf8);
-	p_Label3 = gtk_label_new(sUtf8);
     g_free(sUtf8);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label, 0, 50);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label2, 50, 0);
@@ -205,7 +187,9 @@ void workingPart(GtkWidget * vBox){
 
 	windowScrollWorking = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
-	gtk_box_pack_end(GTK_BOX(hBox), windowScrollWorking, TRUE, TRUE, 0);
+	gtk_widget_set_hexpand(windowScrollWorking, TRUE);
+	gtk_widget_set_vexpand(windowScrollWorking, TRUE);
+	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 4, 1);
 
 	workingLayout = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);
@@ -215,8 +199,5 @@ void workingPart(GtkWidget * vBox){
 	heightLayout = malloc(sizeof(guint));
 	gtk_container_add(GTK_CONTAINER(windowScrollWorking), workingLayout);
 	gtk_layout_get_size(GTK_LAYOUT(workingLayout), widthLayout, heightLayout);
-
-	image = gtk_image_new_from_file("img/backgroundGrid.png");
-	//createBackground(workingLayout, image, widthLayout, heightLayout);
 
 }
