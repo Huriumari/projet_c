@@ -166,7 +166,7 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 50, 2000);
 	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), componentsLayout);
 
-	compAND = gtk_button_new();
+	
 	
 	//gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label, 0, 50);
 
