@@ -1,5 +1,14 @@
-#include "LogicSimButInC"
+#include "logicSimButInC.h"
 
-GtkWidget * button componentsButton(){
+GtkWidget * componentsButton(char *path){
+
+    GtkWidget * button;
+    GtkWidget * img;
+
+    button = gtk_button_new();
+    img = gtk_image_new_from_file(path);
+    gtk_button_set_image(GTK_BUTTON(button), img);
+
+    return button;
 
 }
