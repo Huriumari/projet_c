@@ -10,6 +10,7 @@
 GtkWidget * gtkWindow(int *argc, char ***argv);
 void menubar(GtkWidget * window, GtkWidget * vBox);
 void toolbar(GtkWidget * vBox);
-void workingPart(GtkWidget * vBox);
+void componentsPart(GtkWidget * vBox, GtkWidget * grid);
+void workingPart(GtkWidget * vBox, GtkWidget * grid);
 
 #endif

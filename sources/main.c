@@ -9,6 +9,7 @@ int main(int argc,char **argv)
 {
 	GtkWidget* window;
 	GtkWidget* vBox;
+	GtkWidget* grid;
     
 	window = gtkWindow(&argc, &argv);
 	
@@ -20,7 +21,12 @@ int main(int argc,char **argv)
 
 	toolbar(vBox);
 
-	workingPart(vBox);
+	grid = gtk_grid_new();
+	gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
+    gtk_box_pack_start(GTK_BOX(vBox), grid, TRUE, TRUE, 0);
+
+	componentsPart(vBox, grid);
+	workingPart(vBox, grid);
 
 	gtk_widget_show_all(window);
 

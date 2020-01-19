@@ -141,24 +141,13 @@ void toolbar(GtkWidget * vBox){
 
 }
 
-
-void workingPart(GtkWidget * vBox){
+void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	
-	GtkWidget* grid; //remplacer par grid
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
 	GtkWidget* p_Label;
 	gchar* sUtf8;
 
-	GtkWidget* windowScrollWorking;
-	GtkWidget* workingLayout;
-	guint * widthLayout;
-	guint * heightLayout;
-
-	grid = gtk_grid_new();
-	gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
-    gtk_box_pack_start(GTK_BOX(vBox), grid, TRUE, TRUE, 0);
-	
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
@@ -173,23 +162,24 @@ void workingPart(GtkWidget * vBox){
 	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), componentsLayout);
 
 
-	GtkWidget* p_Label2;
-	sUtf8 = g_locale_to_utf8("La Bibliothèque GTK+ à bien été Installée !", -1, NULL, NULL, NULL);
-    p_Label = gtk_label_new(sUtf8);
-	p_Label2 = gtk_label_new(sUtf8);
-    g_free(sUtf8);
-	gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label, 0, 50);
-	gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label2, 50, 0);
-	
-	GtkWidget * test;
-	test = gtk_button_new_with_label("Test");	
-	gtk_layout_put(GTK_LAYOUT(componentsLayout), test, 0, 0);
+	//gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label, 0, 50);
+
+}
+
+
+void workingPart(GtkWidget * vBox, GtkWidget * grid){
+
+	GtkWidget* windowScrollWorking;
+	GtkWidget* workingLayout;
+	guint* widthLayout;
+	guint* heightLayout;
+
 
 	windowScrollWorking = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
 	gtk_widget_set_hexpand(windowScrollWorking, TRUE);
 	gtk_widget_set_vexpand(windowScrollWorking, TRUE);
-	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 3, 1);
+	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 3, 1);	
 
 	workingLayout = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);
