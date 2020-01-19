@@ -145,6 +145,7 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
+	GtkSizeGroup * sizeGroup;
 	GtkWidget* compAND;
 	GtkWidget* compNAND;
 	GtkWidget* compOR;
@@ -166,8 +167,27 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 50, 2000);
 	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), componentsLayout);
 
+	sizeGroup = gtk_size_group_new(GTK_SIZE_GROUP_BOTH);
+
 	compAND = componentsButton("img/components/AND.png");
+	gtk_size_group_add_widget(sizeGroup, compAND);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compAND, 0, 0);
+
+	compNAND = componentsButton("img/components/NAND.png");
+	gtk_size_group_add_widget(sizeGroup, compNAND);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compNAND, 0, 75);
+
+	compOR = componentsButton("img/components/OR.png");
+	gtk_size_group_add_widget(sizeGroup, compOR);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compOR, 0, 150);
+
+	compNOR = componentsButton("img/components/NOR.png");
+	gtk_size_group_add_widget(sizeGroup, compNOR);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compNOR, 0, 225);
+	
+	compXOR = componentsButton("img/components/XOR.png");
+	gtk_size_group_add_widget(sizeGroup, compXOR);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compXOR, 0, 300);
 
 }
 
@@ -184,7 +204,7 @@ void workingPart(GtkWidget * vBox, GtkWidget * grid){
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
 	gtk_widget_set_hexpand(windowScrollWorking, TRUE);
 	gtk_widget_set_vexpand(windowScrollWorking, TRUE);
-	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 8, 1);	
+	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 10, 1);	
 
 	workingLayout = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);
