@@ -145,8 +145,13 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
-	GtkWidget* p_Label;
-	gchar* sUtf8;
+	GtkWidget* compAND;
+	GtkWidget* compNAND;
+	GtkWidget* compOR;
+	GtkWidget* compNOR;
+	GtkWidget* compXOR;
+	GtkWidget* compInputOFF;
+	GtkWidget* compOutputOFF;
 
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
@@ -158,10 +163,11 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	gtk_grid_attach(GTK_GRID(grid), scrolledWindowComponents, 0, 0, 1, 1);
 
 	componentsLayout = gtk_layout_new(NULL, NULL);
-	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 150, 2000);
+	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 50, 2000);
 	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), componentsLayout);
 
-
+	compAND = gtk_button_new();
+	
 	//gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label, 0, 50);
 
 }
@@ -179,7 +185,7 @@ void workingPart(GtkWidget * vBox, GtkWidget * grid){
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
 	gtk_widget_set_hexpand(windowScrollWorking, TRUE);
 	gtk_widget_set_vexpand(windowScrollWorking, TRUE);
-	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 3, 1);	
+	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 8, 1);	
 
 	workingLayout = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);
