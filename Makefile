@@ -11,7 +11,7 @@ OBJ = main.o interface.o
 all: $(NAME)
 
 $(NAME):
-	gcc-8 $(FLAG() -I $(HEADER) $(SRC) -o $(NAME) $(LIB)
+	gcc-8 $(FLAG) -I $(HEADER) $(SRC) -o $(NAME) $(LIB)
 
 clean:
 	rm -f $(OBJ)
