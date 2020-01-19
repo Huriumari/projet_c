@@ -7,6 +7,9 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
-void interfaceInit(int argc, char **argv);
+GtkWidget * gtkWindow(int *argc, char ***argv);
+void menubar(GtkWidget * window, GtkWidget * vBox);
+void toolbar(GtkWidget * vBox);
+void workingPart(GtkWidget * vBox);
 
 #endif
