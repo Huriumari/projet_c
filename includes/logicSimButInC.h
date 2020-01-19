@@ -7,6 +7,8 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
+GtkWidget * componentsButton(char *path);
+
 GtkWidget * gtkWindow(int *argc, char ***argv);
 void menubar(GtkWidget * window, GtkWidget * vBox);
 void toolbar(GtkWidget * vBox);
