@@ -166,9 +166,8 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 50, 2000);
 	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), componentsLayout);
 
-	compAND = componentsButton("dqz");
-	
-	//gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label, 0, 50);
+	compAND = componentsButton("img/components/AND.png");
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compAND, 0, 0);
 
 }
 
