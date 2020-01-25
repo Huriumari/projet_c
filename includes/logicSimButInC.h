@@ -9,7 +9,8 @@
 
 typedef struct	data_s{
 		GtkWidget * window;
-		GtkWidget * widget;
+		char * imgPath;
+		GtkWidget * workingLayout;
 		int test;
 }				data_t;
 
@@ -20,8 +21,8 @@ GtkWidget * componentsButton(char *path);
 GtkWidget * gtkWindow(int *argc, char ***argv);
 void menubar(GtkWidget * window, GtkWidget * vBox);
 void toolbar(GtkWidget * vBox);
-void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window);
-void workingPart(GtkWidget * vBox, GtkWidget * grid);
+void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
+GtkWidget * workingPart(GtkWidget * vBox, GtkWidget * grid);
 
 void isClicked(void);
 void dragComponents(GtkWidget* compAND, data_t * data);

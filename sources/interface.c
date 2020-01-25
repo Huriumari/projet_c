@@ -144,7 +144,7 @@ void toolbar(GtkWidget * vBox){
 
 }
 
-void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window){
+void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout){
 	
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
@@ -161,9 +161,8 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window){
 
 	data = g_malloc(sizeof(data_t));
 	data->window = window;
-	data->widget = NULL;
+	data->workingLayout = workingLayout;
 	data->test = 255;
-
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
@@ -200,7 +199,7 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window){
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compXOR, 0, 300);
 
 	if(g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data)){
-		data->widget = compAND;
+		data->imgPath = "/home/esgi/Documents/ProjetC/img/components/AND.png";
 		data->test = 5;
 		g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
 	}
@@ -212,7 +211,7 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window){
 }
 
 
-void workingPart(GtkWidget * vBox, GtkWidget * grid){
+GtkWidget * workingPart(GtkWidget * vBox, GtkWidget * grid){
 
 	GtkWidget* windowScrollWorking;
 	GtkWidget* workingLayout;
@@ -234,5 +233,7 @@ void workingPart(GtkWidget * vBox, GtkWidget * grid){
 	heightLayout = malloc(sizeof(guint));
 	gtk_container_add(GTK_CONTAINER(windowScrollWorking), workingLayout);
 	gtk_layout_get_size(GTK_LAYOUT(workingLayout), widthLayout, heightLayout);
+
+	return workingLayout;
 
 }
