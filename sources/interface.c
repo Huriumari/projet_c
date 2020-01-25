@@ -157,7 +157,7 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 	GtkWidget* compInputOFF;
 	GtkWidget* compOutputOFF;
 
-	data_t * data;	
+	data_t * data;
 
 	data = g_malloc(sizeof(data_t));
 	data->window = window;
