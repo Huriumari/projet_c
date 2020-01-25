@@ -204,10 +204,10 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window){
 		data->test = 5;
 		g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
 	}
-	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), data);
-	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), data);
-	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), data);
-	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
+	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), &data);
+	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), &data);
+	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), &data);
+	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), &data);
 
 }
 

@@ -2,10 +2,10 @@
 
 void isClicked(void){}
 
-void dragComponents(gpointer gtk_data){
-    
-    data_t *data = (data_t *)gtk_data;
-    //printf("%s\n", gtk_widget_get_name(data->widget));
+void dragComponents(GtkWidget* button, data_t * data){
+    GtkWidget * img;
+    //data_t *data = gtk_data;
+    img = gtk_button_get_image(GTK_BUTTON(data->widget));
     printf("%d\n", data->test);
 
 }

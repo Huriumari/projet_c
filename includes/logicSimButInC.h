@@ -24,6 +24,6 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window);
 void workingPart(GtkWidget * vBox, GtkWidget * grid);
 
 void isClicked(void);
-void dragComponents(gpointer data);
+void dragComponents(GtkWidget* compAND, data_t * data);
 
 #endif
