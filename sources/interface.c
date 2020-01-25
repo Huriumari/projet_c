@@ -156,13 +156,11 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 	GtkWidget* compXOR;
 	GtkWidget* compInputOFF;
 	GtkWidget* compOutputOFF;
-
 	data_t * data;
 
 	data = g_malloc(sizeof(data_t));
 	data->window = window;
 	data->workingLayout = workingLayout;
-	data->test = 255;
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
@@ -200,13 +198,12 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 
 	if(g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data)){
 		data->imgPath = "/home/esgi/Documents/ProjetC/img/components/AND.png";
-		data->test = 5;
 		g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
 	}
-	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), &data);
-	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), &data);
-	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), &data);
-	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), &data);
+	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), data);
+	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), data);
+	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), data);
+	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
 
 }
 

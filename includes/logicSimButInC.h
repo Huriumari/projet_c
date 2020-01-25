@@ -7,12 +7,19 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
+typedef struct	pos_s{
+		double x;
+		double y;
+}				pos_t;
+
 typedef struct	data_s{
 		GtkWidget * window;
 		char * imgPath;
 		GtkWidget * workingLayout;
-		int test;
+		pos_t pos;
 }				data_t;
+
+
 
 //extern data_t * data;
 
@@ -24,6 +31,7 @@ void toolbar(GtkWidget * vBox);
 void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
 GtkWidget * workingPart(GtkWidget * vBox, GtkWidget * grid);
 
+void * mousePos(GtkWidget * workingLayout, GdkEvent *event, data_t * data);
 void isClicked(void);
 void dragComponents(GtkWidget* compAND, data_t * data);
 
