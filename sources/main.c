@@ -5,6 +5,7 @@
 
 #include "logicSimButInC.h"
 
+
 int main(int argc,char **argv)
 {
 	GtkWidget* window;
@@ -25,7 +26,7 @@ int main(int argc,char **argv)
 	gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
     gtk_box_pack_start(GTK_BOX(vBox), grid, TRUE, TRUE, 0);
 
-	componentsPart(vBox, grid);
+	componentsPart(vBox, grid, window);
 	workingPart(vBox, grid);
 
 	gtk_widget_show_all(window);

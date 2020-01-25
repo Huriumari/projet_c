@@ -1,5 +1,7 @@
 #include "logicSimButInC.h"
 
+extern data_t * data;
+
 GtkWidget * gtkWindow(int *argc, char ***argv){
 	
 	GtkWidget* window;
@@ -104,6 +106,7 @@ void toolbar(GtkWidget * vBox){
 	GtkToolItem* simuSpeedTb;
 
 	GtkToolItem* sepTool;
+	
 
 
 	toolbar = gtk_toolbar_new();
@@ -141,7 +144,7 @@ void toolbar(GtkWidget * vBox){
 
 }
 
-void componentsPart(GtkWidget * vBox, GtkWidget * grid){
+void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window){
 	
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
@@ -153,6 +156,13 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	GtkWidget* compXOR;
 	GtkWidget* compInputOFF;
 	GtkWidget* compOutputOFF;
+
+	data_t * data;	
+
+	data = g_malloc(sizeof(data_t));
+	data->window = window;
+	data->widget = NULL;
+	data->test = 255;
 
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
@@ -188,6 +198,16 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid){
 	compXOR = componentsButton("img/components/XOR.png");
 	gtk_size_group_add_widget(sizeGroup, compXOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compXOR, 0, 300);
+
+	if(g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data)){
+		data->widget = compAND;
+		data->test = 5;
+		g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
+	}
+	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), data);
+	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), data);
+	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), data);
+	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
 
 }
 
