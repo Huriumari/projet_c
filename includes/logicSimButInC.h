@@ -31,7 +31,7 @@ void toolbar(GtkWidget * vBox);
 void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
 GtkWidget * workingPart(GtkWidget * vBox, GtkWidget * grid);
 
-void * mousePos(GtkWidget * workingLayout, GdkEvent *event, data_t * data);
+gboolean mousePos(GtkWidget * workingLayout, GdkEvent *event, data_t * data);
 void isClicked(void);
 void dragComponents(GtkWidget* compAND, data_t * data);
 
