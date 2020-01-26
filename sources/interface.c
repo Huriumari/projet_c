@@ -161,6 +161,7 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 	data = g_malloc(sizeof(data_t));
 	data->window = window;
 	data->workingLayout = workingLayout;
+	data->imgPath = NULL;
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
@@ -177,33 +178,45 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 	sizeGroup = gtk_size_group_new(GTK_SIZE_GROUP_BOTH);
 
 	compAND = componentsButton("img/components/AND.png");
+	gtk_widget_set_name(compAND, "compAND");
 	gtk_size_group_add_widget(sizeGroup, compAND);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compAND, 0, 0);
 
 	compNAND = componentsButton("img/components/NAND.png");
+	gtk_widget_set_name(compNAND, "compNAND");
 	gtk_size_group_add_widget(sizeGroup, compNAND);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compNAND, 0, 75);
 
 	compOR = componentsButton("img/components/OR.png");
+	gtk_widget_set_name(compOR, "compOR");
 	gtk_size_group_add_widget(sizeGroup, compOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compOR, 0, 150);
 
 	compNOR = componentsButton("img/components/NOR.png");
+	gtk_widget_set_name(compNOR, "compNOR");
 	gtk_size_group_add_widget(sizeGroup, compNOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compNOR, 0, 225);
 	
 	compXOR = componentsButton("img/components/XOR.png");
+	gtk_widget_set_name(compXOR, "compXOR");
 	gtk_size_group_add_widget(sizeGroup, compXOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compXOR, 0, 300);
 
-	if(g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data)){
-		data->imgPath = "/home/esgi/Documents/ProjetC/img/components/AND.png";
-		g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
-	}
+	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
+	
+	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), data);
+
+	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), data);
+	
+	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), data);
+
+	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
+
 
 }
 
