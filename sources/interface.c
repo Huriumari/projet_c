@@ -36,7 +36,6 @@ void menubar(GtkWidget * window, GtkWidget * vBox){
 	GtkWidget* import;
 	GtkWidget* export;
 	GtkWidget* properties;
-
 	GtkWidget* sep;
 
 	GtkAccelGroup* accel_group = NULL;
@@ -156,6 +155,7 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 	GtkWidget* compXOR;
 	GtkWidget* compInputOFF;
 	GtkWidget* compOutputOFF;
+	GtkWidget* sep;
 	data_t * data;
 
 	data = g_malloc(sizeof(data_t));
@@ -201,6 +201,9 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 	gtk_widget_set_name(compXOR, "compXOR");
 	gtk_size_group_add_widget(sizeGroup, compXOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compXOR, 0, 300);
+
+	sep = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), sep, 0, 350);
 
 	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);

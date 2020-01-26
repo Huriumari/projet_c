@@ -12,9 +12,12 @@ void * mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
     data->pos.y = mouse_click->y;
     //fprintf(stdout, "Mouse coordinates (%lf, %lf)\n", data->pos.x, data->pos.y);
     
-    img = gtk_image_new_from_file(data->imgPath);
-    gtk_layout_put(GTK_LAYOUT(workingLayout), img, data->pos.x, data->pos.y);
-    gtk_widget_show_all(workingLayout);
+    if(data->imgPath != NULL){
+        img = gtk_image_new_from_file(data->imgPath);
+        gtk_layout_put(GTK_LAYOUT(workingLayout), img, data->pos.x, data->pos.y);
+        gtk_widget_show_all(workingLayout);
+    }
+    data->imgPath = NULL;
 
 }
 
