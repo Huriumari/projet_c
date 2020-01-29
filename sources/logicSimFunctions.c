@@ -51,7 +51,6 @@ void isClicked(GtkWidget * comp, gpointer gtk_data){
     else if(strcmp(gtk_widget_get_name(comp), "compXOR") == 0){
 		data->imgPath = "/home/esgi/Documents/ProjetC/img/components/XOR.png";
     }
-
 }
 
 void dragComponents(GtkWidget* comp, gpointer gtk_data){
