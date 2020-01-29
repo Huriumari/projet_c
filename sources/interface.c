@@ -143,7 +143,6 @@ void toolbar(GtkWidget * vBox){
 
 
 void workingPart(GtkWidget * vBox){
-	
 	GtkWidget* grid;
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
@@ -189,7 +188,7 @@ void workingPart(GtkWidget * vBox){
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
 	gtk_widget_set_hexpand(windowScrollWorking, TRUE);
 	gtk_widget_set_vexpand(windowScrollWorking, TRUE);
-	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 4, 1);
+	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 3, 1);
 
 	workingLayout = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);

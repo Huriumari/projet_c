@@ -7,13 +7,10 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
-#define WIDTH_IMG 106
-#define HEIGHT_IMG 106
 
 GtkWidget * gtkWindow(int *argc, char ***argv);
 void menubar(GtkWidget * window, GtkWidget * vBox);
-void toolbar(GtkWidget * Vbox);
+void toolbar(GtkWidget * vBox);
 void workingPart(GtkWidget * vBox);
-void createBackground(GtkWidget * layoutBoxMain, GtkWidget * image, guint * widthLayout, guint * heightLayout);
 
 #endif
