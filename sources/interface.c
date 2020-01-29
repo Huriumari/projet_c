@@ -1,5 +1,7 @@
 #include "logicSimButInC.h"
 
+extern data_t * data;
+
 GtkWidget * gtkWindow(int *argc, char ***argv){
 	
 	GtkWidget* window;
@@ -34,7 +36,6 @@ void menubar(GtkWidget * window, GtkWidget * vBox){
 	GtkWidget* import;
 	GtkWidget* export;
 	GtkWidget* properties;
-
 	GtkWidget* sep;
 
 	GtkAccelGroup* accel_group = NULL;
@@ -104,6 +105,7 @@ void toolbar(GtkWidget * vBox){
 	GtkToolItem* simuSpeedTb;
 
 	GtkToolItem* sepTool;
+	
 
 
 	toolbar = gtk_toolbar_new();
@@ -142,22 +144,25 @@ void toolbar(GtkWidget * vBox){
 }
 
 
-void workingPart(GtkWidget * vBox){
-	GtkWidget* grid;
+void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout){
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
-	GtkWidget* p_Label;
-	gchar* sUtf8;
+	GtkSizeGroup * sizeGroup;
+	GtkWidget* compAND;
+	GtkWidget* compNAND;
+	GtkWidget* compOR;
+	GtkWidget* compNOR;
+	GtkWidget* compXOR;
+	GtkWidget* compInputOFF;
+	GtkWidget* compOutputOFF;
+	GtkWidget* sep;
+	data_t * data;
 
-	GtkWidget* windowScrollWorking;
-	GtkWidget* workingLayout;
-	guint * widthLayout;
-	guint * heightLayout;
-
-	grid = gtk_grid_new();
-	gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
-    gtk_box_pack_start(GTK_BOX(vBox), grid, TRUE, TRUE, 0);
-	
+	data = g_malloc(sizeof(data_t));
+	data->window = window;
+	data->workingLayout = workingLayout;
+	data->imgPath = NULL;
+	data->component = NULL;
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
@@ -168,27 +173,71 @@ void workingPart(GtkWidget * vBox){
 	gtk_grid_attach(GTK_GRID(grid), scrolledWindowComponents, 0, 0, 1, 1);
 
 	componentsLayout = gtk_layout_new(NULL, NULL);
-	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 150, 2000);
+	gtk_layout_set_size(GTK_LAYOUT(componentsLayout), 50, 2000);
 	gtk_container_add(GTK_CONTAINER(scrolledWindowComponents), componentsLayout);
 
+	sizeGroup = gtk_size_group_new(GTK_SIZE_GROUP_BOTH);
 
-	GtkWidget* p_Label2;
-	sUtf8 = g_locale_to_utf8("La Bibliothèque GTK+ à bien été Installée !", -1, NULL, NULL, NULL);
-    p_Label = gtk_label_new(sUtf8);
-	p_Label2 = gtk_label_new(sUtf8);
-    g_free(sUtf8);
-	gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label, 0, 50);
-	gtk_layout_put(GTK_LAYOUT(componentsLayout), p_Label2, 50, 0);
+	compAND = componentsButton("img/components/AND.png");
+	gtk_widget_set_name(compAND, "compAND");
+	gtk_size_group_add_widget(sizeGroup, compAND);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compAND, 0, 0);
+
+	compNAND = componentsButton("img/components/NAND.png");
+	gtk_widget_set_name(compNAND, "compNAND");
+	gtk_size_group_add_widget(sizeGroup, compNAND);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compNAND, 0, 75);
+
+	compOR = componentsButton("img/components/OR.png");
+	gtk_widget_set_name(compOR, "compOR");
+	gtk_size_group_add_widget(sizeGroup, compOR);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compOR, 0, 150);
+
+	compNOR = componentsButton("img/components/NOR.png");
+	gtk_widget_set_name(compNOR, "compNOR");
+	gtk_size_group_add_widget(sizeGroup, compNOR);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compNOR, 0, 225);
 	
-	GtkWidget * test;
-	test = gtk_button_new_with_label("Test");	
-	gtk_layout_put(GTK_LAYOUT(componentsLayout), test, 0, 0);
+	compXOR = componentsButton("img/components/XOR.png");
+	gtk_widget_set_name(compXOR, "compXOR");
+	gtk_size_group_add_widget(sizeGroup, compXOR);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compXOR, 0, 300);
+
+	sep = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), sep, 0, 350);
+
+	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
+	
+	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), data);
+
+	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), data);
+	
+	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), data);
+
+	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
+
+
+}
+
+
+GtkWidget * workingPart(GtkWidget * vBox, GtkWidget * grid){
+
+	GtkWidget* windowScrollWorking;
+	GtkWidget* workingLayout;
+	guint* widthLayout;
+	guint* heightLayout;
+
 
 	windowScrollWorking = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
 	gtk_widget_set_hexpand(windowScrollWorking, TRUE);
 	gtk_widget_set_vexpand(windowScrollWorking, TRUE);
-	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 3, 1);
+	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 10, 1);	
 
 	workingLayout = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);
@@ -198,5 +247,7 @@ void workingPart(GtkWidget * vBox){
 	heightLayout = malloc(sizeof(guint));
 	gtk_container_add(GTK_CONTAINER(windowScrollWorking), workingLayout);
 	gtk_layout_get_size(GTK_LAYOUT(workingLayout), widthLayout, heightLayout);
+
+	return workingLayout;
 
 }
