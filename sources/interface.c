@@ -162,6 +162,7 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 	data->window = window;
 	data->workingLayout = workingLayout;
 	data->imgPath = NULL;
+	data->component = NULL;
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
