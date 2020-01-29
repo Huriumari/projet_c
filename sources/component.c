@@ -41,8 +41,7 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 		if (mouse_x > component->pos.x - (double)(x/2)
 		&&	mouse_x < component->pos.x + (double)(x/2)
 		&&	mouse_y > component->pos.y - (double)(y/2)
-		&&	mouse_y < component->pos.y + (double)(y/2)
-		){
+		&&	mouse_y < component->pos.y + (double)(y/2)){
 			if (component == data->component){
 				prev = component;
 				data->component = data->component->next;
