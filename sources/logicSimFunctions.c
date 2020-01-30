@@ -40,21 +40,26 @@ void    isClicked(GtkWidget * comp, gpointer gtk_data){
 
     data_t * data = (data_t *)gtk_data;
     
-    if(strcmp(gtk_widget_get_name(comp), "compAND") == 0){
+    if(strcmp(gtk_widget_get_name(comp), "compAND") == 0)
         data->imgPath = "AND";
-    }
-    else if(strcmp(gtk_widget_get_name(comp), "compNAND") == 0){
+
+    else if(strcmp(gtk_widget_get_name(comp), "compNAND") == 0)
 		data->imgPath = "NAND";
-    }
-    else if(strcmp(gtk_widget_get_name(comp), "compOR") == 0){
+
+    else if(strcmp(gtk_widget_get_name(comp), "compOR") == 0)
 		data->imgPath = "OR";
-    }
-    else if(strcmp(gtk_widget_get_name(comp), "compNOR") == 0){
+
+    else if(strcmp(gtk_widget_get_name(comp), "compNOR") == 0)
 		data->imgPath = "NOR";
-    }
-    else if(strcmp(gtk_widget_get_name(comp), "compXOR") == 0){
+
+    else if(strcmp(gtk_widget_get_name(comp), "compXOR") == 0)
 		data->imgPath = "XOR";
-    }
+
+    else if(strcmp(gtk_widget_get_name(comp), "compOUTPUT_OFF") == 0)
+		data->imgPath = "OUTPUT_OFF";
+
+    else if(strcmp(gtk_widget_get_name(comp), "compINPUT_OFF") == 0)
+		data->imgPath = "INPUT_OFF";
 }
 
 void dragComponents(GtkWidget* comp, gpointer gtk_data){
@@ -66,6 +71,29 @@ void dragComponents(GtkWidget* comp, gpointer gtk_data){
     //printf("%s\n", data->imgPath);
 
     gtk_widget_add_events(workingLayout, GDK_BUTTON_PRESS_MASK);
-    //g_signal_connect_after(G_OBJECT(workingLayout), "delete-event", G_CALLBACK(delete_event), NULL) ;
-    g_signal_connect(G_OBJECT(workingLayout), "button-press-event", G_CALLBACK(mousePos), data);    
+    //g_signal_connect_after(G_OBJECT(workingLayout), "delete-event", G_CALLBACK(delete_event), NULL);
+    g_signal_connect(G_OBJECT(workingLayout), "button-press-event", G_CALLBACK(mousePos), data);
+}
+
+void deleteCurrentComponents(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
+    GdkEventButton* mouse_click = (GdkEventButton *) event;
+    data_t      *data = (data_t *)gtk_data;
+    if(mouse)
+        mouse++;
+    
+    printf("x : %1f | y : %lf\n", mouse_click->x, mouse_click->y);
+    
+    remove_component(data, mouse_click->x, mouse_click->y);
+
+}
+
+void selectComponentsToDelete(GtkWidget* comp, gpointer gtk_data){
+    GtkWidget * workingLayout;
+    data_t * data = (data_t *)gtk_data;
+    workingLayout = comp;
+    workingLayout = data->workingLayout;
+
+
+    gtk_widget_add_events(workingLayout, GDK_BUTTON_PRESS_MASK);
+    g_signal_connect(G_OBJECT(workingLayout), "button-press-event", G_CALLBACK(deleteCurrentComponents), data);
 }

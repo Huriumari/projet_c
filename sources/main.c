@@ -30,7 +30,7 @@ int main(int argc,char **argv)
 	gtk_container_add(GTK_CONTAINER(window), vBox);
 	menubar(window, vBox);
 
-	toolbar(vBox);
+	toolbar(vBox, data);
 
 	grid = gtk_grid_new();
 	gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
