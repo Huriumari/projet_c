@@ -144,7 +144,7 @@ void toolbar(GtkWidget * vBox){
 }
 
 
-void componentsPart(GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout){
+void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout){
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
 	GtkSizeGroup * sizeGroup;
@@ -156,13 +156,9 @@ void componentsPart(GtkWidget * grid, GtkWidget * window, GtkWidget * workingLay
 	//GtkWidget* compInputOFF;
 	//GtkWidget* compOutputOFF;
 	GtkWidget* sep;
-	data_t * data;
 
-	data = g_malloc(sizeof(data_t));
 	data->window = window;
 	data->workingLayout = workingLayout;
-	data->imgPath = NULL;
-	data->component = NULL;
 
 	scrolledWindowComponents = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindowComponents), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);

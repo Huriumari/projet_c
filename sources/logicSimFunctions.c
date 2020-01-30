@@ -8,6 +8,7 @@ void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
     GdkPixbuf   *pb;
     double      x,y;
     GtkWidget* itDoesntWorkWithoutThis = mouse;
+
     if (itDoesntWorkWithoutThis)
         is_on_another_comp = 0;
     else

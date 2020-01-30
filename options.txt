@@ -1,0 +1,11 @@
+PATH:
+
+module_path:./module
+shared_module_path:./sharedModule
+component_img_path:./img/components
+
+KEYBIND:
+
+undo:crtl+z
+save:crtl+s
+open:crtl+o
