@@ -15,7 +15,13 @@ $(NAME):
 
 clean:
 	rm -f $(OBJ)
+
 fclean: clean
 	rm -f $(NAME)
+
+flcean: fclean
+
+exec:
+	./LogicSimButInC
 
 re: fclean all
