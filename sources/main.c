@@ -19,6 +19,11 @@ int main(int argc,char **argv)
 	data->imgPath = NULL;
 	data->component = NULL;
     
+	data->option = read_option_file();
+	if (data->option == NULL){
+		printf("Error: failed to open option.txt file,\n");
+	}
+
 	window = gtkWindow(&argc, &argv);
 	
 	vBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
@@ -34,10 +39,6 @@ int main(int argc,char **argv)
 	workingLayout = workingPart(grid);
 	componentsPart(data, grid, window, workingLayout);
 	
-	data->option = read_option_file();
-	if (data->option == NULL){
-		printf("Error: failed to open option.txt file,\n");
-	}
 
 	//print_option(data->option);
 	//test = get_option(data->option, "component_img_path");

@@ -22,21 +22,21 @@ GtkWidget * gtkWindow(int *argc, char ***argv){
 //create the menubar and the keyboards shortcuts
 void menubar(GtkWidget * window, GtkWidget * vBox){
 	
-	GtkWidget* menubar;
-	GtkWidget* fileMenu;
-  	GtkWidget* file;
-	GtkWidget* new;
-	GtkWidget* open;
-	GtkWidget* save;
-	GtkWidget* saveAs;
-	GtkWidget* quit;
-	GtkWidget* moduleMenu;
-	GtkWidget* module;
-	GtkWidget* create;
-	GtkWidget* import;
-	GtkWidget* export;
-	GtkWidget* properties;
-	GtkWidget* sep;
+	GtkWidget 	*menubar;
+	GtkWidget 	*fileMenu;
+  	GtkWidget 	*file;
+	GtkWidget 	*new;
+	GtkWidget 	*open;
+	GtkWidget 	*save;
+	GtkWidget 	*saveAs;
+	GtkWidget 	*quit;
+	GtkWidget 	*moduleMenu;
+	GtkWidget 	*module;
+	GtkWidget 	*create;
+	GtkWidget 	*import;
+	GtkWidget 	*export;
+	GtkWidget 	*properties;
+	GtkWidget 	*sep;
 
 	GtkAccelGroup* accel_group = NULL;
 
@@ -149,13 +149,16 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 	GtkWidget* componentsLayout;
 	GtkSizeGroup * sizeGroup;
 	GtkWidget* compAND;
-	GtkWidget* compNAND;
-	GtkWidget* compOR;
-	GtkWidget* compNOR;
-	GtkWidget* compXOR;
+	GtkWidget	*compNAND;
+	GtkWidget	*compOR;
+	GtkWidget	*compNOR;
+	GtkWidget	*compXOR;
 	//GtkWidget* compInputOFF;
 	//GtkWidget* compOutputOFF;
-	GtkWidget* sep;
+	GtkWidget	*sep;
+	char		*ptr;
+	char		buffer[255];
+
 
 	data->window = window;
 	data->workingLayout = workingLayout;
@@ -174,27 +177,37 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 
 	sizeGroup = gtk_size_group_new(GTK_SIZE_GROUP_BOTH);
 
-	compAND = componentsButton("img/components/AND.png");
+	ptr = get_option(data->option, "component_img_path");
+	if (ptr == NULL){
+		printf("Error: cannot found image for components.\n");
+		exit(0);
+	}
+	strcat(strcpy(buffer, ptr),"/AND.png");
+	compAND = componentsButton(buffer);
 	gtk_widget_set_name(compAND, "compAND");
 	gtk_size_group_add_widget(sizeGroup, compAND);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compAND, 0, 0);
 
-	compNAND = componentsButton("img/components/NAND.png");
+	strcat(strcpy(buffer, ptr),"/NAND.png");
+	compNAND = componentsButton(buffer);
 	gtk_widget_set_name(compNAND, "compNAND");
 	gtk_size_group_add_widget(sizeGroup, compNAND);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compNAND, 0, 75);
 
-	compOR = componentsButton("img/components/OR.png");
+	strcat(strcpy(buffer, ptr),"/OR.png");
+	compOR = componentsButton(buffer);
 	gtk_widget_set_name(compOR, "compOR");
 	gtk_size_group_add_widget(sizeGroup, compOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compOR, 0, 150);
 
-	compNOR = componentsButton("img/components/NOR.png");
+	strcat(strcpy(buffer, ptr),"/NOR.png");
+	compNOR = componentsButton(buffer);
 	gtk_widget_set_name(compNOR, "compNOR");
 	gtk_size_group_add_widget(sizeGroup, compNOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compNOR, 0, 225);
 	
-	compXOR = componentsButton("img/components/XOR.png");
+	strcat(strcpy(buffer, ptr),"/XOR.png");
+	compXOR = componentsButton(buffer);
 	gtk_widget_set_name(compXOR, "compXOR");
 	gtk_size_group_add_widget(sizeGroup, compXOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compXOR, 0, 300);
