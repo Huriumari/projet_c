@@ -144,7 +144,7 @@ void toolbar(GtkWidget * vBox){
 }
 
 
-void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout){
+void componentsPart(GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout){
 	GtkWidget* scrolledWindowComponents;
 	GtkWidget* componentsLayout;
 	GtkSizeGroup * sizeGroup;
@@ -153,8 +153,8 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 	GtkWidget* compOR;
 	GtkWidget* compNOR;
 	GtkWidget* compXOR;
-	GtkWidget* compInputOFF;
-	GtkWidget* compOutputOFF;
+	//GtkWidget* compInputOFF;
+	//GtkWidget* compOutputOFF;
 	GtkWidget* sep;
 	data_t * data;
 
@@ -220,12 +220,10 @@ void componentsPart(GtkWidget * vBox, GtkWidget * grid, GtkWidget * window, GtkW
 
 	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
-
-
 }
 
 
-GtkWidget * workingPart(GtkWidget * vBox, GtkWidget * grid){
+GtkWidget * workingPart(GtkWidget * grid){
 
 	GtkWidget* windowScrollWorking;
 	GtkWidget* workingLayout;

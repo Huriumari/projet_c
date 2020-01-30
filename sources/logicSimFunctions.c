@@ -1,14 +1,17 @@
 #include "logicSimButInC.h"
 
-void * mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
+void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
     GdkEventButton* mouse_click = (GdkEventButton *) event;
     data_t      *data = (data_t *)gtk_data;
     char        is_on_another_comp;
     component_t *component;
     GdkPixbuf   *pb;
     double      x,y;
-
-    is_on_another_comp = 0;
+    GtkWidget* itDoesntWorkWithoutThis = mouse;
+    if (itDoesntWorkWithoutThis)
+        is_on_another_comp = 0;
+    else
+        is_on_another_comp = 0;
     //fprintf(stdout, "Mouse coordinates (%lf, %lf)\n", data->pos.x, data->pos.y);
     
     if(data->imgPath != NULL){
@@ -32,7 +35,7 @@ void * mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
 
 }
 
-void isClicked(GtkWidget * comp, gpointer gtk_data){
+void    isClicked(GtkWidget * comp, gpointer gtk_data){
 
     data_t * data = (data_t *)gtk_data;
     
@@ -55,8 +58,8 @@ void isClicked(GtkWidget * comp, gpointer gtk_data){
 
 void dragComponents(GtkWidget* comp, gpointer gtk_data){
     GtkWidget * workingLayout;
-
     data_t * data = (data_t *)gtk_data;
+    workingLayout = comp;
     workingLayout = data->workingLayout;
 
     //printf("%s\n", data->imgPath);
