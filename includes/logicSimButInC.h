@@ -27,6 +27,7 @@ typedef struct	component_s{
 	pos_t				pos;
 	struct component_s 	*next;
 	int					number_parts;
+	char				is_select;
 	part_t				*parts;
 }				component_t;
 
