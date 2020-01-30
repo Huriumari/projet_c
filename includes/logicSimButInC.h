@@ -26,6 +26,7 @@ typedef struct	component_s{
 	char				*name;
 	pos_t				pos;
 	struct component_s 	*next;
+	int					number_parts;
 	part_t				*parts;
 }				component_t;
 
@@ -59,5 +60,7 @@ char		*get_option(char ***option, char *key);
 char		***create_option(char *key, char *data);
 char		***add_option(char ***option, char *key, char *data);
 char		***read_option_file(void);
+
+part_t		*gimme_parts(char *component_name, int *n, double mouse_x, double mouse_y);
 
 #endif

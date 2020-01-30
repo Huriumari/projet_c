@@ -13,15 +13,18 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 
 	component = malloc(sizeof(component_t));
 	if (component != NULL){
+		component->next = data->component;
+		component->name = path_img;
+		data->component = component;
+
 		strcat(strcat(strcat(strcpy(buffer,get_option(data->option,"component_img_path")),"/"),path_img),".png");
 		component->img = gtk_image_new_from_file(buffer);
+
 		pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
 		component->pos.x = x;
 		component->pos.y = y;
 		component->id = new_component_id();
-		component->next = data->component;
-		data->component = component;
-
+		component->parts = gimme_parts(component->name, &(component->number_parts), x, y);
 		gtk_layout_put(GTK_LAYOUT(data->workingLayout), component->img, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
 		gtk_widget_show_all(data->workingLayout);
 	}

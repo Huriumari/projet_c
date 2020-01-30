@@ -7,14 +7,12 @@ void		set_part(part_t *part, double x, double y, char type){
 }
 
 part_t		*get_BASIC_parts(double mouse_x, double mouse_y){
-	part_t	*parts;
-
-	parts = malloc(sizeof(parts) * 3);
+	part_t	*parts = malloc(sizeof(part_t) * 3);
 	if (parts == NULL)
 		return NULL;
-	set_part(parts, mouse_x + (double)34, (double)0, 'o');
-	set_part(parts + 1, mouse_x - (double)34, mouse_y - (double)6, 'i');
-	set_part(parts + 2, mouse_x - (double)34, mouse_y + (double)6, 'i');
+	set_part(parts, mouse_x + (double)34., (double)0., 'o');
+	set_part(parts + 1, mouse_x - (double)34, mouse_y - (double)6., 'i');
+	set_part(parts + 2, mouse_x - (double)34, mouse_y + (double)6., 'i');
 	return parts;	
 }
 
