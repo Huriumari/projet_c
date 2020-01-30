@@ -4,7 +4,13 @@ LIB = `pkg-config gtk+-3.0 --libs` #Remplace par l'ensemble des librairies de GT
 PATH_SRC = ./sources/
 HEADER = ./includes/
 FLAG = -O3 -Wall -Wextra -Werror -std=c99 `pkg-config gtk+-3.0 --cflags` #Remplace par l'ensemble des flags nécessaire à GTK
-SRC = $(PATH_SRC)main.c $(PATH_SRC)interface.c $(PATH_SRC)gtkLoader.c $(PATH_SRC)logicSimFunctions.c $(PATH_SRC)component.c $(PATH_SRC)logiSimFileFunction.c
+SRC = 	$(PATH_SRC)main.c \
+		$(PATH_SRC)interface.c \
+		$(PATH_SRC)gtkLoader.c \
+		$(PATH_SRC)logicSimFunctions.c \
+		$(PATH_SRC)component.c \
+		$(PATH_SRC)logiSimFileFunction.c \
+		$(PATH_SRC)component_parts.c
 OBJ = main.o interface.o gtkLoader.o logicSimFunctions.o component.o logiSimFileFunction.o
 
 
