@@ -18,7 +18,7 @@ all: $(NAME)
 
 $(NAME):
 	gcc-8 $(FLAG) -I $(HEADER) $(SRC) -o $(NAME) $(LIB)
-
+	chmod +x $(NAME)
 clean:
 	rm -f $(OBJ)
 
