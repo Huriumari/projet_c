@@ -91,13 +91,14 @@ void menubar(GtkWidget * window, GtkWidget * vBox){
 }
 
 
-void toolbar(GtkWidget * vBox){
+void toolbar(GtkWidget * vBox, data_t *data){
 	
 	GtkWidget* toolbar;
   	GtkToolItem* newTb;
   	GtkToolItem* openTb;
   	GtkToolItem* saveTb;
   	GtkToolItem* tagTb;
+	GtkToolItem* deleteTb;
 	GtkToolItem* playTb;
 	GtkToolItem* pauseTb;
 	GtkToolItem* stopTb;
@@ -117,11 +118,15 @@ void toolbar(GtkWidget * vBox){
 	openTb = gtk_tool_button_new(gtk_image_new_from_icon_name("document-open", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), openTb, -1);
 
-	saveTb = gtk_tool_button_new(NULL, "Tag");
+	saveTb = gtk_tool_button_new(gtk_image_new_from_icon_name("document-save", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), saveTb, -1);
 	
-	tagTb = gtk_tool_button_new(gtk_image_new_from_icon_name("preferences-system", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
+	tagTb = gtk_tool_button_new(NULL, "Tag");
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tagTb, -1);
+
+	deleteTb = gtk_tool_button_new(gtk_image_new_from_icon_name("edit-delete", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
+	gtk_widget_set_name(GTK_WIDGET(deleteTb), "delete");
+	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), deleteTb, -1);
 
 	sepTool = gtk_separator_tool_item_new();
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), sepTool, -1);
@@ -141,6 +146,9 @@ void toolbar(GtkWidget * vBox){
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), simuSpeedTb, -1);
 	gtk_box_pack_start(GTK_BOX(vBox), toolbar, FALSE, FALSE, 5);
 
+	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(isClicked), data);	
+	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(dragComponents), data);	
+
 }
 
 
@@ -153,8 +161,8 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 	GtkWidget	*compOR;
 	GtkWidget	*compNOR;
 	GtkWidget	*compXOR;
-	//GtkWidget* compInputOFF;
-	//GtkWidget* compOutputOFF;
+	GtkWidget* compInputOFF;
+	GtkWidget* compOutputOFF;
 	GtkWidget	*sep;
 	char		*ptr;
 	char		buffer[255];
@@ -215,6 +223,18 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 	sep = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), sep, 0, 350);
 
+	strcat(strcpy(buffer, ptr),"/OUTPUT_OFF.png");
+	compOutputOFF = componentsButton(buffer);
+	gtk_widget_set_name(compOutputOFF, "compOUTPUT_OFF");
+	gtk_size_group_add_widget(sizeGroup, compOutputOFF);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compOutputOFF, 0, 400);
+
+	strcat(strcpy(buffer, ptr),"/INPUT_OFF.png");
+	compInputOFF = componentsButton(buffer);
+	gtk_widget_set_name(compInputOFF, "compINPUT_OFF");
+	gtk_size_group_add_widget(sizeGroup, compInputOFF);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compInputOFF, 0, 475);
+
 	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
 	
@@ -229,6 +249,12 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 
 	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
+
+	g_signal_connect(G_OBJECT(compOutputOFF), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compOutputOFF), "clicked", G_CALLBACK(dragComponents), data);
+
+	g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(dragComponents), data);
 }
 
 

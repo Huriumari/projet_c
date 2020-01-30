@@ -1,5 +1,5 @@
 #ifndef LOGICSIMBUTINC_H
-# define LOGICSIMBUTINC_H
+#define LOGICSIMBUTINC_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -43,7 +43,7 @@ GtkWidget	*componentsButton(char *path);
 
 GtkWidget	*gtkWindow(int *argc, char ***argv);
 void		menubar(GtkWidget * window, GtkWidget * vBox);
-void		toolbar(GtkWidget * vBox);
+void		toolbar(GtkWidget * vBox, data_t *data);
 void		componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
 GtkWidget	*workingPart(GtkWidget * grid);
 
@@ -64,3 +64,4 @@ char		***read_option_file(void);
 part_t		*gimme_parts(char *component_name, int *n, double mouse_x, double mouse_y);
 
 #endif
+
