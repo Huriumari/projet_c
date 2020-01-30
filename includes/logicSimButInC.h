@@ -15,11 +15,18 @@ typedef struct	pos_s{
 	double y;
 }				pos_t;
 
+typedef struct	part_s{
+	pos_t		pos;
+	char		type;
+}				part_t;
+
 typedef struct	component_s{
 	size_t				id;
 	GtkWidget			*img;
+	char				*name;
 	pos_t				pos;
 	struct component_s 	*next;
+	part_t				*parts;
 }				component_t;
 
 typedef struct	data_s{
