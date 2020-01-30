@@ -13,13 +13,13 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 	component = malloc(sizeof(component_t));
 	component->img = gtk_image_new_from_file(path_img);
 	pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
-	component->pos.x = x - (double)gdk_pixbuf_get_width(pb) / 2;
-	component->pos.y = y - (double)gdk_pixbuf_get_height(pb) / 2;
+	component->pos.x = x;
+	component->pos.y = y;
 	component->id = new_component_id();
 	component->next = data->component;
 	data->component = component;
 
-	gtk_layout_put(GTK_LAYOUT(data->workingLayout), component->img, component->pos.x, component->pos.y);
+	gtk_layout_put(GTK_LAYOUT(data->workingLayout), component->img, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
 	gtk_widget_show_all(data->workingLayout);
 }
 
