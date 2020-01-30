@@ -125,6 +125,7 @@ void toolbar(GtkWidget * vBox, data_t *data){
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tagTb, -1);
 
 	deleteTb = gtk_tool_button_new(gtk_image_new_from_icon_name("edit-delete", GTK_ICON_SIZE_SMALL_TOOLBAR), NULL);
+	gtk_widget_set_name(GTK_WIDGET(deleteTb), "delete");
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), deleteTb, -1);
 
 	sepTool = gtk_separator_tool_item_new();
@@ -145,7 +146,8 @@ void toolbar(GtkWidget * vBox, data_t *data){
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), simuSpeedTb, -1);
 	gtk_box_pack_start(GTK_BOX(vBox), toolbar, FALSE, FALSE, 5);
 
-	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(selectComponentsToDelete), data);	
+	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(isClicked), data);	
+	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(dragComponents), data);	
 
 }
 

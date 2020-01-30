@@ -43,9 +43,6 @@ void		mousePos(GtkWidget * mouse, GdkEvent *event, gpointer data);
 void		isClicked(GtkWidget * comp, gpointer data);
 void		dragComponents(GtkWidget* comp, gpointer data);
 
-void		deleteCurrentComponents(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data);
-void		selectComponentsToDelete(GtkWidget* comp, gpointer gtk_data);
-
 size_t		new_component_id(void);
 void		add_component(data_t *data, char *path_img, double x, double y);
 int			remove_component(data_t *data, double mouse_x, double mouse_y);
