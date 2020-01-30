@@ -41,19 +41,19 @@ void    isClicked(GtkWidget * comp, gpointer gtk_data){
     data_t * data = (data_t *)gtk_data;
     
     if(strcmp(gtk_widget_get_name(comp), "compAND") == 0){
-        data->imgPath = "/home/esgi/Documents/ProjetC/img/components/AND.png";
+        data->imgPath = "AND";
     }
     else if(strcmp(gtk_widget_get_name(comp), "compNAND") == 0){
-		data->imgPath = "/home/esgi/Documents/ProjetC/img/components/NAND.png";
+		data->imgPath = "NAND";
     }
     else if(strcmp(gtk_widget_get_name(comp), "compOR") == 0){
-		data->imgPath = "/home/esgi/Documents/ProjetC/img/components/OR.png";
+		data->imgPath = "OR";
     }
     else if(strcmp(gtk_widget_get_name(comp), "compNOR") == 0){
-		data->imgPath = "/home/esgi/Documents/ProjetC/img/components/NOR.png";
+		data->imgPath = "NOR";
     }
     else if(strcmp(gtk_widget_get_name(comp), "compXOR") == 0){
-		data->imgPath = "/home/esgi/Documents/ProjetC/img/components/XOR.png";
+		data->imgPath = "XOR";
     }
 }
 

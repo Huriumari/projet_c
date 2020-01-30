@@ -9,18 +9,22 @@ size_t	new_component_id(){
 void	add_component(data_t *data, char *path_img, double x, double y){
 	component_t	*component;
 	GdkPixbuf 	*pb;
+	char		buffer[255];
 
 	component = malloc(sizeof(component_t));
-	component->img = gtk_image_new_from_file(path_img);
-	pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
-	component->pos.x = x;
-	component->pos.y = y;
-	component->id = new_component_id();
-	component->next = data->component;
-	data->component = component;
+	if (component != NULL){
+		strcat(strcat(strcat(strcpy(buffer,get_option(data->option,"component_img_path")),"/"),path_img),".png");
+		component->img = gtk_image_new_from_file(buffer);
+		pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
+		component->pos.x = x;
+		component->pos.y = y;
+		component->id = new_component_id();
+		component->next = data->component;
+		data->component = component;
 
-	gtk_layout_put(GTK_LAYOUT(data->workingLayout), component->img, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
-	gtk_widget_show_all(data->workingLayout);
+		gtk_layout_put(GTK_LAYOUT(data->workingLayout), component->img, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
+		gtk_widget_show_all(data->workingLayout);
+	}
 }
 
 void	delete_component_widget(data_t * data, component_t *component){
