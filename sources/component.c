@@ -15,6 +15,7 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 	if (component != NULL){
 		component->next = data->component;
 		component->name = path_img;
+		component->is_select = 0;
 		data->component = component;
 
 		strcat(strcat(strcat(strcpy(buffer,get_option(data->option,"component_img_path")),"/"),path_img),".png");

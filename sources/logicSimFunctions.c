@@ -36,7 +36,7 @@ void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
             add_component(data, data->imgPath, mouse_click->x, mouse_click->y);
       }
     }else{
-      
+      select_component(data, mouse_click->x, mouse_click->y);
     }
     if (!is_on_another_comp)
         data->imgPath = NULL;

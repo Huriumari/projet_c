@@ -10,9 +10,16 @@ SRC = 	$(PATH_SRC)main.c \
 		$(PATH_SRC)logicSimFunctions.c \
 		$(PATH_SRC)component.c \
 		$(PATH_SRC)logiSimFileFunction.c \
-		$(PATH_SRC)component_parts.c
-OBJ = main.o interface.o gtkLoader.o logicSimFunctions.o component.o logiSimFileFunction.o component_parts.o
-
+		$(PATH_SRC)component_parts.c \
+		$(PATH_SRC)select.c
+OBJ = 	main.o \
+		interface.o \
+		gtkLoader.o \
+		logicSimFunctions.o \
+		component.o \
+		logiSimFileFunction.o \
+		component_parts.o \
+		select.o
 
 all: $(NAME)
 
