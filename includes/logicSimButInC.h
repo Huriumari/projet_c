@@ -62,7 +62,7 @@ char		***create_option(char *key, char *data);
 char		***add_option(char ***option, char *key, char *data);
 char		***read_option_file(void);
 
-part_t		*gimme_parts(char *component_name, int *n, double mouse_x, double mouse_y);
+part_t		*gimme_parts(char *component_name, char *n, double mouse_x, double mouse_y);
 void		select_component(data_t *data, double x, double y);
 
 #endif
