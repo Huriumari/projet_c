@@ -26,7 +26,7 @@ typedef struct	component_s{
 	char				*name;
 	pos_t				pos;
 	struct component_s 	*next;
-	int					number_parts;
+	char				number_parts;
 	char				is_select;
 	part_t				*parts;
 }				component_t;
@@ -52,7 +52,7 @@ void		mousePos(GtkWidget * mouse, GdkEvent *event, gpointer data);
 void		isClicked(GtkWidget * comp, gpointer data);
 void		dragComponents(GtkWidget* comp, gpointer data);
 
-size_t		new_component_id(void);
+size_t		new_component_id(size_t c);
 void		add_component(data_t *data, char *path_img, double x, double y);
 int			remove_component(data_t *data, double mouse_x, double mouse_y);
 
