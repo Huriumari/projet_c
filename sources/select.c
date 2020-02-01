@@ -21,11 +21,28 @@ void	select_component(data_t *data, double x, double y){
 
 	component = data->component;
 	while (component != NULL){
-		if (is_above_component(component, x, y))
+		if (is_above_component(component, x, y)){
 			component->is_select = 1;
-			else
-				if (component->is_select)
-					component->is_select = 0;
+			select_visual(data, component, x, y);
+		}
+		else
+			if (component->is_select)
+				component->is_select = 0;
 	component = component->next;
 	}
+}
+
+void select_visual(data_t *data, component_t * component, double x, double y){
+	
+	GtkWidget *frame;
+	GdkPixbuf 	*pb;
+
+	pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
+	
+	frame = gtk_frame_new(NULL);
+	remove_component(data, x, y);
+	gtk_container_add(GTK_CONTAINER(frame), component->img);
+	gtk_layout_put(GTK_LAYOUT(data->workingLayout), frame, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
+	gtk_widget_show_all(data->workingLayout);
+
 }
