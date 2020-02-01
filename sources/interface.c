@@ -161,8 +161,9 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 	GtkWidget	*compOR;
 	GtkWidget	*compNOR;
 	GtkWidget	*compXOR;
-	GtkWidget* compInputOFF;
-	GtkWidget* compOutputOFF;
+	GtkWidget	*compLINK;
+	GtkWidget	*compInputOFF;
+	GtkWidget	*compOutputOFF;
 	GtkWidget	*sep;
 	char		*ptr;
 	char		buffer[255];
@@ -219,6 +220,12 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 	gtk_widget_set_name(compXOR, "compXOR");
 	gtk_size_group_add_widget(sizeGroup, compXOR);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compXOR, 0, 300);
+
+	strcat(strcpy(buffer, ptr),"/LINK.png");
+	compLINK = componentsButton(buffer);
+	gtk_widget_set_name(compLINK, "compLINK");
+	gtk_size_group_add_widget(sizeGroup, compLINK);
+	gtk_layout_put(GTK_LAYOUT(componentsLayout), compLINK, 0, 300);
 
 	sep = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), sep, 0, 350);
