@@ -23,12 +23,18 @@ void	select_component(data_t *data, double x, double y){
 	while (component != NULL){
 		if (is_above_component(component, x, y)){
 			component->is_select = 1;
+			g_object_ref(component->img);
+			gtk_container_remove(GTK_CONTAINER(data->workingLayout), component->img);
 			select_visual(data, component, x, y);
+
 		}
 		else
 			if (component->is_select){
 				component->is_select = 0;
-				deselect_visual(data, component, x, y);
+				g_object_ref(component->img);
+				gtk_container_remove(GTK_CONTAINER(component->frame), component->img);
+				gtk_widget_destroy(component->frame);
+				unselect_visual(data, component, x, y);
 			}
 	component = component->next;
 	}
@@ -41,9 +47,9 @@ void select_visual(data_t *data, component_t *component, double x, double y){
 
 	pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
 	
+	remove_component(data, x, y);
 	frame = gtk_frame_new(NULL);
 	component->frame = frame;
-	remove_component(data, x, y);
 	gtk_container_add(GTK_CONTAINER(frame), component->img);
 	g_object_unref(component->img);
 	gtk_layout_put(GTK_LAYOUT(data->workingLayout), frame, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
@@ -51,7 +57,7 @@ void select_visual(data_t *data, component_t *component, double x, double y){
 
 }
 
-void deselect_visual(data_t *data, component_t *component, double x, double y){
+void unselect_visual(data_t *data, component_t *component, double x, double y){
 
 	GdkPixbuf 	*pb;
 
