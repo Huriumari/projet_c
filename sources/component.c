@@ -60,7 +60,19 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 				if (prev->next == NULL)
 					return 0;
 			}
-			delete_component_widget(data,component);
+			if(component->is_select){
+				 g_object_ref(component->img);
+				gtk_container_remove(GTK_CONTAINER(data->workingLayout), component->img);
+			}
+			else if(component->is_select == 0){
+				printf("ok");
+				g_object_ref(component->img);
+				gtk_container_remove(GTK_CONTAINER(component->frame), component->img);
+				gtk_widget_destroy(component->frame);
+			}
+
+			else
+				delete_component_widget(data,component);
 			return 1;
 		}
 		component = component->next;
