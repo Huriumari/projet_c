@@ -65,8 +65,8 @@ char		***read_option_file(void);
 
 part_t		*gimme_parts(char *component_name, int *n, double mouse_x, double mouse_y);
 void		select_component(data_t *data, double x, double y);
-void		select_visual(data_t *data, component_t *component, double x, double y);
-void		unselect_visual(data_t *data, component_t *component, double x, double y);
+void		select_visual(data_t *data, component_t *component);
+void		unselect_visual(data_t *data, component_t *component);
 
 #endif
 
