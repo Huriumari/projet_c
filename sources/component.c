@@ -60,6 +60,7 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 				if (prev->next == NULL)
 					return 0;
 			}
+			
 			delete_component_widget(data,component);
 			return 1;
 		}
