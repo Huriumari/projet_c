@@ -18,6 +18,7 @@ int main(int argc,char **argv)
 	data = g_malloc(sizeof(data_t));
 	data->imgPath = NULL;
 	data->component = NULL;
+	data->filename = NULL;
     
 	data->option = read_option_file();
 	if (data->option == NULL){
@@ -28,7 +29,7 @@ int main(int argc,char **argv)
 	
 	vBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
 	gtk_container_add(GTK_CONTAINER(window), vBox);
-	menubar(window, vBox);
+	menubar(window, vBox, data);
 
 	toolbar(vBox, data);
 

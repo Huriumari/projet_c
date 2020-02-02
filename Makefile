@@ -11,7 +11,8 @@ SRC = 	$(PATH_SRC)main.c \
 		$(PATH_SRC)component.c \
 		$(PATH_SRC)logiSimFileFunction.c \
 		$(PATH_SRC)component_parts.c \
-		$(PATH_SRC)select.c
+		$(PATH_SRC)select.c \
+		$(PATH_SRC)dialogWindow.c
 OBJ = 	main.o \
 		interface.o \
 		gtkLoader.o \
@@ -19,7 +20,8 @@ OBJ = 	main.o \
 		component.o \
 		logiSimFileFunction.o \
 		component_parts.o \
-		select.o
+		select.o \
+		dialogWindow.c
 
 all: $(NAME)
 

@@ -37,13 +37,14 @@ typedef struct	data_s{
 	GtkWidget	*workingLayout;
 	component_t	*component;
 	char		***option;
+	char		*filename;
 }				data_t;
 
 
 GtkWidget	*componentsButton(char *path);
 
 GtkWidget	*gtkWindow(int *argc, char ***argv);
-void		menubar(GtkWidget * window, GtkWidget * vBox);
+void		menubar(GtkWidget * window, GtkWidget * vBox, data_t *data);
 void		toolbar(GtkWidget * vBox, data_t *data);
 void		componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
 GtkWidget	*workingPart(GtkWidget * grid);
@@ -61,6 +62,10 @@ char		*get_option(char ***option, char *key);
 char		***create_option(char *key, char *data);
 char		***add_option(char ***option, char *key, char *data);
 char		***read_option_file(void);
+
+void		openDialogWindow(GtkWidget *widget, data_t *data);
+void		saveDialogWindow(GtkWidget *widget, data_t *data);
+void		saveAsDialogWindow(GtkWidget *widget, data_t *data);
 
 part_t		*gimme_parts(char *component_name, int *n, double mouse_x, double mouse_y);
 void		select_component(data_t *data, double x, double y);
