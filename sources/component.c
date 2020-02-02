@@ -63,6 +63,7 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 					return 0;
 			}
 			delete_component_widget(data,component);
+			free(component);
 			return 1;
 		}
 		component = component->next;

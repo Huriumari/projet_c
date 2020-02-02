@@ -20,7 +20,6 @@ char	*set_save_file_name(char *path){
 int		save(data_t *data, char *path){
 	FILE		*file;
 	component_t	*component;
-	int			i;
 
 	path = set_save_file_name(path);
 	file = fopen(path,"w+");
@@ -28,18 +27,11 @@ int		save(data_t *data, char *path){
 		return 0;
 	component = data->component;
 	while(component != NULL){
-		fprintf(file, "%lu:%s:%lf:%lf:%d",
+		fprintf(file, "%lu:%s:%lf:%lf\n",
 				component->id,
 				component->name,
 				component->pos.x,
-				component->pos.y,
-				(int)component->number_parts);
-		for (i = 0 ; i < (int)component->number_parts ; i++)
-			fprintf(file,":%lf:%lf:%c",
-				component->parts[i].pos.x,
-				component->parts[i].pos.y,
-				component->parts[i].type);
-		fprintf(file,"\n");
+				component->pos.y);
 		component = component->next;
 	}
 	fclose(file);
@@ -47,38 +39,43 @@ int		save(data_t *data, char *path){
 	return 1;
 }
 
+void	clear_component(data_t *data){
+	component_t		*component, *next;
+
+	component = data->component;
+	data->component = NULL;
+
+	while(component){
+		next = component->next;
+		gtk_widget_destroy(GTK_WIDGET(component->img));
+		free(component);
+		component = next;
+	}
+}
+
 int		load(data_t *data, char *path){
 	FILE		*file;
-	char		buffer[255];
-	component_t	*component, start = NULL;
+	component_t	*component;;
 	size_t		max_id = 0;
-	int			i;
 
 	file = fopen(path, "r");
 	if (file == NULL)
 		return 0;
-
+	component = malloc(sizeof(component));
+	if (component == NULL)
+		return 0;
+	clear_component(data);
 	while(!feof(file)){
-		component = malloc(sizeof(component));
-		if (component == NULL)
-			return 0;
-		fscanf(file, "%lu:%s:%lf:%lf:%d",
-				component->id,
+		fscanf(file, "%lu:%s:%lf:%lf\n",
+				&(component->id),
 				component->name,
-				component->pos.x,
-				component->pos.y,
-				(int)component->number_parts);
-		for (i = 0 ; i < (int)component->number_parts ; i++)
-			fscanf(file,":%lf:%lf:%c",
-				component->parts[i].pos.x,
-				component->parts[i].pos.y,
-				component->parts[i].type);
-		fgets(buffer, 255, file);
+				&(component->pos.x),
+				&(component->pos.y));
 		if (component->id > max_id)
 			max_id = component->id;
-		//creer composant
-		component->next = start;
-		start = component;
+		add_component(data, component->name, component->pos.x, component->pos.y);
 	}
-	//effacer ancienns listes
+	new_component_id(max_id);
+	free(component);
+	return 1;
 }
