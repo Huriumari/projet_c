@@ -3,6 +3,7 @@ PATH:
 module_path:./module
 shared_module_path:./sharedModule
 component_img_path:./img/components
+last_save_path:/home/esgi/Documents
 
 KEYBIND:
 
