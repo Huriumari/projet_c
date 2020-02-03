@@ -18,8 +18,11 @@ void openDialogWindow(GtkWidget *widget, data_t *data){
       GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
       filename = gtk_file_chooser_get_filename (chooser);
       data->filename = filename;
+      load(data, filename);
       //fonction à appeller pour open (avec la variable filename)
+      printf("pouet1\n");
       g_free (filename);
+      printf("pouet2\n");
     }
 
   gtk_widget_destroy (dialog);
@@ -53,6 +56,7 @@ void  saveDialogWindow(GtkWidget *widget, data_t *data){
 
       filename = gtk_file_chooser_get_filename (chooser);
       //fonction à appeller pour save avec le nom contenue dans "filename"
+      save(data,filename);
       g_free (filename);
     }
 
@@ -87,6 +91,7 @@ void  saveAsDialogWindow(GtkWidget *widget, data_t *data){
 
       filename = gtk_file_chooser_get_filename (chooser);
       //fonction à appeller pour saveAs avec le nom contenue dans "filename"
+      save(data, filename);
       g_free (filename);
     }
 

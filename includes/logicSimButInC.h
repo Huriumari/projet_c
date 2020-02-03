@@ -63,10 +63,12 @@ char		***create_option(char *key, char *data);
 char		***add_option(char ***option, char *key, char *data);
 char		***read_option_file(void);
 
-
 void		openDialogWindow(GtkWidget *widget, data_t *data);
 void		saveDialogWindow(GtkWidget *widget, data_t *data);
 void		saveAsDialogWindow(GtkWidget *widget, data_t *data);
+
+int			save(data_t *data, char *path);
+int			load(data_t *data, char *path);
 
 part_t		*gimme_parts(char *component_name, char *n, double mouse_x, double mouse_y);
 void		select_component(data_t *data, double x, double y);
