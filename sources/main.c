@@ -33,7 +33,7 @@ int main(int argc,char **argv)
 */
 	vBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
 	gtk_container_add(GTK_CONTAINER(window), vBox);
-	menubar(window, vBox);
+	menubar(window, vBox, data);
 
 	toolbar(vBox, data);
 

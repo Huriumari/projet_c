@@ -44,7 +44,7 @@ typedef struct	data_s{
 GtkWidget	*componentsButton(char *path);
 
 GtkWidget	*gtkWindow(int *argc, char ***argv);
-void		menubar(GtkWidget * window, GtkWidget * vBox);
+void		menubar(GtkWidget * window, GtkWidget * vBox, data_t * data);
 void		toolbar(GtkWidget * vBox, data_t *data);
 void		componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
 GtkWidget	*workingPart(GtkWidget * grid);
@@ -67,6 +67,10 @@ part_t		*gimme_parts(char *component_name, int *n, double mouse_x, double mouse_
 void		select_component(data_t *data, double x, double y);
 void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
+
+char		*key_shortcuts(char *option);
+guint		mask_shortcuts(char *option);
+guint		get_gdk_mask(char **array);
 
 #endif
 
