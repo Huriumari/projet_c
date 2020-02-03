@@ -16,7 +16,8 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 	component = malloc(sizeof(component_t));
 	if (component != NULL){
 		component->next = data->component;
-		component->name = path_img;
+		component->name = malloc(sizeof(char) * strlen(path_img));
+		strcpy(component->name, path_img);
 		component->is_select = 0;
 		data->component = component;
 
@@ -61,8 +62,10 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 					prev = prev->next;
 				if (prev->next == NULL)
 					return 0;
+				prev->next = prev->next->next;
 			}
 			delete_component_widget(data,component);
+			free(component->name);
 			free(component);
 			return 1;
 		}

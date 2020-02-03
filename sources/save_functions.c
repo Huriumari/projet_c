@@ -51,6 +51,7 @@ void	clear_component(data_t *data){
 		free(component);
 		component = next;
 	}
+	
 }
 
 void	print_component(component_t component){
@@ -71,23 +72,25 @@ int		load(data_t *data, char *path){
 	file = fopen(path, "r");
 	if (file == NULL)
 		return 0;
-	component = malloc(sizeof(component));
+	component = malloc(sizeof(component_t));
 	component->name = malloc(sizeof(char) * 20);
 	if (component == NULL)
 		return 0;
 	clear_component(data);
 	while(fgets(buffer,255,file),!feof(file)){
+		if (buffer[strlen(buffer) - 1] == '\n')
+			buffer[strlen(buffer) - 1] = '\0';
 		ptr = strrchr(buffer,':');
 		*ptr = '\0';
 		strcpy(component->name,ptr+1);
 
 		ptr = strrchr(buffer,':');
 		*ptr = '\0';
-		sscanf(ptr+1,"%lf",&(component->pos.x));
+		sscanf(ptr+1,"%lf",&(component->pos.y));
 
 		ptr = strrchr(buffer,':');
 		*ptr = '\0';
-		sscanf(ptr+1,"%lf",&(component->pos.y));
+		sscanf(ptr+1,"%lf",&(component->pos.x));
 
 		sscanf(buffer,"%lu",&(component->id));
 
@@ -98,10 +101,8 @@ int		load(data_t *data, char *path){
 		data->component->id = component->id;
 	}
 	new_component_id(max_id);
-	printf("pouet1\n");
 	free((component->name));
 	free(component);
 	fclose(file);
-	printf("pouet2\n");
 	return 1;
 }
