@@ -67,6 +67,7 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 			
 			delete_component_widget(data,component);
 			free(component->name);
+			free(component->parts);
 			free(component);
 			return 1;
 		}

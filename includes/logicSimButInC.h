@@ -32,6 +32,19 @@ typedef struct	component_s{
 	part_t				*parts;
 }				component_t;
 
+typedef struct	component_data_s{
+	char					*name;
+	pos_t					pos;
+	size_t					id;
+	struct component_data_s	*next;
+}				component_data_t;
+
+typedef	struct	action_s{
+	char				action[6];
+	component_data_t	*component;
+	struct action_s		*next;
+}				action_t;
+
 typedef struct	data_s{
 	GtkWidget	*window;
 	char		*imgPath;

@@ -13,7 +13,8 @@ SRC = 	$(PATH_SRC)main.c \
 		$(PATH_SRC)component_parts.c \
 		$(PATH_SRC)select.c \
 		$(PATH_SRC)dialogWindow.c \
-		$(PATH_SRC)save_functions.c
+		$(PATH_SRC)save_functions.c \
+		$(PATH_SRC)function_undo.c
 
 OBJ = 	main.o \
 		interface.o \
@@ -24,7 +25,8 @@ OBJ = 	main.o \
 		component_parts.o \
 		select.o \
 		dialogWindow.o \
-		save_functions.o
+		save_functions.o \
+		function_undo.o
 
 
 all: $(NAME)

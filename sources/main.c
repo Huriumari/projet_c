@@ -20,6 +20,7 @@ int main(int argc,char **argv)
 	data->imgPath = NULL;
 	data->component = NULL;
 	data->filename = NULL;
+	data->action = NULL;
     
 	data->option = read_option_file();
 	if (data->option == NULL){
