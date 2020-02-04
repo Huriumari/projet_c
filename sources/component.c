@@ -1,8 +1,10 @@
 #include "logicSimButInC.h"
 
-size_t	new_component_id(){
+size_t	new_component_id(size_t c){
 	static size_t id = 0;
 
+	if (c)
+		id = c + 1;
 	return id++;
 }
 
@@ -14,7 +16,8 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 	component = malloc(sizeof(component_t));
 	if (component != NULL){
 		component->next = data->component;
-		component->name = path_img;
+		component->name = malloc(sizeof(char) * strlen(path_img));
+		strcpy(component->name, path_img);
 		component->is_select = 0;
 		data->component = component;
 
@@ -24,7 +27,7 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 		pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
 		component->pos.x = x;
 		component->pos.y = y;
-		component->id = new_component_id();
+		component->id = new_component_id(0);
 		component->parts = gimme_parts(component->name, &(component->number_parts), x, y);
 		gtk_layout_put(GTK_LAYOUT(data->workingLayout), component->img, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
 		gtk_widget_show_all(data->workingLayout);
@@ -59,9 +62,12 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 					prev = prev->next;
 				if (prev->next == NULL)
 					return 0;
+				prev->next = prev->next->next;
 			}
 			
 			delete_component_widget(data,component);
+			free(component->name);
+			free(component);
 			return 1;
 		}
 		component = component->next;

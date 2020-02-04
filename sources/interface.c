@@ -20,7 +20,7 @@ GtkWidget * gtkWindow(int *argc, char ***argv){
 
 
 //create the menubar and the keyboards shortcuts
-void menubar(GtkWidget * window, GtkWidget * vBox){
+void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	
 	GtkWidget 	*menubar;
 	GtkWidget 	*fileMenu;
@@ -87,6 +87,9 @@ void menubar(GtkWidget * window, GtkWidget * vBox){
     gtk_box_pack_start(GTK_BOX(vBox), menubar, FALSE, FALSE, 0);
 
 	g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(gtk_main_quit), NULL);
+	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(openDialogWindow), data);
+	g_signal_connect(G_OBJECT(save), "activate", G_CALLBACK(saveDialogWindow), data);
+	g_signal_connect(G_OBJECT(saveAs), "activate", G_CALLBACK(saveAsDialogWindow), data);
 
 }
 
@@ -147,7 +150,9 @@ void toolbar(GtkWidget * vBox, data_t *data){
 	gtk_box_pack_start(GTK_BOX(vBox), toolbar, FALSE, FALSE, 5);
 
 	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(isClicked), data);	
-	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(dragComponents), data);	
+	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(dragComponents), data);
+	g_signal_connect(G_OBJECT(openTb), "clicked", G_CALLBACK(openDialogWindow), data);
+	g_signal_connect(G_OBJECT(saveTb), "clicked", G_CALLBACK(saveDialogWindow), data);
 
 }
 

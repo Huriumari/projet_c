@@ -16,7 +16,7 @@ part_t		*get_BASIC_parts(double mouse_x, double mouse_y){
 	return parts;	
 }
 
-part_t		*gimme_parts(char *component_name, int *n, double mouse_x, double mouse_y){
+part_t		*gimme_parts(char *component_name, char *n, double mouse_x, double mouse_y){
 	if (!strcmp(component_name,"AND")
 	||	!strcmp(component_name,"NAND")
 	||	!strcmp(component_name,"NOR")
