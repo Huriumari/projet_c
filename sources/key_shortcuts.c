@@ -23,7 +23,7 @@ guint mask_shortcuts(char *option){
 
     char  *ptr, *buffer;
     char  **result;
-    guint  key = 0;
+    guint  key;
     int i;
 
     buffer = malloc(sizeof(char) * strlen(option) + 1);
@@ -32,7 +32,7 @@ guint mask_shortcuts(char *option){
         if (*ptr == '+')
             i++;
            
-    result = malloc(sizeof(char*) * i + 2);
+    result = malloc(sizeof(char*) * (i + 2));
     result[i+1] = NULL;
 
     i = 0;
@@ -40,13 +40,11 @@ guint mask_shortcuts(char *option){
 
         *ptr = '\0';
         ptr++;
-        result[i] = malloc(sizeof(char) *strlen(ptr) + 1);
+        result[i] = malloc(sizeof(char) * (strlen(ptr) + 1));
         strcpy(result[i], ptr);
         i++;
 
     }
-    free(ptr);
-
     result[i] = malloc(strlen(buffer) + 1);
     buffer[strlen(buffer)] = '\0';
     strcpy(result[i], buffer);
@@ -67,7 +65,7 @@ guint mask_shortcuts(char *option){
 guint get_gdk_mask(char **array){
     
     int i = 0;
-    guint key;
+    guint key = 0;
 
     while(array[i] != NULL){
         i++;

@@ -1,7 +1,5 @@
 #include "logicSimButInC.h"
 
-extern data_t * data;
-
 GtkWidget * gtkWindow(int *argc, char ***argv){
 	
 	GtkWidget* window;
@@ -39,6 +37,8 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t * data){
 	GtkWidget 	*sep;
 
 	GtkAccelGroup* accel_group = NULL;
+	if (data == NULL)
+		printf("pouet\n");
 
 	menubar = gtk_menu_bar_new();
 	fileMenu = gtk_menu_new();
@@ -62,12 +62,13 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t * data){
 	export = gtk_menu_item_new_with_mnemonic("Export");
 	properties = gtk_menu_item_new_with_mnemonic("Properties");
     
+    
 	gtk_widget_add_accelerator(new, "activate", accel_group, GDK_KEY_n, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 	gtk_widget_add_accelerator(open, "activate", accel_group, GDK_KEY_o, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 	gtk_widget_add_accelerator(save, "activate", accel_group, GDK_KEY_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 	gtk_widget_add_accelerator(saveAs, "activate", accel_group, GDK_KEY_s, mask_shortcuts(get_option(data->option, "saveAs")), GTK_ACCEL_VISIBLE);
 	gtk_widget_add_accelerator(quit, "activate", accel_group, GDK_KEY_q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
+	
 	//key_shortcuts(get_option(data->option, "saveAs"));
 
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(file), fileMenu);
