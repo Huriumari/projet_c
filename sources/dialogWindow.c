@@ -55,7 +55,6 @@ void  saveDialogWindow(GtkWidget *widget, data_t *data){
       filename = gtk_file_chooser_get_filename (chooser);
       //fonction à appeller pour save avec le nom contenue dans "filename"
       save(data,filename);
-      printf("saveDialogWindowL60\n");
     }
 
   g_free (filename);
