@@ -41,7 +41,7 @@ typedef struct	component_data_s{
 
 typedef	struct	action_s{
 	char				action[6];
-	component_data_t	*component;
+	component_data_t	*component_data;
 	struct action_s		*next;
 }				action_t;
 
@@ -52,6 +52,7 @@ typedef struct	data_s{
 	component_t	*component;
 	char		***option;
 	char		*filename;
+	action_t	*action;
 }				data_t;
 
 
