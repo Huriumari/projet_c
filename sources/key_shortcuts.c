@@ -53,9 +53,10 @@ guint mask_shortcuts(char *option){
     free(buffer);
 
     key = get_gdk_mask(result);
-
+    i = 0;
     while(result[i] != NULL){
         free(result[i]);
+        i++;
     }
     free(result);
 
