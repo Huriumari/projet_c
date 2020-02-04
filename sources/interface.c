@@ -63,11 +63,11 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t * data){
 	properties = gtk_menu_item_new_with_mnemonic("Properties");
     
     
-	gtk_widget_add_accelerator(new, "activate", accel_group, GDK_KEY_n, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(open, "activate", accel_group, GDK_KEY_o, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(save, "activate", accel_group, GDK_KEY_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(saveAs, "activate", accel_group, GDK_KEY_s, mask_shortcuts(get_option(data->option, "saveAs")), GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(quit, "activate", accel_group, GDK_KEY_q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(new, "activate", accel_group, key_shortcuts(get_option(data->option, "new")), mask_shortcuts(get_option(data->option, "new")), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(open, "activate", accel_group, key_shortcuts(get_option(data->option, "open")), mask_shortcuts(get_option(data->option, "open")), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(save, "activate", accel_group, key_shortcuts(get_option(data->option, "save")), mask_shortcuts(get_option(data->option, "save")), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(saveAs, "activate", accel_group, key_shortcuts(get_option(data->option, "saveAs")), mask_shortcuts(get_option(data->option, "saveAs")), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(quit, "activate", accel_group, key_shortcuts(get_option(data->option, "quit")), mask_shortcuts(get_option(data->option, "quit")), GTK_ACCEL_VISIBLE);
 	
 	//key_shortcuts(get_option(data->option, "saveAs"));
 

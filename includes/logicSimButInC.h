@@ -68,7 +68,7 @@ void		select_component(data_t *data, double x, double y);
 void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
 
-char		*key_shortcuts(char *option);
+char		key_shortcuts(char *option);
 guint		mask_shortcuts(char *option);
 guint		get_gdk_mask(char **array);
 

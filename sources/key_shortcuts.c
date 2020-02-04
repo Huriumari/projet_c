@@ -2,18 +2,22 @@
 
 #define MAX_SIZE_GTK_KEY 9
 
-char *key_shortcuts(char *option){
+char key_shortcuts(char *option){
         
     char *string;
-    char *key;
+    char *result;
+    char key;
+
 
     string = strrchr(option, '+');
 
-    key = malloc(sizeof(char) * MAX_SIZE_GTK_KEY); 
-    sprintf(key, "GDK_KEY_%s", string + 1);
+    result = malloc(sizeof(char) * MAX_SIZE_GTK_KEY);
+    string[strlen(string)] = '\0'; 
+    strcpy(result, string + 1);
+    key = (char)*result;
+    free(result);
     
-    //printf("%s\n", key);
-
+    //printf("%d\n", key);
     return key;
 
 }
@@ -58,7 +62,7 @@ guint mask_shortcuts(char *option){
     }
     free(result);
 
-    printf("%u\n", key);
+    //printf("%u\n", key);
     return key;
 }
 
@@ -75,8 +79,7 @@ guint get_gdk_mask(char **array){
     
     while(i >= 1){
 
-        printf("%s\n", array[i]);
-        printf("ok\n");
+        //printf("%s\n", array[i]);
 
         if(strcmp(array[i], "shift") == 0)
             key += GDK_SHIFT_MASK;

@@ -6,7 +6,9 @@ component_img_path:./img/components
 
 KEYBIND:
 
+new:ctrl+n
 undo:ctrl+z
 save:ctrl+s
 saveAs:ctrl+shift+s
 open:ctrl+o
+quit:ctrl+q
