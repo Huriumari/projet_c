@@ -22,8 +22,9 @@ void openDialogWindow(GtkWidget *widget, data_t *data){
       load(data, filename);
       //fonction à appeller pour open (avec la variable filename)
       data->filename = NULL;
+      g_free (filename);
     }
-  g_free (filename);
+  
   gtk_widget_destroy (dialog);
 
 }
@@ -55,9 +56,9 @@ void  saveDialogWindow(GtkWidget *widget, data_t *data){
       filename = gtk_file_chooser_get_filename (chooser);
       //fonction à appeller pour save avec le nom contenue dans "filename"
       save(data,filename);
+      g_free (filename);
     }
-
-  g_free (filename);
+  
   gtk_widget_destroy (dialog);
 
 }
@@ -91,5 +92,7 @@ void  saveAsDialogWindow(GtkWidget *widget, data_t *data){
       save(data, filename);
       g_free (filename);
     }
+
   gtk_widget_destroy (dialog);
+
 }
