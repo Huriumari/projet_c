@@ -21,7 +21,7 @@ void	select_component(data_t *data, double x, double y){
 
 	component = data->component;
 	while (component != NULL){
-		if (is_above_component(component, x, y)){
+		if (is_above_component(component, x, y) && component->is_select != 1){
 			component->is_select = 1;
 			g_object_ref(component->img);
 			gtk_container_remove(GTK_CONTAINER(data->workingLayout), component->img);
