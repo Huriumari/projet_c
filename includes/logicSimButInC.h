@@ -71,6 +71,8 @@ void		unselect_visual(data_t *data, component_t *component);
 char		key_shortcuts(char *option);
 guint		mask_shortcuts(char *option);
 guint		get_gdk_mask(char **array);
+int			check_key_binding(int key, char *name);
+guint		check_mask(int mask, char *name);
 
 #endif
 

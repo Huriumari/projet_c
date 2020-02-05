@@ -63,11 +63,11 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t * data){
 	properties = gtk_menu_item_new_with_mnemonic("Properties");
     
     
-	gtk_widget_add_accelerator(new, "activate", accel_group, key_shortcuts(get_option(data->option, "new")), mask_shortcuts(get_option(data->option, "new")), GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(open, "activate", accel_group, key_shortcuts(get_option(data->option, "open")), mask_shortcuts(get_option(data->option, "open")), GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(save, "activate", accel_group, key_shortcuts(get_option(data->option, "save")), mask_shortcuts(get_option(data->option, "save")), GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(saveAs, "activate", accel_group, key_shortcuts(get_option(data->option, "saveAs")), mask_shortcuts(get_option(data->option, "saveAs")), GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(quit, "activate", accel_group, key_shortcuts(get_option(data->option, "quit")), mask_shortcuts(get_option(data->option, "quit")), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(new, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "new")), "new"), check_mask(mask_shortcuts(get_option(data->option, "new")),"new"), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(open, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "open")), "open"), check_mask(mask_shortcuts(get_option(data->option, "open")), "open"), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(save, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "save")),"save"), check_mask(mask_shortcuts(get_option(data->option, "save")), "save"), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(saveAs, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "saveAs")), "saveAs"), check_mask(mask_shortcuts(get_option(data->option, "saveAs")), "saveAs"), GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(quit, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "quit")), "quit"), check_mask(mask_shortcuts(get_option(data->option, "quit")), "quit"), GTK_ACCEL_VISIBLE);
 	
 	//key_shortcuts(get_option(data->option, "saveAs"));
 

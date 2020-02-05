@@ -11,15 +11,21 @@ char key_shortcuts(char *option){
 
     string = strrchr(option, '+');
 
+    if(!string){
+        return 0;
+    }
+
     result = malloc(sizeof(char) * MAX_SIZE_GTK_KEY);
-    string[strlen(string)] = '\0'; 
+    string[strlen(string)] = '\0';
     strcpy(result, string + 1);
     key = (char)*result;
-    free(result);
-    
+    free(result);    
+
+    if(key != 'a' && key != 'b' && key != 'c' && key != 'd' && key != 'e' && key != 'f' && key != 'g' && key != 'h' && key != 'i' && key != 'j' && key != 'k' && key != 'l' && key != 'm' && key != 'n' && key != 'o' && key != 'p' && key != 'q' && key != 'r' && key != 's' && key != 't' && key != 'u' && key != 'v' && key != 'w' && key != 'x' && key != 'y' && key != 'z')
+        return 0;
+
     //printf("%d\n", key);
     return key;
-
 }
 
 //SHIFT : 1, CTRL: 4, ALT: 8
@@ -35,7 +41,11 @@ guint mask_shortcuts(char *option){
     for (i = 0, ptr = buffer; *ptr ; ptr++)
         if (*ptr == '+')
             i++;
-           
+    if(!i){
+        free(buffer);
+        return '0';
+    }
+
     result = malloc(sizeof(char*) * (i + 2));
     result[i+1] = NULL;
 
@@ -87,10 +97,45 @@ guint get_gdk_mask(char **array){
             key += GDK_CONTROL_MASK;
         else if(strcmp(array[i], "alt") == 0)
             key += 8;
+        else
+            key = '0';
+        
 
         i--;
     }
 
     return key;
+
+}
+
+int check_key_binding(int key, char *name){
+    
+    if(strcmp(name, "new") == 0)
+        key == 0?key = 'n', printf("Incorrect key binding for : %s, Choose a key between a and z to bind correctly the shortcut\n", name):key;
+    if(strcmp(name, "open") == 0)
+        key == 0?key = 'o', printf("Incorrect key binding for : %s, Choose a key between a and z to bind correctly the shortcut\n", name):key;
+    if(strcmp(name, "save") == 0 || strcmp(name, "saveAs") == 0)
+        key == 0?key = 's', printf("Incorrect key binding for : %s, Choose a key between a and z to bind correctly the shortcut\n", name):key;
+    if(strcmp(name, "quit") == 0)
+        key == 0?key = 'q', printf("Incorrect key binding for : %s, Choose a key between a and z to bind correctly the shortcut\n", name):key;
+    
+    return key;
+
+}
+
+guint check_mask(int mask, char *name){
+    
+    if(strcmp(name, "new") == 0)
+        mask == '0'?mask = GDK_CONTROL_MASK, printf("Incorrect mask for key binding: %s, There is only three masks : SHIFT, CTRL, ALT\n", name):mask;
+    if(strcmp(name, "open") == 0)
+        mask == '0'?mask = GDK_CONTROL_MASK, printf("Incorrect mask for key binding: %s, There is only three masks : SHIFT, CTRL, ALT\n", name):mask;
+    if(strcmp(name, "save") == 0)
+        mask == '0'?mask = GDK_CONTROL_MASK, printf("Incorrect mask for key binding: %s, There is only three masks : SHIFT, CTRL, ALT\n", name):mask;
+    if(strcmp(name, "saveAs") == 0)
+        mask == '0'?mask = GDK_CONTROL_MASK + GDK_SHIFT_MASK, printf("Incorrect mask for key binding: %s, There is only three masks : SHIFT, CTRL, ALT\n", name):mask;
+    if(strcmp(name, "quit") == 0)
+        mask == '0'?mask = GDK_CONTROL_MASK, printf("Incorrect mask for key binding: %s, There is only three masks : SHIFT, CTRL, ALT\n", name):mask;
+
+    return mask;
 
 }
