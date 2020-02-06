@@ -292,6 +292,7 @@ GtkWidget * workingPart(GtkWidget * grid){
 	heightLayout = malloc(sizeof(guint));
 	gtk_container_add(GTK_CONTAINER(windowScrollWorking), workingLayout);
 	gtk_layout_get_size(GTK_LAYOUT(workingLayout), widthLayout, heightLayout);
+	gtk_widget_add_events(workingLayout, GDK_BUTTON_PRESS_MASK);
 
 	return workingLayout;
 

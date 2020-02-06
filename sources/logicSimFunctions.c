@@ -80,8 +80,6 @@ void dragComponents(GtkWidget* comp, gpointer gtk_data){
     workingLayout = data->workingLayout;
 
     //printf("%s\n", data->imgPath);
-
-    gtk_widget_add_events(workingLayout, GDK_BUTTON_PRESS_MASK);
     //g_signal_connect_after(G_OBJECT(workingLayout), "delete-event", G_CALLBACK(delete_event), NULL);
     g_signal_connect(G_OBJECT(workingLayout), "button-press-event", G_CALLBACK(mousePos), data);
 }
