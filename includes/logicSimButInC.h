@@ -76,5 +76,7 @@ void		select_component(data_t *data, double x, double y);
 void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
 
+gint		move_components(GtkWidget *widget, GdkEvent *event, gpointer gtk_data);
+
 #endif
 
