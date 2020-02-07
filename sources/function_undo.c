@@ -47,16 +47,21 @@ void	appli_action(data_t *data){
 	action_t			*action;
 	if (data->action != NULL){
 		action = data->action;
+		component_data = action->component_data;
 		if (!strcmp(action->name, "SUPPR")){
-			component_data = action->component_data;
 			while(component_data != NULL){
 				add_component(data, component_data->name, component_data->pos.x, component_data->pos.y);
 				component_data = component_data->next;
 			}
-			data->action = action->next;
-			remove_action(action);
-		}else(!strcmp(action->name, "ADD")){
+		}else if(!strcmp(action->name, "ADD")){
+			while (component_data != NULL){
+				remove_component(data, component_data->pos.x, component_data->pos.y);
+				component_data = component_data->next;
+			}			
+		}else if(!strcmp(action->name, "MOVE")){
 			
 		}
+		data->action = action->next;
+		remove_action(action);
 	}
 }
