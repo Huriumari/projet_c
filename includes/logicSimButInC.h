@@ -28,6 +28,7 @@ typedef struct	component_s{
 	struct component_s 	*next;
 	char				number_parts;
 	char				is_select;
+	GtkWidget			*frameEventBox;
 	GtkWidget			*frame;
 	part_t				*parts;
 }				component_t;
@@ -39,6 +40,7 @@ typedef struct	data_s{
 	component_t	*component;
 	char		***option;
 	char		*filename;
+	component_t *curComponent;
 }				data_t;
 
 
@@ -72,11 +74,13 @@ int			save(data_t *data, char *path);
 int			load(data_t *data, char *path);
 
 part_t		*gimme_parts(char *component_name, char *n, double mouse_x, double mouse_y);
+char		is_above_component(component_t *component, double mouse_x, double mouse_y);
 void		select_component(data_t *data, double x, double y);
 void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
 
-gint		move_components(GtkWidget *widget, GdkEvent *event, gpointer gtk_data);
+gboolean 	mouse_pressed(GtkWidget *widget, component_t *component);
+gboolean	mouse_move(GtkWidget *widget, GdkEventButton *event, data_t *data);
 
 #endif
 
