@@ -40,7 +40,6 @@ typedef struct	data_s{
 	component_t	*component;
 	char		***option;
 	char		*filename;
-	component_t *curComponent;
 }				data_t;
 
 
@@ -79,7 +78,7 @@ void		select_component(data_t *data, double x, double y);
 void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
 
-gboolean 	mouse_pressed(GtkWidget *widget, component_t *component);
+gboolean 	mouse_pressed(GtkWidget *widget, GdkEventButton *event, data_t *data);
 gboolean	mouse_move(GtkWidget *widget, GdkEventButton *event, data_t *data);
 
 #endif
