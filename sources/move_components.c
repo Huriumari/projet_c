@@ -76,9 +76,9 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
     &&  (y - y_img) > (- origin_coordinate_system_wp_y - y_img)
     &&  (y + y_img) < alloc.height*/){
         //printf("ok\n");
-        component = data->component;
-        component->pos.x = x;
-        component->pos.y = y;
+        
+        curComponent->pos.x = x;
+        curComponent->pos.y = y;
         gtk_layout_move(GTK_LAYOUT(data->workingLayout), curComponent->frameEventBox, x, y);
         gtk_widget_show_all(data->workingLayout);
     }
