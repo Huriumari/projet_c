@@ -32,6 +32,15 @@ typedef struct	component_s{
 	part_t				*parts;
 }				component_t;
 
+typedef	struct	link_s{
+	size_t	id;
+	size_t	id_i;
+	size_t	id_o;
+	pos_t	pos_i;
+	pos_t	pos_o;
+	struct link_s *next;
+}link_t;
+
 typedef struct	data_s{
 	GtkWidget	*window;
 	char		*imgPath;
@@ -39,6 +48,7 @@ typedef struct	data_s{
 	component_t	*component;
 	char		***option;
 	char		*filename;
+	link_t		*link;
 }				data_t;
 
 
@@ -75,6 +85,9 @@ part_t		*gimme_parts(char *component_name, char *n, double mouse_x, double mouse
 void		select_component(data_t *data, double x, double y);
 void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
+
+gboolean	start_event_link(GtkWidget *widget, gpointer gtk_data);
+void		link_coordinates(GtkWidget *widget, GdkEventButton *event, data_t *data);
 
 #endif
 

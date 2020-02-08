@@ -267,6 +267,8 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 
 	g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(dragComponents), data);
+
+	g_signal_connect(G_OBJECT(compLINK), "clicked", G_CALLBACK(start_event_link), data);
 }
 
 
