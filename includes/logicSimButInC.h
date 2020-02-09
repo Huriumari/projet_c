@@ -46,6 +46,7 @@ typedef struct	data_s{
 	GtkWidget	*window;
 	char		*imgPath;
 	GtkWidget	*workingLayout;
+	GtkWidget	*darea;
 	component_t	*component;
 	char		***option;
 	char		*filename;
@@ -59,10 +60,10 @@ GtkWidget	*gtkWindow(int *argc, char ***argv);
 void		menubar(GtkWidget * window, GtkWidget * vBox, data_t *data);
 void		toolbar(GtkWidget * vBox, data_t *data);
 void		componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
-GtkWidget	*workingPart(GtkWidget * grid);
+GtkWidget	*workingPart(GtkWidget * grid, data_t *data);
 
 void		mousePos(GtkWidget * mouse, GdkEvent *event, gpointer data);
-void		isClicked(GtkWidget * comp, gpointer data);
+gboolean		isClicked(GtkWidget * comp, gpointer data);
 void		dragComponents(GtkWidget* comp, gpointer data);
 
 size_t		new_component_id(size_t c);
@@ -88,9 +89,11 @@ void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
 
 gboolean	start_event_link(GtkWidget *widget, gpointer gtk_data);
-void		link_coordinates(GtkWidget *widget, GdkEventButton *event, data_t *data);
+void		link_coordinates(data_t *data, double x, double y);
 char		is_free_link(data_t * data, double x, double y);
 char		assign_link_parts(data_t *data, double x, double y);
+gboolean	on_draw_event(GtkWidget *widget, cairo_t *cr, link_t *link);
+void		visual_linking(cairo_t *cr, link_t *link);
 
 #endif
 

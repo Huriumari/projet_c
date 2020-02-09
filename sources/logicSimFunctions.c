@@ -16,8 +16,11 @@ void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
     //fprintf(stdout, "Mouse coordinates (%lf, %lf)\n", data->pos.x, data->pos.y);
     
     if(data->imgPath != NULL){
-      if(strcmp(data->imgPath, "delete") == 0){
+      if(strcmp(data->imgPath, "delete") == 0)
         remove_component(data, mouse_click->x, mouse_click->y);
+      else if(strcmp(data->imgPath, "LINK") == 0){
+        link_coordinates(data, mouse_click->x, mouse_click->y);
+        printf("ok\n");
       }
       else{
         component = data->component;
@@ -38,12 +41,12 @@ void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
     }else{
       select_component(data, mouse_click->x, mouse_click->y);
     }
-    if (!is_on_another_comp)
+    if (!is_on_another_comp && strcmp(data->imgPath, "LINK") != 0)
         data->imgPath = NULL;
 
 }
 
-void    isClicked(GtkWidget * comp, gpointer gtk_data){
+gboolean    isClicked(GtkWidget * comp, gpointer gtk_data){
 
   data_t * data = (data_t *)gtk_data;
     
@@ -62,6 +65,9 @@ void    isClicked(GtkWidget * comp, gpointer gtk_data){
   else if(strcmp(gtk_widget_get_name(comp), "compXOR") == 0)
 		data->imgPath = "XOR";
 
+else if(strcmp(gtk_widget_get_name(comp), "compLINK") == 0)
+		data->imgPath = "LINK";
+
   else if(strcmp(gtk_widget_get_name(comp), "compOUTPUT_OFF") == 0)
 		data->imgPath = "OUTPUT_OFF";
 
@@ -70,6 +76,8 @@ void    isClicked(GtkWidget * comp, gpointer gtk_data){
   
   else if(strcmp(gtk_widget_get_name(comp), "delete") == 0)
     data->imgPath = "delete";
+
+  return TRUE;
 
 }
 

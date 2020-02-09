@@ -262,22 +262,25 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
 
+	g_signal_connect(G_OBJECT(compLINK), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(compLINK), "clicked", G_CALLBACK(dragComponents), data);
+
 	g_signal_connect(G_OBJECT(compOutputOFF), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compOutputOFF), "clicked", G_CALLBACK(dragComponents), data);
 
 	g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(isClicked), data);
 	g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(dragComponents), data);
 
-	g_signal_connect(G_OBJECT(compLINK), "clicked", G_CALLBACK(start_event_link), data);
 }
 
 
-GtkWidget * workingPart(GtkWidget * grid){
+GtkWidget * workingPart(GtkWidget * grid, data_t *data){
 
 	GtkWidget* windowScrollWorking;
 	GtkWidget* workingLayout;
 	guint* widthLayout;
 	guint* heightLayout;
+	GtkWidget *darea;
 
 
 	windowScrollWorking = gtk_scrolled_window_new(NULL, NULL);
@@ -295,6 +298,10 @@ GtkWidget * workingPart(GtkWidget * grid){
 	gtk_container_add(GTK_CONTAINER(windowScrollWorking), workingLayout);
 	gtk_layout_get_size(GTK_LAYOUT(workingLayout), widthLayout, heightLayout);
 	gtk_widget_add_events(workingLayout, GDK_BUTTON_PRESS_MASK);
+
+	darea = gtk_drawing_area_new();
+	data->darea = darea;
+  	gtk_container_add(GTK_CONTAINER(workingLayout), darea);
 
 	return workingLayout;
 

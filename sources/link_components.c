@@ -1,6 +1,6 @@
 #include "logicSimButInC.h"
 
-gboolean start_event_link(GtkWidget *widget, gpointer gtk_data){
+/*gboolean start_event_link(GtkWidget *widget, gpointer gtk_data){
     data_t * data = (data_t *)gtk_data;
     GtkWidget *workingLayout;
 
@@ -11,39 +11,37 @@ gboolean start_event_link(GtkWidget *widget, gpointer gtk_data){
         data++;
     }
 
-    printf("ok\n");
     g_signal_connect(G_OBJECT(workingLayout), "button-press-event", G_CALLBACK(link_coordinates), data);
     return TRUE;
 
-}
+}*/
 
-void link_coordinates(GtkWidget *widget, GdkEventButton *event, data_t *data){
+void link_coordinates(data_t *data, double x, double y){
 
     static link_t *link;
-    static double keep_x, keep_y;
     static int clickCounter = 0;
-    
-    if(widget)
-        widget++;
 
     if(clickCounter == 0){
-            keep_x = event->x;
-            keep_y = event->y;
             link = malloc(sizeof(link_t));
             link->next = data->link;
 
-            if(is_free_link(data, event->x, event->y))
-                if(assign_link_parts(data, event->x, event->y))
+            link->pos_i.x = -1;
+            link->pos_o.x = -1;
+
+            if(is_free_link(data, x, y))
+                if(assign_link_parts(data, x, y))
                     clickCounter++;
     }
     else if(clickCounter == 1){
-            if(is_free_link(data, event->x, event->y))
-                if(event->x != keep_x && event->y != keep_y)
-                    if(assign_link_parts(data, event->x, event->y)){
-                        clickCounter = 0;
-                        link->id = new_component_id(0);
-                        data->link = link;
-                    }
+            if(is_free_link(data, x, y))
+                if(assign_link_parts(data, x, y)){
+                    clickCounter = 0;
+                    link->id = new_component_id(0);
+                    data->link = link;
+                    //printf("ok\n");
+                    data->imgPath = NULL;
+                    g_signal_connect(G_OBJECT(data->darea), "draw", G_CALLBACK(on_draw_event), NULL);
+                }
     }
 
 }
@@ -70,26 +68,51 @@ char assign_link_parts(data_t *data, double x, double y){
     
     component_t *component = data->component;
     link_t *link = data->link;
-    int i = 0;
+    int i;
+
 
     while(component != NULL){
+        i = 0;
         while(i < component->number_parts){
-            if(x == component->parts[i].pos.x && y == component->parts[i].pos.y){
-                if(component->parts[i].type == 'o'){
-                    link->pos_o.x = x;
-                    link->pos_o.y = y;
+            if((x >= component->parts[i].pos.x - 5. && x <= (component->parts[i].pos.x + 5.)) 
+            && (y >= component->parts[i].pos.y - 5. && y <= (component->parts[i].pos.y + 5.))){
+                if(component->parts[i].type == 'o' && link->pos_o.x == -1){
+                    link->pos_o.x = component->parts[i].pos.x;
+                    link->pos_o.y = component->parts[i].pos.y;
                     return 1;
                 }
-                else if(component->parts[i].type == 'i'){
-                    link->pos_i.x = x;
-                    link->pos_i.y = y;
+                else if(component->parts[i].type == 'i' && link->pos_i.x == -1){
+                    link->pos_i.x = component->parts[i].pos.x;
+                    link->pos_i.y = component->parts[i].pos.y;
                     return 1;
                 }
                 i++;
             }
         }
-        i = 0;
-        component = component->next;  
+        component = component->next;
     }
     return 0;
+}
+
+gboolean on_draw_event(GtkWidget *widget, cairo_t *cr, link_t *link){
+
+    if(widget)
+        widget++;
+  
+    visual_linking(cr, link);
+
+    return FALSE;
+
+}
+
+void visual_linking(cairo_t *cr, link_t *link){
+
+    cairo_set_source_rgb(cr, 0, 0, 0);
+    cairo_set_line_width(cr, 0.5);
+
+    cairo_move_to(cr, link->pos_i.x, link->pos_i.y);
+    cairo_line_to(cr, link->pos_o.x, link->pos_o.y);
+    
+    cairo_stroke(cr); 
+
 }
