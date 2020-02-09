@@ -1,9 +1,5 @@
 #include "logicSimButInC.h"
 
-//check if the component part is free
-//One output can have multiple links
-//One input can have only one link connected
-
 gboolean start_event_link(GtkWidget *widget, gpointer gtk_data){
     data_t * data = (data_t *)gtk_data;
     GtkWidget *workingLayout;
@@ -23,27 +19,77 @@ gboolean start_event_link(GtkWidget *widget, gpointer gtk_data){
 
 void link_coordinates(GtkWidget *widget, GdkEventButton *event, data_t *data){
 
-    static int clickCounter = 0;
     static link_t *link;
+    static double keep_x, keep_y;
+    static int clickCounter = 0;
     
     if(widget)
         widget++;
 
     if(clickCounter == 0){
-        link = malloc(sizeof(link_t));
-        link->next = data->link;
-        link->pos_i.x = event->x;
-        link->pos_i.y = event->y;
-        link->id = new_component_id(0);
-        link->id_i = new_component_id(0);
-        link->id_o = new_component_id(0);
-        data->link = link;
+            keep_x = event->x;
+            keep_y = event->y;
+            link = malloc(sizeof(link_t));
+            link->next = data->link;
+
+            if(is_free_link(data, event->x, event->y))
+                if(assign_link_parts(data, event->x, event->y))
+                    clickCounter++;
     }
     else if(clickCounter == 1){
-        link->pos_o.x = event->x;
-        link->pos_o.y = event->y;
-        clickCounter = 0;
+            if(is_free_link(data, event->x, event->y))
+                if(event->x != keep_x && event->y != keep_y)
+                    if(assign_link_parts(data, event->x, event->y)){
+                        clickCounter = 0;
+                        link->id = new_component_id(0);
+                        data->link = link;
+                    }
     }
 
-    clickCounter++;
+}
+
+char is_free_link(data_t * data, double x, double y){
+    
+    link_t *link = data->link;
+
+    while(link != NULL){
+        if(x == link->pos_o.x && y == link->pos_o.y){
+            return 0;
+        }
+        else if(x == link->pos_i.x && y == link->pos_i.y)
+            return 1;
+
+        link = link->next;
+
+    }
+
+    return 0;
+}
+
+char assign_link_parts(data_t *data, double x, double y){
+    
+    component_t *component = data->component;
+    link_t *link = data->link;
+    int i = 0;
+
+    while(component != NULL){
+        while(i < component->number_parts){
+            if(x == component->parts[i].pos.x && y == component->parts[i].pos.y){
+                if(component->parts[i].type == 'o'){
+                    link->pos_o.x = x;
+                    link->pos_o.y = y;
+                    return 1;
+                }
+                else if(component->parts[i].type == 'i'){
+                    link->pos_i.x = x;
+                    link->pos_i.y = y;
+                    return 1;
+                }
+                i++;
+            }
+        }
+        i = 0;
+        component = component->next;  
+    }
+    return 0;
 }

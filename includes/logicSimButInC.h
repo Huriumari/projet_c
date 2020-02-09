@@ -18,6 +18,7 @@ typedef struct	pos_s{
 typedef struct	part_s{
 	pos_t		pos;
 	char		type;
+	int			used;
 }				part_t;
 
 typedef struct	component_s{
@@ -88,6 +89,8 @@ void		unselect_visual(data_t *data, component_t *component);
 
 gboolean	start_event_link(GtkWidget *widget, gpointer gtk_data);
 void		link_coordinates(GtkWidget *widget, GdkEventButton *event, data_t *data);
+char		is_free_link(data_t * data, double x, double y);
+char		assign_link_parts(data_t *data, double x, double y);
 
 #endif
 
