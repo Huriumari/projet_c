@@ -2,7 +2,20 @@
 
 #define MAX_SIZE_GTK_KEY 9
 
-char key_shortcuts(char *option){
+void    create_shortcut(data_t *data, GtkAccelGroup *accel_group){
+
+    guint   mask, key, shortcut_used[5][2] = {0};
+
+    key = check_key_binding(key_shortcuts(get_option(data->option, "new")), "new");
+    mask = check_mask(mask_shortcuts(get_option(data->option, "new")),"new");
+    gtk_widget_add_accelerator(new, "activate", accel_group, key, mask, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(open, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "open")), "open"), check_mask(mask_shortcuts(get_option(data->option, "open")), "open"), GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(save, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "save")),"save"), check_mask(mask_shortcuts(get_option(data->option, "save")), "save"), GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(saveAs, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "saveAs")), "saveAs"), check_mask(mask_shortcuts(get_option(data->option, "saveAs")), "saveAs"), GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(quit, "activate", accel_group, check_key_binding(key_shortcuts(get_option(data->option, "quit")), "quit"), check_mask(mask_shortcuts(get_option(data->option, "quit")), "quit"), GTK_ACCEL_VISIBLE);
+}
+
+char    key_shortcuts(char *option){
         
     char *string;
     char *result;
@@ -21,15 +34,15 @@ char key_shortcuts(char *option){
     key = (char)*result;
     free(result);    
 
-    if(key != 'a' && key != 'b' && key != 'c' && key != 'd' && key != 'e' && key != 'f' && key != 'g' && key != 'h' && key != 'i' && key != 'j' && key != 'k' && key != 'l' && key != 'm' && key != 'n' && key != 'o' && key != 'p' && key != 'q' && key != 'r' && key != 's' && key != 't' && key != 'u' && key != 'v' && key != 'w' && key != 'x' && key != 'y' && key != 'z')
+    if(key < 'a' || key > 'z')
         return 0;
 
-    //printf("%d\n", key);
+    key += 
     return key;
 }
 
 //SHIFT : 1, CTRL: 4, ALT: 8
-guint mask_shortcuts(char *option){
+guint   mask_shortcuts(char *option){
 
     char  *ptr, *buffer;
     char  **result;
@@ -76,7 +89,7 @@ guint mask_shortcuts(char *option){
     return key;
 }
 
-guint get_gdk_mask(char **array){
+guint   get_gdk_mask(char **array){
     
     int i = 0;
     guint key = 0;
@@ -98,9 +111,7 @@ guint get_gdk_mask(char **array){
         else if(strcmp(array[i], "alt") == 0)
             key += 8;
         else
-            key = '0';
-        
-
+            return 0;
         i--;
     }
 
@@ -108,7 +119,7 @@ guint get_gdk_mask(char **array){
 
 }
 
-int check_key_binding(int key, char *name){
+int    check_key_binding(int key, char *name){
     
     if(strcmp(name, "new") == 0)
         key == 0?key = 'n', printf("Incorrect key binding for : %s, Choose a key between a and z to bind correctly the shortcut\n", name):key;
@@ -123,7 +134,7 @@ int check_key_binding(int key, char *name){
 
 }
 
-guint check_mask(int mask, char *name){
+guint   check_mask(int mask, char *name){
     
     if(strcmp(name, "new") == 0)
         mask == '0'?mask = GDK_CONTROL_MASK, printf("Incorrect mask for key binding: %s, There is only three masks : SHIFT, CTRL, ALT\n", name):mask;
