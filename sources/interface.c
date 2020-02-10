@@ -95,7 +95,7 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(openDialogWindow), data);
 	g_signal_connect(G_OBJECT(save), "activate", G_CALLBACK(saveDialogWindow), data);
 	g_signal_connect(G_OBJECT(saveAs), "activate", G_CALLBACK(saveAsDialogWindow), data);
-	g_signal_connect(G_OBJECT(delete), "activate", G_CALLBACK(remove_component), data);
+	g_signal_connect(G_OBJECT(delete), "activate", G_CALLBACK(delete_selected_components), data);
 
 	gtk_widget_add_accelerator(GTK_WIDGET(delete), "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
 
