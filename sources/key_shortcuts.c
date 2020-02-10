@@ -1,6 +1,6 @@
 #include "logicSimButInC.h"
 
-#define MAX_SIZE_GTK_KEY 9
+
 
 void    print_array(char **array){
     if (array == NULL){
@@ -43,13 +43,11 @@ char    **split_bind(char *bind){
 
     i = 0;
     while ((ptr = strrchr(buffer,'+')) != NULL){
-
         *ptr = '\0';
         ptr++;
         result[i] = malloc(sizeof(char) * (strlen(ptr) + 1));
         strcpy(result[i], ptr);
         i++;
-
     }
     result[i] = malloc(strlen(buffer) + 1);
     strcpy(result[i], buffer);
@@ -58,10 +56,12 @@ char    **split_bind(char *bind){
 }
 
 char    is_shotcut_used(guint mask, guint key){
-    static guint    shortcut_used[5][2] = {0};
+    static guint    shortcut_used[MAX_NB_SHORTCUT][2] = {0};
     int             i = 0;
 
-    while (shortcut_used[i] && i < 5){
+    if (key == 0)
+        return 1;
+    while (shortcut_used[i][1] && i < MAX_NB_SHORTCUT){
         if (shortcut_used[i][0] == mask && shortcut_used[i][1] == key)
             return 1;
         i++;
