@@ -7,6 +7,9 @@ last_save_path:/home/esgi/Documents
 
 KEYBIND:
 
-undo:crtl+z
-save:crtl+s
-open:crtl+o
+new:ctrl+n
+undo:ctrl+z
+save:ctrl+s
+saveAs:ctrl+shift+s
+open:ctrl+o
+quit:ctrl+q

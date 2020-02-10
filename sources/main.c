@@ -25,7 +25,6 @@ int main(int argc,char **argv)
 	if (data->option == NULL){
 		printf("Error: failed to open option.txt file,\n");
 	}
-
 	window = gtkWindow(&argc, &argv);
 	
 	/*cssProvider = gtk_css_provider_new();
