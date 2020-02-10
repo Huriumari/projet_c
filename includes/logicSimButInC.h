@@ -1,6 +1,9 @@
 #ifndef LOGICSIMBUTINC_H
 #define LOGICSIMBUTINC_H
 
+#define MAX_SIZE_GTK_KEY 9
+#define MAX_NB_SHORTCUT 10
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
