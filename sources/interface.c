@@ -150,7 +150,7 @@ void toolbar(GtkWidget * vBox, data_t *data){
 	gtk_box_pack_start(GTK_BOX(vBox), toolbar, FALSE, FALSE, 5);
 
 	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(isClicked), data);	
-	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(dragComponents), data);
 	g_signal_connect(G_OBJECT(openTb), "clicked", G_CALLBACK(openDialogWindow), data);
 	g_signal_connect(G_OBJECT(saveTb), "clicked", G_CALLBACK(saveDialogWindow), data);
 
@@ -248,28 +248,30 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 	gtk_layout_put(GTK_LAYOUT(componentsLayout), compInputOFF, 0, 475);
 
 	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(isClicked), data);
-	g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(compAND), "clicked", G_CALLBACK(dragComponents), data);
 	
 	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(isClicked), data);
-	g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(compNAND), "clicked", G_CALLBACK(dragComponents), data);
 
 	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(isClicked), data);
-	g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(compOR), "clicked", G_CALLBACK(dragComponents), data);
 	
 	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(isClicked), data);
-	g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(compNOR), "clicked", G_CALLBACK(dragComponents), data);
 
 	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(isClicked), data);
-	g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(compXOR), "clicked", G_CALLBACK(dragComponents), data);
 
 	g_signal_connect(G_OBJECT(compLINK), "clicked", G_CALLBACK(isClicked), data);
-	g_signal_connect(G_OBJECT(compLINK), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(compLINK), "clicked", G_CALLBACK(dragComponents), data);
 
 	g_signal_connect(G_OBJECT(compOutputOFF), "clicked", G_CALLBACK(isClicked), data);
-	g_signal_connect(G_OBJECT(compOutputOFF), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(compOutputOFF), "clicked", G_CALLBACK(dragComponents), data);
 
 	g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(isClicked), data);
-	g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(dragComponents), data);
+	//g_signal_connect(G_OBJECT(compInputOFF), "clicked", G_CALLBACK(dragComponents), data);
+
+	g_signal_connect(G_OBJECT(workingLayout), "button-press-event", G_CALLBACK(mousePos), data);
 
 }
 
