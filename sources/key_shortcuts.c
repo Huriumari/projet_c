@@ -59,6 +59,8 @@ char    is_shotcut_used(guint mask, guint key){
     static guint    shortcut_used[MAX_NB_SHORTCUT][2] = {0};
     int             i = 0;
 
+    if (key == 0)
+        return 1;
     while (shortcut_used[i][1] && i < MAX_NB_SHORTCUT){
         if (shortcut_used[i][0] == mask && shortcut_used[i][1] == key)
             return 1;
