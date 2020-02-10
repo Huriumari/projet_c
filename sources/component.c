@@ -45,14 +45,17 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 	GdkPixbuf 	*pb;
 	double		x,y;
 
+
 	while (component != NULL){
+		printf("ok\n");
 		pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
 		x = gdk_pixbuf_get_width(pb);
 		y = gdk_pixbuf_get_height(pb);
-		if (mouse_x > component->pos.x - (double)(x/2)
+		if ((mouse_x > component->pos.x - (double)(x/2)
 		&&	mouse_x < component->pos.x + (double)(x/2)
 		&&	mouse_y > component->pos.y - (double)(y/2)
-		&&	mouse_y < component->pos.y + (double)(y/2)){
+		&&	mouse_y < component->pos.y + (double)(y/2))
+		|| component->is_select){
 			if (component == data->component){
 				prev = component;
 				data->component = data->component->next;
