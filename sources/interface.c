@@ -64,7 +64,11 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t * data){
     
     
 	
-	create_shortcut(data, accel_group);
+	create_shortcut(data, accel_group, new, "new");
+	create_shortcut(data, accel_group, open, "open");
+	create_shortcut(data, accel_group, save, "save");
+	create_shortcut(data, accel_group, saveAs, "saveAs");
+	create_shortcut(data, accel_group, quit, "quit");
 
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(file), fileMenu);
   	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), new);
