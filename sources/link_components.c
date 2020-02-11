@@ -16,29 +16,51 @@
 
 }*/
 
+void    print_parts(data_t  *data){
+    component_t     *component = data->component;
+    int             i;
+
+
+    printf("////////////////////////////////\n");
+    printf("///       PRINT PARTS        ///\n");
+    printf("////////////////////////////////\n");
+    while (component != NULL){
+        i = 0;
+        while (i < component->number_parts){
+            printf("x: %lf\ty:%lf\n", component->parts[i].pos.x, component->parts[i].pos.y);
+            i++;
+        }
+        component = component->next;
+    }
+}
+
 void link_coordinates(data_t *data, double x, double y){
 
-    static link_t *link;
+    static link_t *link =  NULL;
     static int clickCounter = 0;
 
+    print_parts(data);
+    printf("Position du clic:x: %lf\ty:%lf\n",x,y);
     if(clickCounter == 0){
-            link = malloc(sizeof(link_t));
-            link->next = data->link;
+            if (link == NULL){
+                link = malloc(sizeof(link_t));
+                printf("Create new link\n");
+                link->next = data->link;
 
-            link->pos_i.x = -1;
-            link->pos_o.x = -1;
+                link->pos_i.x = -1;
+                link->pos_o.x = -1;
+            }
 
             if(is_free_link(data, x, y))
-                if(assign_link_parts(data, x, y))
+                if(assign_link_parts(data, link, x, y))
                     clickCounter++;
-    }
-    else if(clickCounter == 1){
+    }else if(clickCounter == 1){
             if(is_free_link(data, x, y))
-                if(assign_link_parts(data, x, y)){
+                if(assign_link_parts(data, link, x, y)){
                     clickCounter = 0;
                     link->id = new_component_id(0);
                     data->link = link;
-                    //printf("ok\n");
+                    link = NULL;
                     data->imgPath = NULL;
                     g_signal_connect(G_OBJECT(data->darea), "draw", G_CALLBACK(on_draw_event), NULL);
                 }
@@ -58,16 +80,13 @@ char is_free_link(data_t * data, double x, double y){
             return 1;
 
         link = link->next;
-
     }
-
-    return 0;
+    return 1;
 }
 
-char assign_link_parts(data_t *data, double x, double y){
+char assign_link_parts(data_t *data, link_t *link, double x, double y){
     
     component_t *component = data->component;
-    link_t *link = data->link;
     int i;
 
 
@@ -77,17 +96,19 @@ char assign_link_parts(data_t *data, double x, double y){
             if((x >= component->parts[i].pos.x - 5. && x <= (component->parts[i].pos.x + 5.)) 
             && (y >= component->parts[i].pos.y - 5. && y <= (component->parts[i].pos.y + 5.))){
                 if(component->parts[i].type == 'o' && link->pos_o.x == -1){
+                    printf("Pos output are set\n");
                     link->pos_o.x = component->parts[i].pos.x;
                     link->pos_o.y = component->parts[i].pos.y;
                     return 1;
                 }
                 else if(component->parts[i].type == 'i' && link->pos_i.x == -1){
+                    printf("Pos input are set\n");
                     link->pos_i.x = component->parts[i].pos.x;
                     link->pos_i.y = component->parts[i].pos.y;
                     return 1;
                 }
-                i++;
             }
+            i++;
         }
         component = component->next;
     }
