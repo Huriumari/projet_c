@@ -39,8 +39,8 @@ void link_coordinates(data_t *data, double x, double y){
     static link_t *link =  NULL;
     static int clickCounter = 0;
 
-    print_parts(data);
-    printf("Position du clic:x: %lf\ty:%lf\n",x,y);
+//    print_parts(data);
+//    printf("Position du clic:x: %lf\ty:%lf\n",x,y);
     if(clickCounter == 0){
             if (link == NULL){
                 link = malloc(sizeof(link_t));
