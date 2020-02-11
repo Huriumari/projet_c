@@ -97,12 +97,14 @@ char    assign_link_parts(data_t *data, link_t *link, double x, double y){
             && (y >= component->parts[i].pos.y - 5. && y <= (component->parts[i].pos.y + 5.))){
                 if(component->parts[i].type == 'o' && link->pos_o.x == -1){
                     //printf("Pos output are set\n");
+                    link->id_o = component->id;
                     link->pos_o.x = component->parts[i].pos.x;
                     link->pos_o.y = component->parts[i].pos.y;
                     return 1;
                 }
                 else if(component->parts[i].type == 'i' && link->pos_i.x == -1){
                     //printf("Pos input are set\n");
+                    link->id_i = component->id;
                     link->pos_i.x = component->parts[i].pos.x;
                     link->pos_i.y = component->parts[i].pos.y;
                     return 1;
@@ -115,21 +117,43 @@ char    assign_link_parts(data_t *data, link_t *link, double x, double y){
     return 0;
 }
 
+void    create_img_from_link(link_t *link){
+    cairo_surface_t *drawing_area = cairo_image_surface_create (CAIRO_CONTENT_COLOR, fabs(link->pos_o.x - link->pos_i.x), fabs(link->pos_o.y - link->pos_i.y));
+    cairo_t *cr = cairo_create(drawing_area);
+
+    cairo_set_source_rgb(cr, 0, 0, 0);
+    cairo_set_line_width(cr, 0.5);
+
+    if (link->pos_i.y < link->pos_o.y){
+        if (link->pos_i.x < link->pos_o.x){
+            cairo_move_to(cr, 0, 0);
+            cairo_line_to(cr, link->pos_o.x - link->pos_i.x, link->pos_o.y - link->pos_i.y);
+        }else{
+            cairo_move_to(cr, link->pos_i.x - link->pos_o.x, 0);
+            cairo_line_to(cr, 0, link->pos_o.y - link->pos_i.y);
+        }
+    }else{
+        if (link->pos_i.x < link->pos_o.x){
+            cairo_move_to(cr, link->pos_o.x - link->pos_i.x, 0);
+            cairo_line_to(cr, 0, link->pos_i.y - link->pos_o.y);
+        }else{
+            cairo_move_to(cr, 0, 0);
+            cairo_line_to(cr, link->pos_i.x - link->pos_o.x, link->pos_i.y - link->pos_o.y);
+        }
+    }   
+    cairo_stroke(cr);
+    //link->img = gtk_image_new_from_surface(drawing_area);
+    cairo_surface_destroy(drawing_area);
+}
 
 void    visual_linking(data_t *data, link_t *link){
+    //double  x,y;
 
-    link->cr = cairo_create(data->drawing_area);
-
-    if (link->cr != NULL){
-        cairo_set_source_rgb(link->cr, 0, 0, 0);
-        cairo_set_line_width(link->cr, 0.5);
-
-        cairo_move_to(link->cr, link->pos_i.x, link->pos_i.y);
-        cairo_line_to(link->cr, link->pos_o.x, link->pos_o.y);
-        
-        cairo_paint(link->cr);
-        //cairo_destroy(cr);
-    }else{
-        printf("It failed my dude\n");
-    }
+    if (!data)
+        printf("pouet\n");
+    //y = link->pos_i.y < link->pos_o.y?link->pos_i.y:link->pos_o.y;
+    //x = link->pos_i.x < link->pos_o.x?link->pos_i.x:link->pos_o.x;
+    create_img_from_link(link);
+    //gtk_layout_put(GTK_LAYOUT(data->workingLayout), link->img, x, y);
+    //gtk_widget_show_all(data->workingLayout);
 }

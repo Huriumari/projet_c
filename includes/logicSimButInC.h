@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct	pos_s{
 	double x;
@@ -37,20 +38,19 @@ typedef struct	component_s{
 }				component_t;
 
 typedef	struct	link_s{
-	size_t	id;
-	size_t	id_i;
-	size_t	id_o;
-	pos_t	pos_i;
-	pos_t	pos_o;
-	cairo_t *cr;
-	struct link_s *next;
+	size_t			id;
+	size_t			id_i;
+	size_t			id_o;
+	pos_t			pos_i;
+	pos_t			pos_o;
+	GtkWidget		*img;
+	struct link_s	*next;
 }				link_t;
 
 typedef struct	data_s{
 	GtkWidget		*window;
 	char			*imgPath;
 	GtkWidget		*workingLayout;
-	cairo_surface_t	*drawing_area;
 	GtkWidget		*darea;
 	component_t		*component;
 	char			***option;
