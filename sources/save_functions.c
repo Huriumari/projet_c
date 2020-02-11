@@ -1,5 +1,16 @@
 #include "logicSimButInC.h"
 
+void	new_layout(data_t *data){
+	clear_component(data);
+	clear_link(data);
+}
+
+void	callback_new_layout(GtkWidget *widget, data_t *data){
+	if (widget)
+		widget++;
+	new_layout(data);
+}
+
 char	*set_save_file_name(char *path){
 	char	*str = strrchr(path, '.');
 	char	*result;
@@ -46,9 +57,7 @@ void	clear_component(data_t *data){
 
 	while(component != NULL){
 		next = component->next;
-		gtk_widget_destroy(GTK_WIDGET(component->img));
-		free(component->name);
-		free(component);
+		destroy_component(data, component);
 		component = next;
 	}
 	
@@ -76,7 +85,7 @@ int		load(data_t *data, char *path){
 	component->name = malloc(sizeof(char) * 20);
 	if (component == NULL)
 		return 0;
-	clear_component(data);
+	new_layout(data);
 	while(fgets(buffer,255,file),!feof(file)){
 		if (buffer[strlen(buffer) - 1] == '\n')
 			buffer[strlen(buffer) - 1] = '\0';
