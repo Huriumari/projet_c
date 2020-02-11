@@ -42,18 +42,20 @@ typedef	struct	link_s{
 	size_t	id_o;
 	pos_t	pos_i;
 	pos_t	pos_o;
+	cairo_t *cr;
 	struct link_s *next;
 }				link_t;
 
 typedef struct	data_s{
-	GtkWidget	*window;
-	char		*imgPath;
-	GtkWidget	*workingLayout;
-	GtkWidget	*darea;
-	component_t	*component;
-	char		***option;
-	char		*filename;
-	link_t		*link;
+	GtkWidget		*window;
+	char			*imgPath;
+	GtkWidget		*workingLayout;
+	cairo_surface_t	*drawing_area;
+	GtkWidget		*darea;
+	component_t		*component;
+	char			***option;
+	char			*filename;
+	link_t			*link;
 }				data_t;
 
 
@@ -108,7 +110,7 @@ void		link_coordinates(data_t *data, double x, double y);
 char		is_free_link(data_t * data, double x, double y);
 char 		assign_link_parts(data_t *data, link_t *link, double x, double y);
 gboolean	on_draw_event(GtkWidget *widget, cairo_t *cr, link_t *link);
-void		visual_linking(cairo_t *cr, link_t *link);
+void		visual_linking(data_t *data, link_t *link);
 
 
 #endif
