@@ -52,7 +52,7 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
     x = (int)event->x_root - offsetx;
     y = (int)event->y_root - offsety;
 
-    printf("x : %d, y : %d\n", x, y);
+    //printf("x : %d, y : %d\n", x, y);
     
     while (!is_on_another_comp && component != NULL){
         pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
@@ -70,13 +70,7 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
         component = component->next;
     }
 
-    if(!(is_on_another_comp) && (x != curComponent->pos.x || y != curComponent->pos.y) 
-    /*&&  (x - x_img) > (- origin_coordinate_system_wp_x - x_img)
-    &&  (x + x_img) < alloc.width
-    &&  (y - y_img) > (- origin_coordinate_system_wp_y - y_img)
-    &&  (y + y_img) < alloc.height*/){
-        //printf("ok\n");
-        
+    if(!(is_on_another_comp) && (x != curComponent->pos.x || y != curComponent->pos.y)){
         curComponent->pos.x = x;
         curComponent->pos.y = y;
         gtk_layout_move(GTK_LAYOUT(data->workingLayout), curComponent->frameEventBox, x, y);
