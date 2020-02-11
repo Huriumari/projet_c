@@ -155,7 +155,8 @@ void toolbar(GtkWidget * vBox, data_t *data){
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), simuSpeedTb, -1);
 	gtk_box_pack_start(GTK_BOX(vBox), toolbar, FALSE, FALSE, 5);
 
-	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(isClicked), data);	
+	g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(isClicked), data);
+	g_signal_connect(G_OBJECT(newTb), "clicked", G_CALLBACK(callback_new_layout), data);	
 	//g_signal_connect(G_OBJECT(deleteTb), "clicked", G_CALLBACK(dragComponents), data);
 	g_signal_connect(G_OBJECT(openTb), "clicked", G_CALLBACK(openDialogWindow), data);
 	g_signal_connect(G_OBJECT(saveTb), "clicked", G_CALLBACK(saveDialogWindow), data);

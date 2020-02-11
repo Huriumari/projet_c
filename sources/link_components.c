@@ -16,6 +16,20 @@
 
 }*/
 
+void    destroy_link(link_t *link){
+    free(link);
+}
+
+void    clear_link(data_t *data){
+    link_t  *link;
+
+    while (data->link != NULL){
+        link = data->link->next;
+        destroy_link(data->link);
+        data->link = link;
+    }
+}
+
 void    print_parts(data_t  *data){
     component_t     *component = data->component;
     int             i;
