@@ -4,6 +4,7 @@ void		set_part(part_t *part, double x, double y, char type){
 	part->pos.x = x;
 	part->pos.y = y;
 	part->type = type;
+	part->used = 0;
 }
 
 part_t		*get_BASIC_parts(double mouse_x, double mouse_y){

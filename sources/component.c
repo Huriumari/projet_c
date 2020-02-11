@@ -16,7 +16,7 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 	component = malloc(sizeof(component_t));
 	if (component != NULL){
 		component->next = data->component;
-		component->name = malloc(sizeof(char) * strlen(path_img));
+		component->name = malloc(sizeof(char) * (strlen(path_img) + 1));
 		strcpy(component->name, path_img);
 		component->is_select = 0;
 		data->component = component;
@@ -36,6 +36,8 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 
 void	delete_component_widget(data_t * data, component_t *component){
 	gtk_widget_destroy(GTK_WIDGET(component->img));
+	if (component->is_select)
+		gtk_widget_destroy(component->frame);
 	gtk_widget_show_all(data->workingLayout);
 }
 
@@ -64,7 +66,6 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 					return 0;
 				prev->next = prev->next->next;
 			}
-			
 			delete_component_widget(data,component);
 			free(component->name);
 			free(component);

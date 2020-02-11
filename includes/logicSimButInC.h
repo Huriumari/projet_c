@@ -21,6 +21,7 @@ typedef struct	pos_s{
 typedef struct	part_s{
 	pos_t		pos;
 	char		type;
+	int			used;
 }				part_t;
 
 typedef struct	component_s{
@@ -35,13 +36,24 @@ typedef struct	component_s{
 	part_t				*parts;
 }				component_t;
 
+typedef	struct	link_s{
+	size_t	id;
+	size_t	id_i;
+	size_t	id_o;
+	pos_t	pos_i;
+	pos_t	pos_o;
+	struct link_s *next;
+}				link_t;
+
 typedef struct	data_s{
 	GtkWidget	*window;
 	char		*imgPath;
 	GtkWidget	*workingLayout;
+	GtkWidget	*darea;
 	component_t	*component;
 	char		***option;
 	char		*filename;
+	link_t		*link;
 }				data_t;
 
 
@@ -53,10 +65,10 @@ void		menubar(GtkWidget * window, GtkWidget * vBox, data_t *data);
 
 void		toolbar(GtkWidget * vBox, data_t *data);
 void		componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
-GtkWidget	*workingPart(GtkWidget * grid);
+GtkWidget	*workingPart(GtkWidget * grid, data_t *data);
 
 void		mousePos(GtkWidget * mouse, GdkEvent *event, gpointer data);
-void		isClicked(GtkWidget * comp, gpointer data);
+gboolean	isClicked(GtkWidget * comp, gpointer data);
 void		dragComponents(GtkWidget* comp, gpointer data);
 
 size_t		new_component_id(size_t c);
@@ -81,6 +93,7 @@ void		select_component(data_t *data, double x, double y);
 void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
 
+
 void    	free_split(char **bind);
 char    	**split_bind(char *bind);
 char    	is_shotcut_used(guint mask, guint key);
@@ -89,6 +102,14 @@ char    	key_shortcuts(char **option);
 guint   	get_gdk_mask(char **array);
 int    		check_key_binding(int key, char *name);
 guint   	check_mask(int mask, char *name);
+
+gboolean	start_event_link(GtkWidget *widget, gpointer gtk_data);
+void		link_coordinates(data_t *data, double x, double y);
+char		is_free_link(data_t * data, double x, double y);
+char 		assign_link_parts(data_t *data, link_t *link, double x, double y);
+gboolean	on_draw_event(GtkWidget *widget, cairo_t *cr, link_t *link);
+void		visual_linking(cairo_t *cr, link_t *link);
+
 
 #endif
 

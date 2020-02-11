@@ -20,6 +20,7 @@ int main(int argc,char **argv)
 	data->imgPath = NULL;
 	data->component = NULL;
 	data->filename = NULL;
+	data->link = NULL;
     
 	data->option = read_option_file();
 	if (data->option == NULL){
@@ -41,7 +42,7 @@ int main(int argc,char **argv)
 	gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
     gtk_box_pack_start(GTK_BOX(vBox), grid, TRUE, TRUE, 0);
 
-	workingLayout = workingPart(grid);
+	workingLayout = workingPart(grid, data);
 	componentsPart(data, grid, window, workingLayout);
 	
 
