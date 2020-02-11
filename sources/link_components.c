@@ -34,7 +34,7 @@ void    print_parts(data_t  *data){
     }
 }
 
-void link_coordinates(data_t *data, double x, double y){
+void    link_coordinates(data_t *data, double x, double y){
 
     static link_t *link =  NULL;
     static int clickCounter = 0;
@@ -44,7 +44,7 @@ void link_coordinates(data_t *data, double x, double y){
     if(clickCounter == 0){
             if (link == NULL){
                 link = malloc(sizeof(link_t));
-                printf("Create new link\n");
+                //printf("Create new link\n");
                 link->next = data->link;
 
                 link->pos_i.x = -1;
@@ -60,15 +60,15 @@ void link_coordinates(data_t *data, double x, double y){
                     clickCounter = 0;
                     link->id = new_component_id(0);
                     data->link = link;
-                    link = NULL;
                     data->imgPath = NULL;
-                    g_signal_connect(G_OBJECT(data->darea), "draw", G_CALLBACK(on_draw_event), NULL);
+                    visual_linking(data, link);
+                    link = NULL;
                 }
     }
 
 }
 
-char is_free_link(data_t * data, double x, double y){
+char    is_free_link(data_t * data, double x, double y){
     
     link_t *link = data->link;
 
@@ -84,7 +84,7 @@ char is_free_link(data_t * data, double x, double y){
     return 1;
 }
 
-char assign_link_parts(data_t *data, link_t *link, double x, double y){
+char    assign_link_parts(data_t *data, link_t *link, double x, double y){
     
     component_t *component = data->component;
     int i;
@@ -96,13 +96,13 @@ char assign_link_parts(data_t *data, link_t *link, double x, double y){
             if((x >= component->parts[i].pos.x - 5. && x <= (component->parts[i].pos.x + 5.)) 
             && (y >= component->parts[i].pos.y - 5. && y <= (component->parts[i].pos.y + 5.))){
                 if(component->parts[i].type == 'o' && link->pos_o.x == -1){
-                    printf("Pos output are set\n");
+                    //printf("Pos output are set\n");
                     link->pos_o.x = component->parts[i].pos.x;
                     link->pos_o.y = component->parts[i].pos.y;
                     return 1;
                 }
                 else if(component->parts[i].type == 'i' && link->pos_i.x == -1){
-                    printf("Pos input are set\n");
+                    //printf("Pos input are set\n");
                     link->pos_i.x = component->parts[i].pos.x;
                     link->pos_i.y = component->parts[i].pos.y;
                     return 1;
@@ -115,25 +115,21 @@ char assign_link_parts(data_t *data, link_t *link, double x, double y){
     return 0;
 }
 
-gboolean on_draw_event(GtkWidget *widget, cairo_t *cr, link_t *link){
 
-    if(widget)
-        widget++;
-  
-    visual_linking(cr, link);
+void    visual_linking(data_t *data, link_t *link){
 
-    return FALSE;
+    link->cr = cairo_create(data->drawing_area);
 
-}
+    if (link->cr != NULL){
+        cairo_set_source_rgb(link->cr, 0, 0, 0);
+        cairo_set_line_width(link->cr, 0.5);
 
-void visual_linking(cairo_t *cr, link_t *link){
-
-    cairo_set_source_rgb(cr, 0, 0, 0);
-    cairo_set_line_width(cr, 0.5);
-
-    cairo_move_to(cr, link->pos_i.x, link->pos_i.y);
-    cairo_line_to(cr, link->pos_o.x, link->pos_o.y);
-    
-    cairo_stroke(cr); 
-
+        cairo_move_to(link->cr, link->pos_i.x, link->pos_i.y);
+        cairo_line_to(link->cr, link->pos_o.x, link->pos_o.y);
+        
+        cairo_paint(link->cr);
+        //cairo_destroy(cr);
+    }else{
+        printf("It failed my dude\n");
+    }
 }

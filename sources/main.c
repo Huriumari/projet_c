@@ -44,6 +44,7 @@ int main(int argc,char **argv)
 
 	workingLayout = workingPart(grid, data);
 	componentsPart(data, grid, window, workingLayout);
+	data->drawing_area = gdk_window_create_similar_surface(gtk_widget_get_window (workingLayout), CAIRO_CONTENT_COLOR, gtk_widget_get_allocated_width (workingLayout), gtk_widget_get_allocated_height (workingLayout));
 	
 
 	//print_option(data->option);
