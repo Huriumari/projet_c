@@ -8,6 +8,19 @@ size_t	new_component_id(size_t c){
 	return id++;
 }
 
+void	delete_component_widget(data_t * data, component_t *component){
+	gtk_widget_destroy(GTK_WIDGET(component->img));
+	gtk_widget_show_all(data->workingLayout);
+}
+
+void	destroy_component(data_t *data, component_t *component){
+	delete_component_widget(data, component);
+	free(component->name);
+	if (component->parts != NULL)
+		free(component->parts);
+	free(component);
+}
+
 void	add_component(data_t *data, char *path_img, double x, double y){
 	component_t	*component;
 	GdkPixbuf 	*pb;
@@ -34,10 +47,6 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 	}
 }
 
-void	delete_component_widget(data_t * data, component_t *component){
-	gtk_widget_destroy(GTK_WIDGET(component->img));
-	gtk_widget_show_all(data->workingLayout);
-}
 
 int		remove_component(data_t *data, double mouse_x, double mouse_y){
 	component_t	*component = data->component;
@@ -65,10 +74,7 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 					return 0;
 				prev->next = prev->next->next;
 			}
-			
-			delete_component_widget(data,component);
-			free(component->name);
-			free(component);
+			destroy_component(data, component);
 			return 1;
 		}
 		component = component->next;
@@ -98,14 +104,10 @@ int	delete_selected_components(GtkWidget *widget, data_t *data){
 					return 0;
 				prev->next = prev->next->next;
 			}
-			
-			delete_component_widget(data,component);
-			free(component->name);
-			free(component);
+			destroy_component(data, component);
 			return 1;
 		}
 		component = component->next;
 	}
 	return 0;	
-
 }
