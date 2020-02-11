@@ -34,6 +34,7 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	GtkWidget 	*import;
 	GtkWidget 	*export;
 	GtkWidget 	*properties;
+	GtkWidget	*delete;
 	GtkWidget 	*sep;
 
 	GtkAccelGroup* accel_group = NULL;
@@ -61,7 +62,7 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	import = gtk_menu_item_new_with_mnemonic("Import");
 	export = gtk_menu_item_new_with_mnemonic("Export");
 	properties = gtk_menu_item_new_with_mnemonic("Properties");
-    
+	delete = gtk_menu_item_new();
     
 	
 	create_shortcut(data, accel_group, new, "new");
@@ -77,6 +78,8 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), saveAs);
   	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), sep);
   	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), quit);
+	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), delete);
+	
 
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(module), moduleMenu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(moduleMenu), create);
@@ -92,6 +95,9 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(openDialogWindow), data);
 	g_signal_connect(G_OBJECT(save), "activate", G_CALLBACK(saveDialogWindow), data);
 	g_signal_connect(G_OBJECT(saveAs), "activate", G_CALLBACK(saveAsDialogWindow), data);
+	g_signal_connect(G_OBJECT(delete), "activate", G_CALLBACK(delete_selected_components), data);
+
+	gtk_widget_add_accelerator(GTK_WIDGET(delete), "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
 
 }
 
@@ -109,9 +115,7 @@ void toolbar(GtkWidget * vBox, data_t *data){
 	GtkToolItem* stopTb;
 	GtkWidget* entryItem;
 	GtkToolItem* simuSpeedTb;
-
 	GtkToolItem* sepTool;
-	
 
 
 	toolbar = gtk_toolbar_new();

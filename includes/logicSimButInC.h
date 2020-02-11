@@ -76,6 +76,7 @@ void		dragComponents(GtkWidget* comp, gpointer data);
 size_t		new_component_id(size_t c);
 void		add_component(data_t *data, char *path_img, double x, double y);
 int			remove_component(data_t *data, double mouse_x, double mouse_y);
+int			delete_selected_components(GtkWidget *widget, data_t *data);
 
 void		print_option(char ***option);
 char		*get_option(char ***option, char *key);

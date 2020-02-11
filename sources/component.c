@@ -8,6 +8,21 @@ size_t	new_component_id(size_t c){
 	return id++;
 }
 
+void	delete_component_widget(data_t * data, component_t *component){
+	gtk_widget_destroy(GTK_WIDGET(component->img));
+	if (component->is_select)
+		gtk_widget_destroy(component->frame);
+	gtk_widget_show_all(data->workingLayout);
+}
+
+void	destroy_component(data_t *data, component_t *component){
+	delete_component_widget(data, component);
+	free(component->name);
+	if (component->parts != NULL)
+		free(component->parts);
+	free(component);
+}
+
 void	add_component(data_t *data, char *path_img, double x, double y){
 	component_t	*component;
 	GdkPixbuf 	*pb;
@@ -34,27 +49,21 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 	}
 }
 
-void	delete_component_widget(data_t * data, component_t *component){
-	gtk_widget_destroy(GTK_WIDGET(component->img));
-	if (component->is_select)
-		gtk_widget_destroy(component->frame);
-	gtk_widget_show_all(data->workingLayout);
-}
-
 int		remove_component(data_t *data, double mouse_x, double mouse_y){
 	component_t	*component = data->component;
 	component_t *prev;
 	GdkPixbuf 	*pb;
 	double		x,y;
 
+
 	while (component != NULL){
 		pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
 		x = gdk_pixbuf_get_width(pb);
 		y = gdk_pixbuf_get_height(pb);
-		if (mouse_x > component->pos.x - (double)(x/2)
+		if ((mouse_x > component->pos.x - (double)(x/2)
 		&&	mouse_x < component->pos.x + (double)(x/2)
 		&&	mouse_y > component->pos.y - (double)(y/2)
-		&&	mouse_y < component->pos.y + (double)(y/2)){
+		&&	mouse_y < component->pos.y + (double)(y/2))){
 			if (component == data->component){
 				prev = component;
 				data->component = data->component->next;
@@ -66,12 +75,40 @@ int		remove_component(data_t *data, double mouse_x, double mouse_y){
 					return 0;
 				prev->next = prev->next->next;
 			}
-			delete_component_widget(data,component);
-			free(component->name);
-			free(component);
+			destroy_component(data, component);
 			return 1;
 		}
 		component = component->next;
 	}
 	return 0;
+}
+
+int	delete_selected_components(GtkWidget *widget, data_t *data){
+
+	component_t	*component = data->component;
+	component_t *prev;
+
+	if(widget)
+		widget++;
+
+
+	while (component != NULL){
+		if (component->is_select){
+			if (component == data->component){
+				prev = component;
+				data->component = data->component->next;
+			}else{
+				prev = data->component;
+				while (prev->next != NULL && prev->next != component)
+					prev = prev->next;
+				if (prev->next == NULL)
+					return 0;
+				prev->next = prev->next->next;
+			}
+			destroy_component(data, component);
+			return 1;
+		}
+		component = component->next;
+	}
+	return 0;	
 }
