@@ -21,6 +21,7 @@ int main(int argc,char **argv)
 	data->component = NULL;
 	data->filename = NULL;
 	data->link = NULL;
+	data->action = NULL;
     
 	data->option = read_option_file();
 	if (data->option == NULL){

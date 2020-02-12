@@ -47,15 +47,28 @@ typedef	struct	link_s{
 	struct link_s	*next;
 }				link_t;
 
+typedef struct	component_data_s{
+	char					*name;
+	pos_t					pos;
+	size_t					id;
+	struct component_data_s	*next;
+}				component_data_t;
+
+typedef	struct	action_s{
+	char				action[8];
+	component_data_t	*component_data;
+	struct action_s		*next;
+}				action_t;
+
 typedef struct	data_s{
 	GtkWidget		*window;
 	char			*imgPath;
 	GtkWidget		*workingLayout;
-	GtkWidget		*darea;
 	component_t		*component;
 	char			***option;
 	char			*filename;
 	link_t			*link;
+	action_t		*action;
 }				data_t;
 
 

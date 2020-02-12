@@ -294,7 +294,6 @@ GtkWidget * workingPart(GtkWidget * grid, data_t *data){
 	GtkWidget* workingLayout;
 	guint* widthLayout;
 	guint* heightLayout;
-	GtkWidget *darea;
 
 
 	windowScrollWorking = gtk_scrolled_window_new(NULL, NULL);
@@ -304,6 +303,7 @@ GtkWidget * workingPart(GtkWidget * grid, data_t *data){
 	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 10, 1);	
 
 	workingLayout = gtk_layout_new(NULL, NULL);
+	data->workingLayout = workingLayout;
 	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);
 	//gtk_widget_set_hexpand(workingLayout, TRUE);
    	//gtk_widget_set_vexpand(workingLayout, TRUE);
@@ -313,9 +313,6 @@ GtkWidget * workingPart(GtkWidget * grid, data_t *data){
 	gtk_layout_get_size(GTK_LAYOUT(workingLayout), widthLayout, heightLayout);
 	gtk_widget_add_events(workingLayout, GDK_BUTTON_PRESS_MASK);
 
-	darea = gtk_drawing_area_new();
-	data->darea = darea;
-  	gtk_container_add(GTK_CONTAINER(workingLayout), darea);
 
 	return workingLayout;
 
