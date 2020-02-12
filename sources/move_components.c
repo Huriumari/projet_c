@@ -76,7 +76,10 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
     }
 
     if(!(is_on_another_comp) && (x != curComponent->pos.x || y != curComponent->pos.y)){
+<<<<<<< HEAD
         
+=======
+>>>>>>> 1a1da10dbb532c21fbc8968bd7397c75b8e8a337
         curComponent->pos.x = x;
         curComponent->pos.y = y;
         gtk_layout_move(GTK_LAYOUT(data->workingLayout), curComponent->frameEventBox, x, y);
