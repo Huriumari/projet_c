@@ -37,6 +37,7 @@ typedef struct	data_s{
 	GtkWidget	*window;
 	char		*imgPath;
 	GtkWidget	*workingLayout;
+	GtkWidget	*windowScrollWorking;
 	component_t	*component;
 	char		***option;
 	char		*filename;
@@ -49,7 +50,7 @@ GtkWidget	*gtkWindow(int *argc, char ***argv);
 void		menubar(GtkWidget * window, GtkWidget * vBox, data_t *data);
 void		toolbar(GtkWidget * vBox, data_t *data);
 void		componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidget * workingLayout);
-GtkWidget	*workingPart(GtkWidget * grid);
+GtkWidget	*workingPart(GtkWidget * grid, data_t *data);
 
 void		mousePos(GtkWidget * mouse, GdkEvent *event, gpointer data);
 void		isClicked(GtkWidget * comp, gpointer data);
@@ -79,7 +80,6 @@ void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
 
 gboolean 	mouse_pressed(GtkWidget *widget, GdkEventButton *event, data_t *data);
-gboolean 	mouse_scroll(GtkWidget *widget, GdkEventScroll *event);
 gboolean	mouse_move(GtkWidget *widget, GdkEventButton *event, data_t *data);
 
 #endif

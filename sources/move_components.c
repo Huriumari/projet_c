@@ -8,6 +8,10 @@ gboolean mouse_pressed(GtkWidget *frameEventBox, GdkEventButton *event, data_t *
     GdkWindow *gdk_window = gtk_widget_get_window(GTK_WIDGET(data->window));
     int origin_coordinate_system_wp_x, origin_coordinate_system_wp_y;
     GtkAllocation alloc;
+    int scrollx = (int)gtk_adjustment_get_value(gtk_scrolled_window_get_hadjustment(GTK_SCROLLED_WINDOW(data->windowScrollWorking)));
+    int scrolly = (int)gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(data->windowScrollWorking)));
+
+    printf("scrollx ; %d, scrolly : %d\n", scrollx, scrolly);
 
     if(frameEventBox)
         frameEventBox++;
@@ -24,23 +28,10 @@ gboolean mouse_pressed(GtkWidget *frameEventBox, GdkEventButton *event, data_t *
 
     gdk_window_get_position(gdk_window, &offsetx, &offsety);
 
-    offsetx += (int)event->x + origin_coordinate_system_wp_x;
-    offsety += (int)event->y + origin_coordinate_system_wp_y;
+    offsetx += (int)event->x + origin_coordinate_system_wp_x + scrollx;
+    offsety += (int)event->y + origin_coordinate_system_wp_y + scrolly;
 
     //printf("offsetx : %d, offsety : %d\n", offsetx, offsety);
-    return TRUE;
-}
-
-gboolean mouse_scroll(GtkWidget *widget, GdkEventScroll *event){
-    
-    if(widget)
-        widget++;
-
-    offsetx += (int)event->delta_x;
-    offsety += (int)event->delta_y;
-
-    printf("scrollx : %d, scrolly : %d\n", (int)event->delta_x, (int)event->delta_y);
-
     return TRUE;
 }
 
@@ -84,12 +75,7 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
         component = component->next;
     }
 
-    if(!(is_on_another_comp) && (x != curComponent->pos.x || y != curComponent->pos.y) 
-    /*&&  (x - x_img) > (- origin_coordinate_system_wp_x - x_img)
-    &&  (x + x_img) < alloc.width
-    &&  (y - y_img) > (- origin_coordinate_system_wp_y - y_img)
-    &&  (y + y_img) < alloc.height*/){
-        //printf("ok\n");
+    if(!(is_on_another_comp) && (x != curComponent->pos.x || y != curComponent->pos.y)){
         
         curComponent->pos.x = x;
         curComponent->pos.y = y;

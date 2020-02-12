@@ -40,7 +40,7 @@ int main(int argc,char **argv)
 	gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
     gtk_box_pack_start(GTK_BOX(vBox), grid, TRUE, TRUE, 0);
 
-	workingLayout = workingPart(grid);
+	workingLayout = workingPart(grid, data);
 	componentsPart(data, grid, window, workingLayout);
 
 	gtk_widget_show_all(window);

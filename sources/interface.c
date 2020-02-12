@@ -270,7 +270,7 @@ void componentsPart(data_t *data, GtkWidget * grid, GtkWidget * window, GtkWidge
 }
 
 
-GtkWidget * workingPart(GtkWidget * grid){
+GtkWidget * workingPart(GtkWidget * grid, data_t *data){
 
 	GtkWidget* windowScrollWorking;
 	GtkWidget* workingLayout;
@@ -282,7 +282,9 @@ GtkWidget * workingPart(GtkWidget * grid){
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
 	gtk_widget_set_hexpand(windowScrollWorking, TRUE);
 	gtk_widget_set_vexpand(windowScrollWorking, TRUE);
-	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 10, 1);	
+	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 10, 1);
+
+	data->windowScrollWorking = windowScrollWorking;
 
 	workingLayout = gtk_layout_new(NULL, NULL);
 	gtk_layout_set_size(GTK_LAYOUT(workingLayout), 2000, 2000);
