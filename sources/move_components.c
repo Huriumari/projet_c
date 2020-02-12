@@ -11,7 +11,7 @@ gboolean mouse_pressed(GtkWidget *frameEventBox, GdkEventButton *event, data_t *
     int scrollx = (int)gtk_adjustment_get_value(gtk_scrolled_window_get_hadjustment(GTK_SCROLLED_WINDOW(data->windowScrollWorking)));
     int scrolly = (int)gtk_adjustment_get_value(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(data->windowScrollWorking)));
 
-    printf("scrollx ; %d, scrolly : %d\n", scrollx, scrolly);
+    //printf("scrollx ; %d, scrolly : %d\n", scrollx, scrolly);
 
     if(frameEventBox)
         frameEventBox++;
@@ -24,14 +24,11 @@ gboolean mouse_pressed(GtkWidget *frameEventBox, GdkEventButton *event, data_t *
     origin_coordinate_system_wp_x = alloc.width - width;
     origin_coordinate_system_wp_y = alloc.height - height;
 
-    //printf("x : %d y : %d\n", origin_coordinate_system_wp_x, origin_coordinate_system_wp_y);
-
     gdk_window_get_position(gdk_window, &offsetx, &offsety);
 
     offsetx += (int)event->x + origin_coordinate_system_wp_x - scrollx;
     offsety += (int)event->y + origin_coordinate_system_wp_y - scrolly;
 
-    //printf("offsetx : %d, offsety : %d\n", offsetx, offsety);
     return TRUE;
 }
 
@@ -44,8 +41,6 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
     int x_img, y_img;
     int is_on_another_comp = 0;
     
-
-    //printf("Window : x:%d, y:%d | workingPart : x:%d, y:%d\n", alloc.width, alloc.height, width, height);
 
     component = data->component;
     curComponent = data->component;
