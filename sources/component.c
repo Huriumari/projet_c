@@ -52,6 +52,7 @@ void	add_component(data_t *data, char *path_img, double x, double y){
 		component->next = data->component;
 		data->component = component;
 		gtk_widget_show_all(data->workingLayout);
+
 	}
 }
 

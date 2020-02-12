@@ -16,8 +16,8 @@ SRC = 	$(PATH_SRC)main.c \
 		$(PATH_SRC)save_functions.c \
 		$(PATH_SRC)key_shortcuts.c \
 		$(PATH_SRC)link_components.c \
-		$(PATH_SRC)function_undo.c
-
+		$(PATH_SRC)function_undo.c \
+		$(PATH_SRC)move_components.c
 
 OBJ = 	main.o \
 		interface.o \
@@ -31,7 +31,8 @@ OBJ = 	main.o \
 		save_functions.o \
 		key_shortcuts.o \
 		link_components.o \
-		function_undo.o
+		function_undo.o \
+		move_components.o
 
 all: $(NAME)
 

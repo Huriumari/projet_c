@@ -310,7 +310,9 @@ GtkWidget * workingPart(GtkWidget * grid, data_t *data){
 	gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(windowScrollWorking), TRUE);
 	gtk_widget_set_hexpand(windowScrollWorking, TRUE);
 	gtk_widget_set_vexpand(windowScrollWorking, TRUE);
-	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 10, 1);	
+	gtk_grid_attach(GTK_GRID(grid), windowScrollWorking, 1, 0, 10, 1);
+
+	data->windowScrollWorking = windowScrollWorking;
 
 	workingLayout = gtk_layout_new(NULL, NULL);
 	data->workingLayout = workingLayout;
@@ -321,6 +323,7 @@ GtkWidget * workingPart(GtkWidget * grid, data_t *data){
 	heightLayout = malloc(sizeof(guint));
 	gtk_container_add(GTK_CONTAINER(windowScrollWorking), workingLayout);
 	gtk_layout_get_size(GTK_LAYOUT(workingLayout), widthLayout, heightLayout);
+	
 	gtk_widget_add_events(workingLayout, GDK_BUTTON_PRESS_MASK);
 
 

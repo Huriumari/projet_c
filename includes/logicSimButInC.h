@@ -33,6 +33,7 @@ typedef struct	component_s{
 	struct component_s 	*next;
 	char				number_parts;
 	char				is_select;
+	GtkWidget			*frameEventBox;
 	GtkWidget			*frame;
 	part_t				*parts;
 }				component_t;
@@ -65,6 +66,7 @@ typedef struct	data_s{
 	GtkWidget		*window;
 	char			*imgPath;
 	GtkWidget		*workingLayout;
+	GtkWidget	*windowScrollWorking;
 	component_t		*component;
 	char			***option;
 	char			*filename;
@@ -108,6 +110,7 @@ void		new_layout(data_t *data);
 void		callback_new_layout(GtkWidget *widget, data_t *data);
 
 part_t		*gimme_parts(char *component_name, char *n, double mouse_x, double mouse_y);
+char		is_above_component(component_t *component, double mouse_x, double mouse_y);
 void		select_component(data_t *data, double x, double y);
 void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
@@ -141,6 +144,9 @@ void		remove_this_link(data_t *data, size_t id);
 void		appli_action(GtkWidget	*undo, data_t *data);
 void		clear_action(data_t *data);
 void		remove_action(action_t *action);
+
+gboolean 	mouse_pressed(GtkWidget *widget, GdkEventButton *event, data_t *data);
+gboolean	mouse_move(GtkWidget *widget, GdkEventButton *event, data_t *data);
 
 #endif
 

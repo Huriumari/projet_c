@@ -17,7 +17,6 @@ void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
         is_on_another_comp = 0;
     else
         is_on_another_comp = 0;
-    //fprintf(stdout, "Mouse coordinates (%lf, %lf)\n", data->pos.x, data->pos.y);
     
     if(data->imgPath != NULL){
         if(strcmp(data->imgPath, "delete") == 0){
@@ -38,6 +37,7 @@ void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
                 is_on_another_comp = 1;
             component = component->next;
         }
+
         if (!is_on_another_comp){
             add_component(data, data->imgPath, mouse_click->x, mouse_click->y);
             data->imgPath = NULL;

@@ -41,17 +41,28 @@ void select_visual(data_t *data, component_t *component){
 	
 	GtkWidget *frame;
 	GdkPixbuf 	*pb;
+	GtkWidget *eventBox;
 
 	pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));
+	
 	g_object_ref(component->img);
 	gtk_container_remove(GTK_CONTAINER(data->workingLayout), component->img);
 	
+	eventBox = gtk_event_box_new();
+	
 	frame = gtk_frame_new(NULL);
 	component->frame = frame;
+	component->frameEventBox = eventBox;
+	gtk_container_add(GTK_CONTAINER(eventBox), frame);
 	gtk_container_add(GTK_CONTAINER(frame), component->img);
 	g_object_unref(component->img);
-	gtk_layout_put(GTK_LAYOUT(data->workingLayout), frame, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
+	gtk_layout_put(GTK_LAYOUT(data->workingLayout), eventBox, component->pos.x  - (double)gdk_pixbuf_get_width(pb) / 2, component->pos.y - (double)gdk_pixbuf_get_height(pb) / 2);
 	gtk_widget_show_all(data->workingLayout);
+
+	g_signal_connect(G_OBJECT(component->frameEventBox), "button-press-event", G_CALLBACK(mouse_pressed), data);
+	g_signal_connect(G_OBJECT(component->frameEventBox), "motion-notify-event", G_CALLBACK(mouse_move), data);
+	gtk_widget_add_events (eventBox, GDK_BUTTON_PRESS_MASK | GDK_BUTTON1_MOTION_MASK);
+	
 
 }
 
