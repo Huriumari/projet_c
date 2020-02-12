@@ -131,6 +131,7 @@ void		link_coordinates(data_t *data, double x, double y);
 char		is_free_link(data_t * data, double x, double y);
 char 		assign_link_parts(data_t *data, link_t *link, double x, double y);
 gboolean	on_draw_event(GtkWidget *widget, cairo_t *cr, link_t *link);
+void		create_img_from_link(link_t *link);
 void		visual_linking(data_t *data, link_t *link);
 void    	clear_link(data_t *data);
 void    	remove_link_linked_to(data_t *data, size_t id);

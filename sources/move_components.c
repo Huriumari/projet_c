@@ -40,7 +40,9 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
     int x, y;
     int x_img, y_img;
     int is_on_another_comp = 0;
-    
+    int i;
+    int changed;
+    link_t *link = data->link;   
 
     component = data->component;
     curComponent = data->component;
@@ -70,9 +72,48 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
         component = component->next;
     }
 
+    component = data->component;
+    while(component != curComponent)
+        component = component->next;
+
     if(!(is_on_another_comp) && (x != curComponent->pos.x || y != curComponent->pos.y)){
         curComponent->pos.x = x;
         curComponent->pos.y = y;
+        while(link != NULL){
+            changed = 0;
+            if(link->id_o == curComponent->id){
+                i = 0;
+                while(i < curComponent->number_parts){
+                    if(curComponent->parts[i].type == 'o'){
+                        link->pos_o.x = curComponent->parts[i].pos.x;
+                        link->pos_o.y = curComponent->parts[i].pos.y;
+                        changed = 1;
+                    }
+                    i++;
+                }
+                
+            }
+            if(link->id_i == curComponent->id){
+                i = 0;
+                while(i < curComponent->number_parts && curComponent->parts[i].type != 'i'){
+                    if(component->parts[i].pos.y < link->pos_i.y){
+                        if(curComponent->parts[i].pos.y > curComponent->parts[i+1].pos.y){
+                            link->pos_i.x = curComponent->parts[i].pos.x;
+                            link->pos_i.y = curComponent->parts[i].pos.y;
+                            changed = 1;
+                        }
+                        i++;
+                    }
+                }
+            }
+            if(changed){
+                gtk_widget_destroy(link->img);
+                create_img_from_link(link);
+                visual_linking(data, link);
+            }
+            link = link->next;
+        }
+        
         gtk_layout_move(GTK_LAYOUT(data->workingLayout), curComponent->frameEventBox, x, y);
         gtk_widget_show_all(data->workingLayout);
     }
