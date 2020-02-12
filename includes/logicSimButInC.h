@@ -117,6 +117,7 @@ gboolean	on_draw_event(GtkWidget *widget, cairo_t *cr, link_t *link);
 void		visual_linking(data_t *data, link_t *link);
 void    	clear_link(data_t *data);
 void    	remove_link_linked_to(data_t *data, size_t id);
+void    	reset_link_coordinates(GtkWidget * comp, data_t *data);
 
 
 #endif
