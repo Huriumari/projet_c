@@ -13,9 +13,13 @@ No prerequisites needed.
 
 ### Installing
 
-Download the installer
+Download the folder
 
-Run the installer
+Run the installer in your terminal :
+
+```
+./install.sh
+```
 
 Go get some coffee
 
