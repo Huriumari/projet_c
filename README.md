@@ -13,13 +13,17 @@ No prerequisites needed.
 
 ### Installing
 
-Download the installer
+Download the folder
 
-Run the installer
+Run the installer in your terminal :
+
+```
+./install.sh
+```
 
 Go get some coffee
 
-Installation complete successfully !
+Installation has been complete successfully !
 
 You can now run the LogicSimButInC software by opening a terminal and placing yourself in the software's folder and type ./LogicSimButInC to run and begin to use the software.
 
