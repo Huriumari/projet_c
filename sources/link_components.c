@@ -16,8 +16,10 @@
 
 }*/
 
-void    destroy_link(link_t *link){
+void    destroy_link(data_t *data, link_t *link){
+    gtk_widget_destroy(GTK_WIDGET(link->img));
     free(link);
+    gtk_widget_show_all(data->workingLayout);
 }
 
 void    remove_link_linked_to(data_t *data, size_t id){
@@ -45,7 +47,7 @@ void    clear_link(data_t *data){
 
     while (data->link != NULL){
         link = data->link->next;
-        destroy_link(data->link);
+        destroy_link(data, data->link);
         data->link = link;
     }
 }
@@ -150,11 +152,11 @@ char    assign_link_parts(data_t *data, link_t *link, double x, double y){
 }
 
 void    create_img_from_link(link_t *link){
-    cairo_surface_t *drawing_area = cairo_image_surface_create (CAIRO_CONTENT_COLOR, fabs(link->pos_o.x - link->pos_i.x), fabs(link->pos_o.y - link->pos_i.y));
+    cairo_surface_t *drawing_area = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, (int)fabs(link->pos_o.x - link->pos_i.x), (int)fabs(link->pos_o.y - link->pos_i.y));
     cairo_t *cr = cairo_create(drawing_area);
 
     cairo_set_source_rgb(cr, 0, 0, 0);
-    cairo_set_line_width(cr, 0.5);
+    cairo_set_line_width(cr, 1);
 
     if (link->pos_i.y < link->pos_o.y){
         if (link->pos_i.x < link->pos_o.x){
@@ -174,18 +176,18 @@ void    create_img_from_link(link_t *link){
         }
     }   
     cairo_stroke(cr);
-    //link->img = gtk_image_new_from_surface(drawing_area);
+    link->img = gtk_image_new_from_surface(drawing_area);
     cairo_surface_destroy(drawing_area);
 }
 
 void    visual_linking(data_t *data, link_t *link){
-    //double  x,y;
+    double  x,y;
 
     if (!data)
         printf("pouet\n");
-    //y = link->pos_i.y < link->pos_o.y?link->pos_i.y:link->pos_o.y;
-    //x = link->pos_i.x < link->pos_o.x?link->pos_i.x:link->pos_o.x;
+    y = link->pos_i.y < link->pos_o.y?link->pos_i.y:link->pos_o.y;
+    x = link->pos_i.x < link->pos_o.x?link->pos_i.x:link->pos_o.x;
     create_img_from_link(link);
-    //gtk_layout_put(GTK_LAYOUT(data->workingLayout), link->img, x, y);
-    //gtk_widget_show_all(data->workingLayout);
+    gtk_layout_put(GTK_LAYOUT(data->workingLayout), link->img, x, y);
+    gtk_widget_show_all(data->workingLayout);
 }

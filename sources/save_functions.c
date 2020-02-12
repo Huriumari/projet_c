@@ -137,6 +137,7 @@ int		load(data_t *data, char *path){
 				&(link->pos_o.y));
 			link->next = data->link;
 			data->link = link;
+			visual_linking(data, link);
 		}
 	}
 	new_component_id(max_id);
