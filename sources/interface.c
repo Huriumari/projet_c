@@ -37,6 +37,7 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	GtkWidget	*delete;
 	GtkWidget 	*sep;
 	GtkWidget	*reset;
+	GtkWidget	*undo;
 
 	GtkAccelGroup* accel_group = NULL;
 	if (data == NULL)
@@ -65,6 +66,7 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	properties = gtk_menu_item_new_with_mnemonic("Properties");
 	delete = gtk_menu_item_new();
 	reset = gtk_menu_item_new();
+	undo = gtk_menu_item_new();
     
 	
 	create_shortcut(data, accel_group, new, "new");
@@ -82,6 +84,7 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
   	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), quit);
 	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), delete);
 	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), reset);
+	gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), undo);
 	
 
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(module), moduleMenu);
@@ -100,9 +103,11 @@ void menubar(GtkWidget * window, GtkWidget * vBox, data_t *data){
 	g_signal_connect(G_OBJECT(saveAs), "activate", G_CALLBACK(saveAsDialogWindow), data);
 	g_signal_connect(G_OBJECT(delete), "activate", G_CALLBACK(delete_selected_components), data);
 	g_signal_connect(G_OBJECT(reset), "activate", G_CALLBACK(reset_link_coordinates), data);
+	g_signal_connect(G_OBJECT(undo), "activate", G_CALLBACK(appli_action), data);
 
 	gtk_widget_add_accelerator(GTK_WIDGET(delete), "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
 	gtk_widget_add_accelerator(GTK_WIDGET(reset), "activate", accel_group, GDK_KEY_Escape, 0, GTK_ACCEL_VISIBLE);
+	create_shortcut(data, accel_group, undo, "undo");
 
 }
 
