@@ -16,6 +16,40 @@
 
 }*/
 
+void    destroy_link(link_t *link){
+    free(link);
+}
+
+void    remove_link_linked_to(data_t *data, size_t id){
+    link_t *ptr, *good = NULL, *bad = NULL, *next = NULL;
+
+    ptr = data->link;
+    while (ptr != NULL){
+        next = ptr->next;
+        if (ptr->id_i == id || ptr->id_o == id){
+            ptr->next = bad;
+            bad = ptr;
+        }else{
+            ptr->next = good;
+            good = ptr;
+        }
+        ptr = next;
+    }
+    data->link = bad;
+    clear_link(data);
+    data->link = good;
+}
+
+void    clear_link(data_t *data){
+    link_t  *link;
+
+    while (data->link != NULL){
+        link = data->link->next;
+        destroy_link(data->link);
+        data->link = link;
+    }
+}
+
 void    print_parts(data_t  *data){
     component_t     *component = data->component;
     int             i;
@@ -60,12 +94,10 @@ void    link_coordinates(data_t *data, double x, double y){
                     clickCounter = 0;
                     link->id = new_component_id(0);
                     data->link = link;
-                    data->imgPath = NULL;
                     visual_linking(data, link);
                     link = NULL;
                 }
     }
-
 }
 
 char    is_free_link(data_t * data, double x, double y){

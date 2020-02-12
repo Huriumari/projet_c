@@ -16,6 +16,7 @@ void	delete_component_widget(data_t * data, component_t *component){
 }
 
 void	destroy_component(data_t *data, component_t *component){
+	remove_link_linked_to(data, component->id);
 	delete_component_widget(data, component);
 	free(component->name);
 	if (component->parts != NULL)
