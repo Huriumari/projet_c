@@ -70,6 +70,13 @@ void    print_parts(data_t  *data){
     }
 }
 
+void    reset_link_coordinates(GtkWidget * comp, data_t *data){
+    if (comp)
+        comp++;
+    link_coordinates(data, -1., -1.);
+    data->imgPath = NULL;
+}
+
 void    link_coordinates(data_t *data, double x, double y){
 
     static link_t *link =  NULL;
@@ -77,28 +84,35 @@ void    link_coordinates(data_t *data, double x, double y){
 
 //    print_parts(data);
 //    printf("Position du clic:x: %lf\ty:%lf\n",x,y);
-    if(clickCounter == 0){
-            if (link == NULL){
-                link = malloc(sizeof(link_t));
-                //printf("Create new link\n");
-                link->next = data->link;
+    if (x == -1.){
+        if (link != NULL)
+            free(link);
+        link = NULL;
+        clickCounter = 0;
+    }else{
+        if(clickCounter == 0){
+                if (link == NULL){
+                    link = malloc(sizeof(link_t));
+                    //printf("Create new link\n");
+                    link->next = data->link;
 
-                link->pos_i.x = -1;
-                link->pos_o.x = -1;
-            }
-
-            if(is_free_link(data, x, y))
-                if(assign_link_parts(data, link, x, y))
-                    clickCounter++;
-    }else if(clickCounter == 1){
-            if(is_free_link(data, x, y))
-                if(assign_link_parts(data, link, x, y)){
-                    clickCounter = 0;
-                    link->id = new_component_id(0);
-                    data->link = link;
-                    visual_linking(data, link);
-                    link = NULL;
+                    link->pos_i.x = -1;
+                    link->pos_o.x = -1;
                 }
+
+                if(is_free_link(data, x, y))
+                    if(assign_link_parts(data, link, x, y))
+                        clickCounter++;
+        }else if(clickCounter == 1){
+                if(is_free_link(data, x, y))
+                    if(assign_link_parts(data, link, x, y)){
+                        clickCounter = 0;
+                        link->id = new_component_id(0);
+                        data->link = link;
+                        visual_linking(data, link);
+                        link = NULL;
+                    }
+        }
     }
 }
 

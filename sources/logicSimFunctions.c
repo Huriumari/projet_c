@@ -46,7 +46,10 @@ void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){
 gboolean    isClicked(GtkWidget * comp, gpointer gtk_data){
 
   data_t * data = (data_t *)gtk_data;
-    
+  
+  if (data->imgPath != NULL && !strcmp(data->imgPath, "LINK"))
+    link_coordinates(data, -1.,-1.);
+
   if(strcmp(gtk_widget_get_name(comp), "compAND") == 0)
       data->imgPath = "AND";
 
