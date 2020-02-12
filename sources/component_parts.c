@@ -29,7 +29,7 @@ part_t		*get_INPUT_part(double mouse_x, double mouse_y){
 	part_t	*parts = malloc(sizeof(part_t) * 3);
 	if (parts == NULL)
 		return NULL;
-	set_part(parts, mouse_x , mouse_y, 'i');
+	set_part(parts, mouse_x , mouse_y, 'o');
 	return parts;
 }
 
