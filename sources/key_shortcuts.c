@@ -1,5 +1,9 @@
-#include "logicSimButInC.h"
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient les fonctions pour la creation des raccourcies clavier
 
+
+#include "logicSimButInC.h"
 
 
 void    print_array(char **array){

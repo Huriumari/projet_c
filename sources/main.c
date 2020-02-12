@@ -1,6 +1,7 @@
 /*
 	Programme de simulation de composants logiques.
 	Clément Bossard & Clément K-R
+	date: 17/12/2019 - 12/02/2020
 */
 
 #include "logicSimButInC.h"

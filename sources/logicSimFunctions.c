@@ -1,3 +1,8 @@
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient les fonctions de callback
+
+
 #include "logicSimButInC.h"
 
 void    mousePos(GtkWidget * mouse, GdkEvent *event, gpointer gtk_data){

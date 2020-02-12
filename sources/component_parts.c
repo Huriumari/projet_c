@@ -1,3 +1,8 @@
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient les fonctions necessaire pour la creation des pattes des composants
+
+
 #include "logicSimButInC.h"
 
 void		set_part(part_t *part, double x, double y, char type){

@@ -1,3 +1,8 @@
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient les fonctions de lecture du fichier option.txt
+
+
 #include "logicSimButInC.h"
 
 void	print_option(char ***option){

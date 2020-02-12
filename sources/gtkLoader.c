@@ -1,3 +1,8 @@
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient une fonction pour creer un bouton
+
+
 #include "logicSimButInC.h"
 
 GtkWidget * componentsButton(char *path){

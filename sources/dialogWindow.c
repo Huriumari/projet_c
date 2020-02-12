@@ -1,3 +1,7 @@
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient les fonctions necessaire pour l'utilisation des fenetre de dialogue
+
 #include "logicSimButInC.h"
 
 void openDialogWindow(GtkWidget *widget, data_t *data){

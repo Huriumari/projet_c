@@ -1,3 +1,8 @@
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient les fonctions pour selectionner un composant
+
+
 #include "logicSimButInC.h"
 
 char	is_above_component(component_t *component, double mouse_x, double mouse_y){

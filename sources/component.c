@@ -1,3 +1,7 @@
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient les fonctions poour la creation et supression de composant
+
 #include "logicSimButInC.h"
 
 size_t	new_component_id(size_t c){

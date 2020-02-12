@@ -1,3 +1,7 @@
+//autor: Clement BOSSARD, Clement K-R
+//date: 17/12/2019 - 12/02/2020
+//Ce fichier contient les fonctions pour la creation des fils.
+
 #include "logicSimButInC.h"
 
 void    remove_this_link(data_t *data, size_t id){
@@ -206,11 +210,19 @@ char    assign_link_parts(data_t *data, link_t *link, double x, double y){
 }
 
 void    create_img_from_link(link_t *link){
-    cairo_surface_t *drawing_area = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, (int)fabs(link->pos_o.x - link->pos_i.x), (int)fabs(link->pos_o.y - link->pos_i.y));
+    double  x,y;
+
+    x = fabs(link->pos_o.x - link->pos_i.x);
+    y = fabs(link->pos_o.y - link->pos_i.y);
+    if (x < 10.)
+        x = 10.;
+    if (y < 10.)
+        y = 10.;
+    cairo_surface_t *drawing_area = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, (int)x, (int)y);
     cairo_t *cr = cairo_create(drawing_area);
 
     cairo_set_source_rgb(cr, 0, 0, 0);
-    cairo_set_line_width(cr, 1);
+    cairo_set_line_width(cr, 2);
 
     if (link->pos_i.y < link->pos_o.y){
         if (link->pos_i.x < link->pos_o.x){
@@ -237,8 +249,6 @@ void    create_img_from_link(link_t *link){
 void    visual_linking(data_t *data, link_t *link){
     double  x,y;
 
-    if (!data)
-        printf("pouet\n");
     y = link->pos_i.y < link->pos_o.y?link->pos_i.y:link->pos_o.y;
     x = link->pos_i.x < link->pos_o.x?link->pos_i.x:link->pos_o.x;
     create_img_from_link(link);
