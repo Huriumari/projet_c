@@ -28,8 +28,8 @@ gboolean mouse_pressed(GtkWidget *frameEventBox, GdkEventButton *event, data_t *
 
     gdk_window_get_position(gdk_window, &offsetx, &offsety);
 
-    offsetx += (int)event->x + origin_coordinate_system_wp_x + scrollx;
-    offsety += (int)event->y + origin_coordinate_system_wp_y + scrolly;
+    offsetx += (int)event->x + origin_coordinate_system_wp_x - scrollx;
+    offsety += (int)event->y + origin_coordinate_system_wp_y - scrolly;
 
     //printf("offsetx : %d, offsety : %d\n", offsetx, offsety);
     return TRUE;
