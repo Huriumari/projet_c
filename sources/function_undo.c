@@ -10,7 +10,7 @@ void	add_component_data(action_t *action, component_t *component){
 	component_data->pos.y = component->pos.y;
 	component_data->id = component->id;
 	component_data->next = action->component_data;
-	action->component_data = component->data;
+	action->component_data = component_data;
 }
 
 void	add_action(data_t *data, char *name, component_t *component){
@@ -20,8 +20,7 @@ void	add_action(data_t *data, char *name, component_t *component){
 	action->next = data->action;
 	data->action = action;
 	action->component_data = NULL;
-	action->name = malloc(sizeof(char) * (strlen(name) + 1));
-	strcpy(action->name,name);
+	strcpy(action->action,name);
 	while (component != NULL){
 		add_component_data(action, component);
 		component = component->next;
@@ -38,7 +37,6 @@ void	remove_action(action_t *action){
 		free(component_data);
 		component_data = next;
 	}
-	free(action>name);
 	free(action);
 }
 
@@ -48,18 +46,16 @@ void	appli_action(data_t *data){
 	if (data->action != NULL){
 		action = data->action;
 		component_data = action->component_data;
-		if (!strcmp(action->name, "SUPPR")){
+		if (!strcmp(action->action, "SUPPR")){
 			while(component_data != NULL){
 				add_component(data, component_data->name, component_data->pos.x, component_data->pos.y);
 				component_data = component_data->next;
 			}
-		}else if(!strcmp(action->name, "ADD")){
+		}else if(!strcmp(action->action, "ADD")){
 			while (component_data != NULL){
 				remove_component(data, component_data->pos.x, component_data->pos.y);
 				component_data = component_data->next;
 			}			
-		}else if(!strcmp(action->name, "MOVE")){
-			
 		}
 		data->action = action->next;
 		remove_action(action);

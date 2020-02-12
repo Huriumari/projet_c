@@ -40,7 +40,7 @@ typedef struct	component_data_s{
 }				component_data_t;
 
 typedef	struct	action_s{
-	char				action[6];
+	char				action[8];
 	component_data_t	*component_data;
 	struct action_s		*next;
 }				action_t;
