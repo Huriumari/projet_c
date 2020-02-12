@@ -1,6 +1,6 @@
 # LogicSimButInC
 
-The project was made to simulate logic circuits with the different existing components. 
+The project was made for Linux, to simulate logic circuits with the different existing components. 
 The software was created entirely with the C language and compiled with gcc-8 with the uses of a MakeFile. The user interface has been built with GTK+ 3 lib.
 
 ## Getting Started
