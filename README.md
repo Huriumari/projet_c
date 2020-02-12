@@ -42,6 +42,9 @@ Click on a component and click on the working part to add it
 
 ![Recordit GIF](http://g.recordit.co/yv5HMOeCEN.gif)
 
+Click on two components legs to link the components together
+
+![Recordit GIF](http://g.recordit.co/y7imI7tqLc.gif)
 
 Delete by clicking the delete button in the menu and then clicking the component that you want to delete
 
