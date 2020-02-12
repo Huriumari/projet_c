@@ -100,7 +100,6 @@ void		unselect_visual(data_t *data, component_t *component);
 void		destroy_component(data_t *data, component_t *component);
 void		clear_component(data_t *data);
 
-
 void    	free_split(char **bind);
 char    	**split_bind(char *bind);
 char    	is_shotcut_used(guint mask, guint key);
@@ -117,6 +116,7 @@ char 		assign_link_parts(data_t *data, link_t *link, double x, double y);
 gboolean	on_draw_event(GtkWidget *widget, cairo_t *cr, link_t *link);
 void		visual_linking(data_t *data, link_t *link);
 void    	clear_link(data_t *data);
+void    	remove_link_linked_to(data_t *data, size_t id);
 
 
 #endif
