@@ -1,13 +1,13 @@
 #include "logicSimButInC.h"
 
 static int offsetx, offsety;
-static int origin_coordinate_system_wp_x, origin_coordinate_system_wp_y;
-static GtkAllocation alloc;
 
 gboolean mouse_pressed(GtkWidget *frameEventBox, GdkEventButton *event, data_t *data){
 
     int width, height;
     GdkWindow *gdk_window = gtk_widget_get_window(GTK_WIDGET(data->window));
+    int origin_coordinate_system_wp_x, origin_coordinate_system_wp_y;
+    GtkAllocation alloc;
 
     if(frameEventBox)
         frameEventBox++;
@@ -31,6 +31,20 @@ gboolean mouse_pressed(GtkWidget *frameEventBox, GdkEventButton *event, data_t *
     return TRUE;
 }
 
+gboolean mouse_scroll(GtkWidget *widget, GdkEventScroll *event){
+    
+    if(widget)
+        widget++;
+
+    offsetx += (int)event->delta_x;
+    offsety += (int)event->delta_y;
+
+    printf("scrollx : %d, scrolly : %d\n", (int)event->delta_x, (int)event->delta_y);
+
+    return TRUE;
+}
+
+
 gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *data){
     component_t *component;
     component_t *curComponent;
@@ -52,7 +66,7 @@ gboolean mouse_move(GtkWidget *frameEventBox, GdkEventButton *event, data_t *dat
     x = (int)event->x_root - offsetx;
     y = (int)event->y_root - offsety;
 
-    printf("x : %d, y : %d\n", x, y);
+    //printf("x : %d, y : %d\n", x, y);
     
     while (!is_on_another_comp && component != NULL){
         pb = gtk_image_get_pixbuf(GTK_IMAGE(component->img));

@@ -59,8 +59,9 @@ void select_visual(data_t *data, component_t *component){
 	gtk_widget_show_all(data->workingLayout);
 
 	g_signal_connect(G_OBJECT(component->frameEventBox), "button-press-event", G_CALLBACK(mouse_pressed), data);
+	g_signal_connect(G_OBJECT(data->workingLayout), "scroll-event", G_CALLBACK(mouse_scroll), NULL);
 	g_signal_connect(G_OBJECT(component->frameEventBox), "motion-notify-event", G_CALLBACK(mouse_move), data);
-	gtk_widget_add_events (eventBox, GDK_BUTTON_PRESS_MASK | GDK_BUTTON1_MOTION_MASK);
+	gtk_widget_add_events(eventBox, GDK_BUTTON_PRESS_MASK | GDK_SCROLL_MASK | GDK_BUTTON1_MOTION_MASK);
 	
 
 }

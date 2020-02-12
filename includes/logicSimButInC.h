@@ -79,6 +79,7 @@ void		select_visual(data_t *data, component_t *component);
 void		unselect_visual(data_t *data, component_t *component);
 
 gboolean 	mouse_pressed(GtkWidget *widget, GdkEventButton *event, data_t *data);
+gboolean 	mouse_scroll(GtkWidget *widget, GdkEventScroll *event);
 gboolean	mouse_move(GtkWidget *widget, GdkEventButton *event, data_t *data);
 
 #endif
