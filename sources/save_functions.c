@@ -31,6 +31,7 @@ char	*set_save_file_name(char *path){
 int		save(data_t *data, char *path){
 	FILE		*file;
 	component_t	*component;
+	link_t		*link;
 
 	path = set_save_file_name(path);
 	file = fopen(path,"w+");
@@ -44,6 +45,18 @@ int		save(data_t *data, char *path){
 				component->pos.y,
 				component->name);
 		component = component->next;
+	}
+	fprintf(file, "LINK:\n");
+	link = data->link;
+	while (link != NULL){
+		fprintf(file, "%lu:%lf:%lf:%lu:%lf:%lf\n",
+			link->id_i,
+			link->pos_i.x,
+			link->pos_i.y,
+			link->id_o,
+			link->pos_o.x,
+			link->pos_o.y);
+		link = link->next;
 	}
 	fclose(file);
 	return 1;
@@ -77,6 +90,7 @@ int		load(data_t *data, char *path){
 	size_t		max_id = 0;
 	char		buffer[255];
 	char		*ptr;
+	link_t		*link;
 
 	file = fopen(path, "r");
 	if (file == NULL)
@@ -86,7 +100,7 @@ int		load(data_t *data, char *path){
 	if (component == NULL)
 		return 0;
 	new_layout(data);
-	while(fgets(buffer,255,file),!feof(file)){
+	while(fgets(buffer,255,file),!feof(file) && strcmp(buffer, "LINK:\n")){
 		if (buffer[strlen(buffer) - 1] == '\n')
 			buffer[strlen(buffer) - 1] = '\0';
 		ptr = strrchr(buffer,':');
@@ -108,6 +122,22 @@ int		load(data_t *data, char *path){
 		//print_component(component[0]);
 		add_component(data, component->name, component->pos.x, component->pos.y);
 		data->component->id = component->id;
+	}
+	new_component_id(max_id);
+	if (!strcmp(buffer, "LINK:\n")){
+		while(fgets(buffer,255,file),!feof(file)){
+			link = malloc(sizeof(link_t));
+			link->id = new_component_id(0);
+			sscanf(buffer,"%lu:%lf:%lf:%lu:%lf:%lf\n",
+				&(link->id_i),
+				&(link->pos_i.x),
+				&(link->pos_i.y),
+				&(link->id_o),
+				&(link->pos_o.x),
+				&(link->pos_o.y));
+			link->next = data->link;
+			data->link = link;
+		}
 	}
 	new_component_id(max_id);
 	free((component->name));
