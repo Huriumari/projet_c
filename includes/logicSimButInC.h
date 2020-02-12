@@ -57,6 +57,7 @@ typedef struct	component_data_s{
 typedef	struct	action_s{
 	char				action[8];
 	component_data_t	*component_data;
+	link_t				*link;
 	struct action_s		*next;
 }				action_t;
 
@@ -132,6 +133,14 @@ void    	clear_link(data_t *data);
 void    	remove_link_linked_to(data_t *data, size_t id);
 void    	reset_link_coordinates(GtkWidget * comp, data_t *data);
 
+void		add_action(data_t *data, char *name, component_t *component, link_t *link);
+link_t		*get_link_linked_to(data_t *data, size_t id);
+void		remove_visual(data_t *data, link_t *link);
+void		destroy_link(data_t *data, link_t *link);
+void		remove_this_link(data_t *data, size_t id);
+void		appli_action(GtkWidget	*undo, data_t *data);
+void		clear_action(data_t *data);
+void		remove_action(action_t *action);
 
 #endif
 

@@ -1,20 +1,57 @@
 #include "logicSimButInC.h"
 
-/*gboolean start_event_link(GtkWidget *widget, gpointer gtk_data){
-    data_t * data = (data_t *)gtk_data;
-    GtkWidget *workingLayout;
+void    remove_this_link(data_t *data, size_t id){
+    link_t    *link, *tmp;
 
-    workingLayout = data->workingLayout;
-
-    if(widget){
-        widget++;
-        data++;
+    link = data->link;
+    if (link->id == id){
+        data->link = link->next;
+        destroy_link(data, link);
+    }else{
+        while (link->next != NULL){
+            if (link->next->id == id){
+                tmp = link->next;
+                link->next = link->next->next;
+                destroy_link(data, tmp);
+            }else
+                link = link->next;
+        }
     }
+}
 
-    g_signal_connect(G_OBJECT(workingLayout), "button-press-event", G_CALLBACK(link_coordinates), data);
-    return TRUE;
+link_t  *get_link_linked_to(data_t *data, size_t id){
+    link_t *ptr, *good = NULL, *bad = NULL, *next = NULL;
 
-}*/
+    ptr = data->link;
+    while (ptr != NULL){
+        next = ptr->next;
+        if (ptr->id_i == id || ptr->id_o == id){
+            ptr->next = bad;
+            bad = ptr;
+        }else{
+            ptr->next = good;
+            good = ptr;
+        }
+        ptr = next;
+    }
+    data->link = good;
+    return bad;
+}
+
+void    recreate_visual(data_t *data, link_t *link){
+    while (link != NULL){
+        visual_linking(data, link);
+        link = link->next;
+    }
+}
+
+void    remove_visual(data_t *data, link_t *link){
+    while (link != NULL){
+        gtk_widget_destroy(GTK_WIDGET(link->img));
+        link = link->next;
+    }
+    gtk_widget_show_all(data->workingLayout);
+}
 
 void    destroy_link(data_t *data, link_t *link){
     gtk_widget_destroy(GTK_WIDGET(link->img));
@@ -94,7 +131,7 @@ void    link_coordinates(data_t *data, double x, double y){
                 if (link == NULL){
                     link = malloc(sizeof(link_t));
                     //printf("Create new link\n");
-                    link->next = data->link;
+                    
 
                     link->pos_i.x = -1;
                     link->pos_o.x = -1;
@@ -108,6 +145,9 @@ void    link_coordinates(data_t *data, double x, double y){
                     if(assign_link_parts(data, link, x, y)){
                         clickCounter = 0;
                         link->id = new_component_id(0);
+                        link->next = NULL;
+                        add_action(data, "ADD", NULL, link);
+                        link->next = data->link;
                         data->link = link;
                         visual_linking(data, link);
                         link = NULL;

@@ -3,6 +3,7 @@
 void	new_layout(data_t *data){
 	clear_component(data);
 	clear_link(data);
+	clear_action(data);
 }
 
 void	callback_new_layout(GtkWidget *widget, data_t *data){
