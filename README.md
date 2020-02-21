@@ -1,6 +1,6 @@
 # LogicSimButInC
 
-The project was made to simulate logic circuits with the different existing components. 
+The project was made for Linux, to simulate logic circuits with the different existing components. 
 The software was created entirely with the C language and compiled with gcc-8 with the uses of a MakeFile. The user interface has been built with GTK+ 3 lib.
 
 ## Getting Started
@@ -42,6 +42,9 @@ Click on a component and click on the working part to add it
 
 ![Recordit GIF](http://g.recordit.co/yv5HMOeCEN.gif)
 
+Click on two components legs to link the components together
+
+![Recordit GIF](http://g.recordit.co/y7imI7tqLc.gif)
 
 Delete by clicking the delete button in the menu and then clicking the component that you want to delete
 
