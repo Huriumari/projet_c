@@ -95,6 +95,7 @@ int	delete_selected_components(GtkWidget *widget, data_t *data){
 
 	component_t	*component = data->component;
 	component_t *prev;
+	link_t		*ptr;
 
 	if(widget)
 		widget++;
@@ -114,7 +115,8 @@ int	delete_selected_components(GtkWidget *widget, data_t *data){
 				prev->next = prev->next->next;
 			}
 			component->next = NULL;
-			add_action(data, "SUPPR", component, NULL);
+			ptr = get_link_linked_to(data, component->id);
+			add_action(data, "SUPPR", component, ptr);
 			destroy_component(data, component);
 			return 1;
 		}
